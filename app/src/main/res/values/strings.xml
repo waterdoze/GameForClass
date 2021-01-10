@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">GameForClass</string>
+    <string name="app_name">ImmuneDefenseSystem</string>
+    <string name="startButton">Start</string>
+    <string name="VirusImage">image of the virus for the starting screen</string>
+    <string name="quitButton">Quit</string>
+    <string name="title_activity_easy">EasyActivity</string>
+    <string name="easyChosen">Coward</string>
+    <string name="mediumChosen">Meh</string>
+    <string name="hardChosen">Poggers</string>
+
 </resources>
