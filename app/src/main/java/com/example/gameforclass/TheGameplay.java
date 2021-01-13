@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
 
 public class TheGameplay extends AppCompatActivity {
 
@@ -16,6 +20,12 @@ public class TheGameplay extends AppCompatActivity {
         Intent i = getIntent();
         difficulty = i.getIntExtra("difficulty", 0); //If data not received, 0 is returned
 
+    }
+    public void openTab(View v){
+        ImageButton bruh = (ImageButton)v;
+        v.setVisibility(View.INVISIBLE);
+        ScrollView SideBar = findViewById(R.id.SideBar);
+        SideBar.setVisibility(View.INVISIBLE);
     }
 
 

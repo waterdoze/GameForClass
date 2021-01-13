@@ -2,6 +2,99 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TheGameplay"/>
+    tools:context=".TheGameplay">
+
+    <ScrollView
+        android:id="@+id/SideBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="580dp"
+        android:layout_marginLeft="580dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Neutrophils" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="80dp"
+                android:layout_height="110dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/neutrophilbutton" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Monocytes" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="75dp"
+                android:layout_height="89dp"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/macrophagebutton" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lymphocytes" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton6"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:cropToPadding="true"
+                    android:padding="0dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/buttontemplate" />
+
+                <ImageButton
+                    android:id="@+id/imageButton7"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:cropToPadding="true"
+                    android:padding="0dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/buttontemplate" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/TabButton"
+        android:layout_width="26dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="30dp"
+        android:onClick="openTab"
+        app:layout_constraintEnd_toStartOf="@+id/SideBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rabies_hard_mode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
