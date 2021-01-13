@@ -9,20 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GameForClass">
-
-        <activity android:name=".HardActivity">
+        <activity android:name=".TheGameplay">
             android:configChanges="orientation"
             android:screenOrientation="landscape"
         </activity>
-        <activity android:name=".MediumActivity">
-            android:configChanges="orientation"
-            android:screenOrientation="landscape"
-        </activity>
-        <activity android:name=".EasyActivity">
-            android:configChanges="orientation"
-            android:screenOrientation="landscape"
-        </activity>
-        <activity android:name=".SecondActivity">
+        <activity android:name=".DifficultyMenu">
             android:configChanges="orientation"
             android:screenOrientation="landscape"
         </activity>
@@ -35,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
