@@ -25,8 +25,10 @@ public class TheGameplay extends AppCompatActivity {
         ImageButton bruh = (ImageButton)v;
         v.setVisibility(View.INVISIBLE);
         ScrollView SideBar = findViewById(R.id.SideBar);
+        ScrollView BigSideBar = findViewById(R.id.BigSideBar);
+        ImageButton BigTabButton = findViewById(R.id.BigTabButton);
         SideBar.setVisibility(View.INVISIBLE);
+        BigSideBar.setVisibility(View.VISIBLE);
+        BigTabButton.setVisibility(View.VISIBLE);
     }
-
-
 }

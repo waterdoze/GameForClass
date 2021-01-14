@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".TheGameplay">
 
+    <ImageButton
+        android:id="@+id/BigTabButton"
+        android:layout_width="26dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:onClick="openTab"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/BigSideBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rabies_hard_mode"
+        tools:visibility="invisible" />
+
     <ScrollView
         android:id="@+id/SideBar"
         android:layout_width="match_parent"
@@ -16,7 +30,8 @@
         android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,5 +111,32 @@
         app:layout_constraintEnd_toStartOf="@+id/SideBar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rabies_hard_mode" />
+
+    <ScrollView
+        android:id="@+id/BigSideBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="500dp"
+        android:layout_marginLeft="500dp"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/buttontemplate" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
