@@ -8,10 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GameForClass">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
         <activity android:name=".TheGameplay">
             android:configChanges="orientation"
             android:screenOrientation="landscape"
+
         </activity>
         <activity android:name=".DifficultyMenu">
             android:configChanges="orientation"
