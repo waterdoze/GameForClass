@@ -23,10 +23,10 @@ public class TheGameplay extends AppCompatActivity {
         difficulty = i.getIntExtra("difficulty", 0); //If data not received, 0 is returned
 
     }
-    public void openTab(View v){
-        ImageButton bruh = (ImageButton)v;
+    public void openTab(View v){//If the expand button is pressed, this is called. Animation will be added soon
+        ImageButton bruh = (ImageButton)v;//Could be removed?
         v.setVisibility(View.INVISIBLE);
-        ScrollView SideBar = findViewById(R.id.SideBar);
+        ScrollView SideBar = findViewById(R.id.SideBar);            //Will have to reorganize to have instantiation at the beginning of the method
         ScrollView BigSideBar = findViewById(R.id.BigSideBar);
         ImageButton BigTabButton = findViewById(R.id.BigTabButton);
         SideBar.setVisibility(View.INVISIBLE);
