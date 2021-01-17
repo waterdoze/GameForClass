@@ -11,17 +11,25 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
+
 
 //TowerDefensePog manages all game objects and logic, and also drawing things to the screen
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
+    public enum EnemyName {
+        PNEUMOCOCCUS,
+        ASPERGILLUS,
+        HIV
+    }
+
     private Bitmap background; //background image of lungs
 
-    private Bitmap virus; //temporary enemy guy moving around
-    private int virusX = 500;
-    private int virusY = 500;
-    private int virusVelocity = 0;  // we need to put all of this into an enemy class
+
+
+    ArrayList<Enemy> enemies = new ArrayList<>();
+
 
     private GameLoop gameLoop;  //Handles drawing the class every frame
     Context context;
@@ -37,8 +45,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         background = BitmapFactory.decodeResource(getResources(), R.drawable.straight_up_lungs_bro);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
-        virus = BitmapFactory.decodeResource(getResources(), R.drawable.cholera_easy_mode);
-        virus = Bitmap.createScaledBitmap(virus, 120, 120, false);
+
 
         SurfaceHolder SH = getHolder();
         SH.addCallback(this);
@@ -47,6 +54,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         gameLoop = new GameLoop(this, SH);
 
         setFocusable(true);
+
+        Aspergillus a = new Aspergillus(this);
+        a.x = 500; a.y= 500;
+
+        addEnemy(a);
 
     }
 
@@ -89,13 +101,34 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-        canvas.drawBitmap(virus, virusX, virusY, paint);
+        for(Enemy e: enemies) canvas.drawBitmap(e.image, e.x, e.y, paint);
+
     }
 
     public void update() {
-        if(virusX == 500) virusVelocity = 10;
-        else if(virusX == 1000) virusVelocity = -10;
 
-        virusX += virusVelocity;
+        for(Enemy e : enemies)
+        {
+            if(e.x == 500) e.dx = 10;
+            else if(e.x == 1000) e.dx = -10;
+
+            e.x += e.dx;
+        }
+
     }
+
+    public void addEnemy(EnemyName name) {
+
+        switch(name) {
+            case PNEUMOCOCCUS: enemies.add(new Pneumococcus(this)); break;
+            case ASPERGILLUS:  enemies.add(new Aspergillus(this)); break;
+            case HIV:          enemies.add(new HIV(this)); break;
+        }
+    }
+
+    public void addEnemy(Enemy e)
+    {
+        enemies.add(e);
+    }
+
 }
