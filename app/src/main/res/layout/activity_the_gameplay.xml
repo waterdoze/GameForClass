@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".TheGameplay">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
     <ImageButton
         android:id="@+id/BigTabButton"
         android:layout_width="26dp"
@@ -138,6 +144,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="575dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -168,5 +175,16 @@
             android:text="Round: 1"
             android:textSize="24sp" />
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.gameforclass.GameFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/SideBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

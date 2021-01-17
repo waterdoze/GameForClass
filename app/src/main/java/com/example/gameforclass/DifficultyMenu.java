@@ -9,16 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class SecondActivity extends AppCompatActivity {
+public class DifficultyMenu extends AppCompatActivity {
+
+    Intent mailman;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.difficulty_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         configureQuitButton();
 
+        mailman = new Intent(this, TheGameplay.class);
     }
 
     private void configureQuitButton() {
@@ -31,15 +34,29 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     public void displayEasyMode(View view) {
-        startActivity(new Intent(SecondActivity.this, EasyActivity.class));
+        mailman.putExtra("difficulty", 1);
+        displayToast(getString(R.string.easyChosen));
+        startActivity(mailman);
+
+
     }
 
     public void displayMediumMode(View view) {
-        startActivity(new Intent(SecondActivity.this, EasyActivity.class));
+        mailman.putExtra("difficulty", 2);
+        displayToast(getString(R.string.mediumChosen));
+        startActivity(mailman);
+
     }
 
     public void displayHardMode(View view) {
-        startActivity(new Intent(SecondActivity.this, EasyActivity.class));
+        mailman.putExtra("difficulty", 3);
+        displayToast(getString(R.string.hardChosen));
+        startActivity(mailman);
+
     }
 }
