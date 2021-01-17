@@ -8,9 +8,16 @@
     tools:context=".TheGameplay">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="577dp"
+        android:layout_height="325dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.gameforclass.GameFragment"
+            android:layout_width="match_parent"
+            android:layout_height="328dp" />
     </FrameLayout>
 
     <ImageButton
@@ -145,8 +152,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="575dp"
-        android:layout_height="50dp"
+        android:layout_width="576dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -175,16 +184,5 @@
             android:text="Round: 1"
             android:textSize="24sp" />
     </LinearLayout>
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.gameforclass.GameFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/SideBar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

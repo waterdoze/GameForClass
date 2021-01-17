@@ -95,8 +95,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         paint.setTextSize(50);
 
 
-        canvas.drawText("Jeff", 200, 200, paint);
-
     }
 
     public void drawEnemies(Canvas canvas) {
