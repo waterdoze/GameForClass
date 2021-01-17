@@ -8,8 +8,10 @@
     tools:context=".TheGameplay">
 
     <FrameLayout
+
         android:layout_width="577dp"
         android:layout_height="325dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -17,7 +19,9 @@
             android:id="@+id/fragment"
             android:name="com.example.gameforclass.GameFragment"
             android:layout_width="match_parent"
+
             android:layout_height="328dp" />
+
     </FrameLayout>
 
     <ImageButton
@@ -38,7 +42,6 @@
         android:layout_height="match_parent"
         android:layout_marginStart="580dp"
         android:layout_marginLeft="580dp"
-        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -156,14 +159,15 @@
         android:layout_height="33dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/HealthView"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Health: 100/100"
             android:textSize="24sp" />
@@ -171,7 +175,7 @@
         <TextView
             android:id="@+id/BiomoleculeCounter"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="BM: 0"
             android:textSize="24sp" />
@@ -179,7 +183,7 @@
         <TextView
             android:id="@+id/RoundCounter"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Round: 1"
             android:textSize="24sp" />
