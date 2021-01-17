@@ -35,7 +35,7 @@ public class GameLoop extends Thread{
                 TDP.update();
                 TDP.draw(canvas);
                 SH.unlockCanvasAndPost(canvas); //let the canvas go and be rendered
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
