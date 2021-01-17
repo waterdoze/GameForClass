@@ -1,5 +1,6 @@
 package com.example.gameforclass;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,19 +11,26 @@ class Enemy {
     }
 
     private String name;
-    private ImageView image;
+    public Bitmap image;
     private int health, biomolecule;
     private EnemyType type;
+
+    public int x, y; //position
+    public int dx, dy; //velocity
+
+
 
     public Enemy(String name, int health, int biomolecule, EnemyType type) {
         this.name = name;
         this.health = health;
         this.biomolecule = biomolecule;
         this.type = type;
+        x=y=dx=dy=0;
+
     }
 
     public void destroy() {
-        image.setVisibility(View.GONE);
+
     }
 
      public EnemyType getType() {
