@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 public class GameFragment extends Fragment {
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -33,15 +32,4 @@ public class GameFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        TDP.pause();
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        TDP.resume();
-//    }
 }

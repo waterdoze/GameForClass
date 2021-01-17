@@ -16,14 +16,14 @@ import androidx.core.content.ContextCompat;
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
-    private Bitmap background;
+    private Bitmap background; //background image of lungs
 
-    private Bitmap virus;
+    private Bitmap virus; //temporary enemy guy moving around
     private int virusX = 500;
     private int virusY = 500;
-    private int virusVelocity = 0;
+    private int virusVelocity = 0;  // we need to put all of this into an enemy class
 
-    private GameLoop gameLoop;
+    private GameLoop gameLoop;  //Handles drawing the class every frame
     Context context;
     int screenX, screenY;
 

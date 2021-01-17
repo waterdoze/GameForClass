@@ -24,10 +24,8 @@ public class TheGameplay extends AppCompatActivity {
         Intent i = getIntent();
         difficulty = i.getIntExtra("difficulty", 0); //If data not received, 0 is returned
 
-        setContentView(R.layout.activity_the_gameplay);
-//        Point point = new Point();
-//        getWindowManager().getDefaultDisplay().getSize(point);
-//        setContentView(new TowerDefensePog(this, point.x, point.y));
+        setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
+
 
     }
 
