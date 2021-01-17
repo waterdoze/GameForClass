@@ -11,16 +11,16 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
         <activity android:name=".TheGameplay">
-            android:configChanges="orientation"
+
             android:screenOrientation="landscape"
 
         </activity>
         <activity android:name=".DifficultyMenu">
-            android:configChanges="orientation"
+
             android:screenOrientation="landscape"
         </activity>
         <activity android:name=".MainActivity">
-            android:configChanges="orientation"
+
             android:screenOrientation="landscape"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
