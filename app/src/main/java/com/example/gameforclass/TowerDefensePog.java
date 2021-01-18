@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
 
 
 //TowerDefensePog manages all game objects and logic, and also drawing things to the screen
@@ -17,11 +20,10 @@ import androidx.core.content.ContextCompat;
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
     private Bitmap background; //background image of lungs
-
     private Bitmap virus; //temporary enemy guy moving around
-    private int virusX = 500;
-    private int virusY = 500;
-    private int virusVelocity = 0;  // we need to put all of this into an enemy class
+
+    Map map;
+    Aspergillus one;
 
     private GameLoop gameLoop;  //Handles drawing the class every frame
     Context context;
@@ -37,8 +39,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         background = BitmapFactory.decodeResource(getResources(), R.drawable.straight_up_lungs_bro);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
-        virus = BitmapFactory.decodeResource(getResources(), R.drawable.cholera_easy_mode);
+        virus = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);
         virus = Bitmap.createScaledBitmap(virus, 120, 120, false);
+
+        map = new Map("(0.350, 0.000) (0.350, 0.200) (0.200, 0.200) ", screenX, screenY);
+        one = new Aspergillus(virus, map);
 
         SurfaceHolder SH = getHolder();
         SH.addCallback(this);
@@ -47,6 +52,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         gameLoop = new GameLoop(this, SH);
 
         setFocusable(true);
+
 
     }
 
@@ -89,13 +95,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-        canvas.drawBitmap(virus, virusX, virusY, paint);
+
+        canvas.drawBitmap(virus, one.getX(), one.getY(), paint);
+        Log.d("check", "" + map.getSolvedCoordinateArray());
     }
 
     public void update() {
-        if(virusX == 500) virusVelocity = 10;
-        else if(virusX == 1000) virusVelocity = -10;
-
-        virusX += virusVelocity;
+        one.move();
     }
+
+
 }

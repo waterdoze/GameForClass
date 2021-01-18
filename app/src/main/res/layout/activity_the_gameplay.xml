@@ -148,6 +148,7 @@
         android:layout_width="575dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

@@ -44,7 +44,8 @@ public class TheGameplay extends AppCompatActivity {
 
         int setBig = 0; int setSmall = 8;
         if(v.getId() == R.id.BigTabButton){//if this is the big tab button we pressed, then we want to make the big ones disappear
-            setBig ^= setSmall;
+            setBig = 8;
+            setSmall = 0;
         }
         SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
         SideBar.setVisibility(setSmall);
