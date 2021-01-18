@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
-class Enemy {
+class Enemy extends Entity{
 
     public enum EnemyType {
         VIRUS, FUNGI, BACTERIA
@@ -15,17 +15,16 @@ class Enemy {
     private int health, biomolecule;
     private EnemyType type;
 
-    public int x, y; //position
     public int dx, dy; //velocity
 
 
 
-    public Enemy(String name, int health, int biomolecule, EnemyType type) {
+    public Enemy(int x, int y, String name, int health, int biomolecule, EnemyType type) {
+        super(x,y, 1);//Makes an enemy entity with x coords(0,0)
         this.name = name;
         this.health = health;
         this.biomolecule = biomolecule;
         this.type = type;
-        x=y=dx=dy=0;
 
     }
 
@@ -41,7 +40,7 @@ class Enemy {
         return biomolecule;
      }
 
-     public void takeDamage(int damage) {
+     public void takeDamage(int damage) {//Needs to take a damage type
         health -= damage;
         if (health <= 0) {
             destroy();

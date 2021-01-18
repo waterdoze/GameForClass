@@ -154,9 +154,9 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/BottomBar"
         android:layout_width="576dp"
-        android:layout_height="33dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
 

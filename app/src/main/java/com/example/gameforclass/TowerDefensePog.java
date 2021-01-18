@@ -97,7 +97,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-    public void drawEnemies(Canvas canvas) {
+    public void drawEnemies(Canvas canvas) {//Should we be using canvas? isn't it outdated and cringe? Am I cringe?
 
         for(Enemy e: enemies) canvas.drawBitmap(e.image, e.x, e.y, paint);
 
@@ -115,7 +115,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-    public void addEnemy(EnemyName name) {
+    public void addEnemy(EnemyName name) {//What the hell are these two methods
 
         switch(name) {
             case PNEUMOCOCCUS: enemies.add(new Pneumococcus(this)); break;
