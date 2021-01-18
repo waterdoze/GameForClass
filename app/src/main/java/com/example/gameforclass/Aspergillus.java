@@ -11,7 +11,7 @@ public class Aspergillus extends Enemy {
         super("Aspergillus", 100, 50, EnemyType.FUNGI);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.aspergillus);
-        img = Bitmap.createScaledBitmap(img, 120, 120, false);
+        img = Bitmap.createScaledBitmap(img, IMG_WIDTH, IMG_HEIGHT, false);
         image = img;
     }
 
