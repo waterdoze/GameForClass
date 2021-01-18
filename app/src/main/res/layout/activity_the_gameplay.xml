@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <fragment
-            android:id="@+id/fragment"
+            android:id="@+id/gameFragment"
             android:name="com.example.gameforclass.GameFragment"
             android:layout_width="match_parent"
 

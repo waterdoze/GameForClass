@@ -6,6 +6,10 @@ import android.widget.ImageView;
 
 class Enemy extends Entity{
 
+    public int IMG_HEIGHT = TowerDefensePog.TILE_HEIGHT; //Size of sprite will be same size as tile for now i guess
+    public int IMG_WIDTH = TowerDefensePog.TILE_WIDTH;
+
+
     public enum EnemyType {
         VIRUS, FUNGI, BACTERIA
     }
@@ -46,6 +50,9 @@ class Enemy extends Entity{
             destroy();
         }
      }
+
+
+
 
 
 }

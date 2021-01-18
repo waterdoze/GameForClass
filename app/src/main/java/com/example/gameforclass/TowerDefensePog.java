@@ -18,6 +18,12 @@ import java.util.ArrayList;
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
+    public static int TILE_WIDTH = 50;
+    public static int TILE_HEIGHT = 50;
+    int tileRows, tileCols;
+
+    private char[][] tiles;
+
     public enum EnemyName {
         PNEUMOCOCCUS,
         ASPERGILLUS,
@@ -27,24 +33,24 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Bitmap background; //background image of lungs
 
 
-
-    ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
 
     private GameLoop gameLoop;  //Handles drawing the class every frame
-    Context context;
-    int screenX, screenY;
+    private Context context;
+    public int screenX, screenY; //Size of the FRAGMENT, not the whole screen
 
-    Paint paint = new Paint();
+    private Paint paint = new Paint();
 
-    public TowerDefensePog(Context context, int screenX, int screenY) {
+    public TowerDefensePog(Context context) {
         super(context);
 
-        this.screenX = screenX; this.screenY = screenY;
+        screenX = 1440; screenY = 900;
+
+        this.getHolder().setFixedSize(screenX, screenY);
 
         background = BitmapFactory.decodeResource(getResources(), R.drawable.straight_up_lungs_bro);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
-
 
 
         SurfaceHolder SH = getHolder();
@@ -55,7 +61,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         setFocusable(true);
 
-        Aspergillus a = new Aspergillus(this);
+        tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
+        tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
+
+        Aspergillus a = new Aspergillus(this); //Testing, only temporary
         a.x = 500; a.y= 500;
 
         addEnemy(a);
@@ -82,28 +91,39 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void draw(Canvas canvas) {
         super.draw(canvas);
         drawBackground(canvas);
+        drawGrid(canvas);
         drawEnemies(canvas);
+
     }
 
-    public void drawBackground(Canvas canvas) {
-
-
-        canvas.drawBitmap(background, 0, 0, paint);
+    public void drawGrid(Canvas canvas) {
 
         int color = ContextCompat.getColor(context, R.color.teal_200);
         paint.setColor(color);
-        paint.setTextSize(50);
 
+        for(int i=0; i <= tileRows; i++)
+        {
+            canvas.drawLine(0, TILE_HEIGHT*i, screenX, TILE_HEIGHT*i, paint); //startX, startY, stopX, stopY, paint
+        }
+        for(int i=0; i <= tileCols; i++)
+        {
+            canvas.drawLine(TILE_WIDTH*i, 0, TILE_WIDTH*i, screenY, paint);
+        }
+    }
+
+    public void drawBackground(Canvas canvas) { //made this it's own method in case we add anything
+
+        canvas.drawBitmap(background, 0, 0, paint);
 
     }
 
-    public void drawEnemies(Canvas canvas) {//Should we be using canvas? isn't it outdated and cringe? Am I cringe?
+    public void drawEnemies(Canvas canvas) {
 
         for(Enemy e: enemies) canvas.drawBitmap(e.image, e.x, e.y, paint);
 
     }
 
-    public void update() {
+    public void update() { //move things around, logic
 
         for(Enemy e : enemies)
         {
@@ -115,7 +135,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-    public void addEnemy(EnemyName name) {//What the hell are these two methods
+    public void addEnemy(EnemyName name) { //one way to add an enemy just by its name
 
         switch(name) {
             case PNEUMOCOCCUS: enemies.add(new Pneumococcus(this)); break;
@@ -127,6 +147,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void addEnemy(Enemy e)
     {
         enemies.add(e);
-    }
+    } //add an enemy by making the object yourself
+
+
 
 }
