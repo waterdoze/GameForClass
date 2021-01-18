@@ -33,7 +33,7 @@ class Enemy {
         this.biomolecule = biomolecule;
         this.type = type;
 
-        velocity = 4;
+        velocity = 12;
 
         path = map.getSolvedCoordinateArray();
 
@@ -41,7 +41,7 @@ class Enemy {
         currentY = path.get(1);
         nextX = path.get(counter);
         nextY = path.get(counter + 1);
-        counter += 1;
+        counter += 2;
 
     }
 
@@ -78,39 +78,85 @@ class Enemy {
         double changeX;
         double changeY;
         if (!(Math.abs(currentX - nextX) < margin && Math.abs(currentY - nextY) < margin)){
-            Log.d("margin1", "" + Math.abs(currentX));
-            Log.d("margin2", "" + Math.abs(currentY));
             if (Math.abs(currentX - nextX) < margin && Math.abs(currentY - nextY) > margin) {
+                Log.d("margin1", "" + Math.abs(currentX));
+                Log.d("margin2", "" + Math.abs(currentY));
+                Log.d("next", "" + nextX);
+                Log.d("next2", "" + nextY);
                 if (nextY < currentY) {
                     changeY = -1 * velocity;
+                    currentY += changeY;
+                    if (currentY < nextY) {
+                        currentY = nextY;
+                    }
 
                 }
                 else {
                     changeY = velocity;
-
+                    currentY += changeY;
+                    if (currentY > nextY) {
+                        currentY = nextY;
+                    }
                 }
-                currentY += changeY;
+
 
 
             } else if (Math.abs(currentY - nextY) < margin && Math.abs(currentX - nextX) > margin) {
+                Log.d("margin1", "" + Math.abs(currentX));
+                Log.d("margin2", "" + Math.abs(currentY));
+                Log.d("next", "" + nextX);
+                Log.d("next2", "" + nextY);
                 if (nextX < currentX) {
                     changeX = -1 * velocity;
-
+                    currentX += changeX;
+                    if (currentX < nextX) {
+                        currentX = nextX;
+                    }
                 }
                 else {
                     changeX = velocity;
-
+                    currentX += changeX;
+                    if (currentX > nextX) {
+                        currentX = nextX;
+                    }
                 }
-                currentX += changeX;
 
 
             } else if (!(Math.abs(currentX - nextX) < margin) && !(Math.abs(currentY - nextY) < margin)) {
+
                 double slope = map.createSlope(nextX - currentX, nextY - currentY);
-                Log.d("slope", "" + slope);
-                changeX = -1 *  Math.sqrt(Math.pow(velocity, 2) / (Math.pow(slope, 2) + 1));
-                changeY = -1 * Math.abs(slope * Math.sqrt(Math.pow(velocity, 2) / (Math.pow(slope, 2) + 1)));
-                currentX += changeX;
-                currentY += changeY;
+                changeX = Math.sqrt(Math.pow(velocity, 2) / (Math.pow(slope, 2) + 1));
+                changeY = Math.abs(slope * Math.sqrt(Math.pow(velocity, 2) / (Math.pow(slope, 2) + 1)));
+
+                Log.d("margin1", "" + Math.abs(currentX));
+                Log.d("margin2", "" + Math.abs(currentY));
+                Log.d("next", "" + nextX);
+                Log.d("next2", "" + nextY);
+
+                if (currentX > nextX) {
+                    currentX -= changeX;
+                    if (currentX < nextX) {
+                        currentX = nextX;
+                    }
+                }
+                if (currentX < nextX) {
+                    currentX += changeX;
+                    if (currentX > nextX) {
+                        currentX = nextX;
+                    }
+                }
+                if (currentY > nextY) {
+                    currentY -= changeY;
+                    if (currentY < nextY) {
+                        currentY = nextY;
+                    }
+                }
+                if (currentY < nextY) {
+                    currentY += changeY;
+                    if (currentY > nextY) {
+                        currentY = nextY;
+                    }
+                }
 
             }
         }

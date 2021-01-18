@@ -42,7 +42,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         virus = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);
         virus = Bitmap.createScaledBitmap(virus, 120, 120, false);
 
-        map = new Map("(0.350, 0.000) (0.350, 0.200) (0.200, 0.200) ", screenX, screenY);
+        map = new Map(getResources().getString(R.string.map_coordinate), screenX, screenY);
         one = new Aspergillus(virus, map);
 
         SurfaceHolder SH = getHolder();
