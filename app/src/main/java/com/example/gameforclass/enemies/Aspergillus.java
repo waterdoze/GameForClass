@@ -1,7 +1,8 @@
-package com.example.gameforclass;
+package com.example.gameforclass.enemies;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
+
+import com.example.gameforclass.Map;
 
 public class Aspergillus extends Enemy {
 
@@ -14,5 +15,13 @@ public class Aspergillus extends Enemy {
         super.move();
     }
 
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+    }
 
+    @Override
+    public Bitmap getImage() {
+        return super.getImage();
+    }
 }

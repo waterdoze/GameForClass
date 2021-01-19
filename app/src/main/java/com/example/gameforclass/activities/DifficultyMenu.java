@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.gameforclass.R;
+import com.example.gameforclass.TheGameplay;
 
 public class DifficultyMenu extends AppCompatActivity {
 

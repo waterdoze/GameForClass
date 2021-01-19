@@ -1,14 +1,15 @@
-package com.example.gameforclass;
+package com.example.gameforclass.enemies;
 
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.gameforclass.Map;
+
 import java.util.ArrayList;
 
-class Enemy {
+public class Enemy {
 
     public enum EnemyType {
         VIRUS, FUNGI, BACTERIA
@@ -74,15 +75,15 @@ class Enemy {
         return (int) currentY;
     }
 
+    public Bitmap getImage() {
+        return unit;
+    }
+
     public void move() {
         double changeX;
         double changeY;
         if (!(Math.abs(currentX - nextX) < margin && Math.abs(currentY - nextY) < margin)){
             if (Math.abs(currentX - nextX) < margin && Math.abs(currentY - nextY) > margin) {
-                Log.d("margin1", "" + Math.abs(currentX));
-                Log.d("margin2", "" + Math.abs(currentY));
-                Log.d("next", "" + nextX);
-                Log.d("next2", "" + nextY);
                 if (nextY < currentY) {
                     changeY = -1 * velocity;
                     currentY += changeY;

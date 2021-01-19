@@ -1,7 +1,8 @@
-package com.example.gameforclass;
+package com.example.gameforclass.enemies;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
+
+import com.example.gameforclass.Map;
 
 public class HIV extends Enemy {
 
