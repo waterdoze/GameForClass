@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
-    public static int TILE_WIDTH = 50;
-    public static int TILE_HEIGHT = 50;
+    public static int TILE_WIDTH = 70;
+    public static int TILE_HEIGHT = 70;
     int tileRows, tileCols;
 
     private char[][] tiles;
