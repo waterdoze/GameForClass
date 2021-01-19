@@ -49,7 +49,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         this.getHolder().setFixedSize(screenX, screenY);
 
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.straight_up_lungs_bro);
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
 
