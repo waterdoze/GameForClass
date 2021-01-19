@@ -24,6 +24,7 @@ class Enemy {
 
 
 
+
     public Enemy(String name, int health, int biomolecule, EnemyType type) {
         this.name = name;
         this.health = health;
@@ -51,6 +52,8 @@ class Enemy {
             destroy();
         }
      }
+
+
 
 
 
