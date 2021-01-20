@@ -17,7 +17,7 @@
 
         <fragment
             android:id="@+id/gameFragment"
-            android:name="com.example.gameforclass.GameFragment"
+            android:name="com.example.gameforclass.activities.GameFragment"
             android:layout_width="match_parent"
 
             android:layout_height="328dp" />

@@ -63,7 +63,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
-        Antigen a = new Antigen(20, 2, EnemyType.ASPERGILLUS); //Testing, only temporary
+        Antigen a = new Antigen(20, 2, EnemyType.ASPERGILLUS, 100); //Testing, only temporary
         a.screenX = 500; a.screenY= 500;
 
         Tower t = new Tower(25,25 );

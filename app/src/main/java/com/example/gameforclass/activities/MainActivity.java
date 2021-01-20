@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.gameforclass.R;
 
 public class MainActivity extends AppCompatActivity {
 
