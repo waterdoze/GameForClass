@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
-    public static int TILE_WIDTH = 50;
-    public static int TILE_HEIGHT = 50;
+    public static int TILE_WIDTH = 70;
+    public static int TILE_HEIGHT = 70;
     int tileRows, tileCols;
 
     private char[][] tiles;
@@ -48,7 +48,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         this.getHolder().setFixedSize(screenX, screenY);
 
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.straight_up_lungs_bro);
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
 
