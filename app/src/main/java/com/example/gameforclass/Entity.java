@@ -5,12 +5,12 @@ public abstract class Entity {//Maybe this class can hold the image for the enti
     public int tileY;
     public int screenX;
     public int screenY;
-    public int type;
+    public int entityType;
 
-    public Entity(int tileX, int tileY, int type){//0 == Tower, 1 == Enemy
+    public Entity(int tileX, int tileY, int entityType){//0 == Tower, 1 == Enemy
         this.tileX = tileX;
         this.tileY = tileY;
-        this.type = type;
+        this.entityType = entityType;
     }
 
     public int getTileX(){return tileX;}

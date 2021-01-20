@@ -11,6 +11,9 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.cells.Tower;
+
 import java.util.ArrayList;
 
 
@@ -24,16 +27,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     private char[][] tiles;
 
-    public enum EnemyName {
-        PNEUMOCOCCUS,
-        ASPERGILLUS,
-        HIV
-    }
-
     private Bitmap background; //background image of lungs
+    private Bitmap neutro; //neutrophil(temporary)
 
 
-    private ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Tower> towers = new ArrayList<>();
+    private ArrayList<Antigen> enemies = new ArrayList<>();
 
 
     private GameLoop gameLoop;  //Handles drawing the class every frame
@@ -64,8 +63,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
-        Aspergillus a = new Aspergillus(this); //Testing, only temporary
-        a.x = 500; a.y= 500;
+        Antigen a = new Antigen(20, 2, EnemyType.ASPERGILLUS); //Testing, only temporary
+        a.screenX = 500; a.screenY= 500;
+
+        Tower t = new Tower(25,25 );
+
+        neutro = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);//no neutrophil image I guess... Sadge
+        neutro = Bitmap.createScaledBitmap(neutro, 120, 120, false);
+
 
         addEnemy(a);
 
@@ -119,36 +124,41 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-        for(Enemy e: enemies) canvas.drawBitmap(e.image, e.x, e.y, paint);
+        //for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
 
+    }
+
+    public void drawTowers(Canvas canvas){
+        for(Tower e: towers) canvas.drawBitmap(neutro, e.screenX, e.screenY, paint);
     }
 
     public void update() { //move things around, logic
-
-        for(Enemy e : enemies)
+//would we call a target method here?
+        for(Antigen e : enemies)
         {
-            if(e.x == 500) e.dx = 10;
-            else if(e.x == 1000) e.dx = -10;
+            if(e.screenX == 500) e.dx = 10;
+            else if(e.screenY == 1000) e.dx = -10;
 
-            e.x += e.dx;
+            e.move();
         }
 
     }
 
-    public void addEnemy(EnemyName name) { //one way to add an enemy just by its name
+    public void addEnemy(EnemyType name) { //one way to add an enemy just by its name
 
-        switch(name) {
-            case PNEUMOCOCCUS: enemies.add(new Pneumococcus(this)); break;
-            case ASPERGILLUS:  enemies.add(new Aspergillus(this)); break;
-            case HIV:          enemies.add(new HIV(this)); break;
-        }
+//        switch(name) {
+//            case PNEUMOCOCCUS: enemies.add(new Pneumococcus(this)); break;
+//            case ASPERGILLUS:  enemies.add(new Aspergillus(this)); break;
+//            case HIV:          enemies.add(new HIV(this)); break;
+//        }
+        enemies.add(new Antigen(5,5, EnemyType.ASPERGILLUS));
     }
 
-    public void addEnemy(Enemy e)
+    public void addEnemy(Antigen e)
     {
         enemies.add(e);
     } //add an enemy by making the object yourself
-
+// Deez nuts
 
 
 }
