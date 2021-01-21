@@ -125,7 +125,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-        //for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
+        for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
 
     }
 
