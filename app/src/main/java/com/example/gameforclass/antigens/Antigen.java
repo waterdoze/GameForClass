@@ -14,8 +14,6 @@ public class Antigen extends Entity {
         super(tileX, tileY, 1);
         this.antigenType = antigenType;
         this.health = health;
-        switch(antigenType){//make image here?
-        }
     }
 
     public void move(){
@@ -23,5 +21,13 @@ public class Antigen extends Entity {
         screenY+=dy;
     }
 
+    public void takeDamage(int dmg){
+        if(health > dmg){
+            health-=dmg;
+        }
+        else{
+            health = 0;//Set some kind of death animation/other costume?
+        }
+    }
 
 }

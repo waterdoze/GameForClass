@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.Aspergillus;
 import com.example.gameforclass.cells.Tower;
 
 import java.util.ArrayList;
@@ -151,7 +152,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 //            case ASPERGILLUS:  enemies.add(new Aspergillus(this)); break;
 //            case HIV:          enemies.add(new HIV(this)); break;
 //        }
-        enemies.add(new Antigen(5,5, EnemyType.ASPERGILLUS));
+        enemies.add(new Aspergillus(this));
     }
 
     public void addEnemy(Antigen e)

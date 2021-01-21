@@ -1,15 +1,19 @@
 package com.example.gameforclass.cells;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.example.gameforclass.Entity;
+import com.example.gameforclass.R;
+import com.example.gameforclass.TowerDefensePog;
 
 public class Tower extends Entity {
     public int range;
-    public int damage;
     public boolean isPhagocyte;
 
     public Tower(int tileX, int tileY) {
-
         super(tileX, tileY, 0);
+
     }
 
     public double distanceTo(Entity other){
