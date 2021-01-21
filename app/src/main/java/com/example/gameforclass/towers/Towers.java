@@ -8,6 +8,7 @@ public class Towers {
     private int refund;
     private int power;
     private double range;
+    private double towerX, towerY;
 
     public void Towers(int cost, int refund, int power, double range) {
         this.cost = cost;
@@ -23,6 +24,11 @@ public class Towers {
     }
 
     public boolean isHittable(Enemy target) {
-        return true;
+        double comparedX = Math.abs(target.getX() - towerX);
+        double comparedY = Math.abs(target.getY() - towerY);
+
+        return Math.sqrt(Math.pow(comparedX, 2) + Math.pow(comparedY, 2)) <= range;
     }
+
+    
 }

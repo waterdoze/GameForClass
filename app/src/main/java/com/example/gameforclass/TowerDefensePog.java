@@ -20,7 +20,6 @@ import com.example.gameforclass.enemies.Aspergillus;
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
 
     private Bitmap background; //background image of lungs
-    private Bitmap virus; //temporary enemy guy moving around
 
     Map map;
     Aspergillus one;
@@ -34,20 +33,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public TowerDefensePog(Context context, int screenX, int screenY) {
         super(context);
 
-        this.screenX = screenX; this.screenY = screenY;
+        this.screenX = screenX;
+        this.screenY = screenY;
+        this.context = context;
 
         background = BitmapFactory.decodeResource(getResources(), R.drawable.straight_up_lungs_bro);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
-        virus = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);
-        virus = Bitmap.createScaledBitmap(virus, 120, 120, false);
-
         map = new Map(getResources().getString(R.string.map_coordinate), screenX, screenY);
-        one = new Aspergillus(virus, map);
+        one = new Aspergillus(context, map);
 
         SurfaceHolder SH = getHolder();
         SH.addCallback(this);
-        this.context = context;
 
         gameLoop = new GameLoop(this, SH);
 
@@ -95,9 +92,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
+        canvas.drawBitmap(one.getImage(), one.getX(), one.getY(), paint);
+        one.getHealthbar().draw(canvas);
 
-        canvas.drawBitmap(virus, one.getX(), one.getY(), paint);
-        Log.d("check", "" + map.getSolvedCoordinateArray());
     }
 
     public void update() {
