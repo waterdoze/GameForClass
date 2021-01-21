@@ -13,6 +13,8 @@ public abstract class Entity {//Maybe this class can hold the image for the enti
     public Entity(int tileX, int tileY, int entityType){//0 == Tower, 1 == Enemy
         this.tileX = tileX;
         this.tileY = tileY;
+        screenX = tileX * TowerDefensePog.TILE_WIDTH;
+        screenX = tileY * TowerDefensePog.TILE_HEIGHT;
         this.entityType = entityType;
     }
 

@@ -142,6 +142,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
             e.move();
         }
+        for(Tower t: towers){
+            t.attack(enemies);
+        }
 
     }
 
