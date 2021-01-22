@@ -99,6 +99,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawBackground(canvas);
         drawGrid(canvas);
         drawEnemies(canvas);
+        drawTowers(canvas);
 
     }
 
@@ -162,7 +163,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     {
         enemies.add(e);
     } //add an enemy by making the object yourself
+    public void addTower(Tower t)
+    {towers.add(t);}
 // Deez nuts
-
 
 }

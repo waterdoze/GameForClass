@@ -38,5 +38,5 @@ public class Tower extends Entity {
     }
 }
 /*
-This needs to have the code for a tower to be held and placed, also apoptosis command?
+j
  */
