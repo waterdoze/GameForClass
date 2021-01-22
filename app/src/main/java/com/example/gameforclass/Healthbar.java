@@ -6,16 +6,16 @@ import android.graphics.Paint;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.gameforclass.enemies.Enemy;
+import com.example.gameforclass.enemies.Antigen;
 
 public class Healthbar {
 
-    private Enemy enemy;
+    private Antigen antigen;
     private int width, height, margin;
     private Paint healthPaint;
 
-    public Healthbar(Context context, Enemy enemy) {
-        this.enemy = enemy;
+    public Healthbar(Context context, Antigen antigen) {
+        this.antigen = antigen;
 
         width = 100;
         height = 20;
@@ -27,10 +27,10 @@ public class Healthbar {
 
     public void draw(Canvas canvas) {
 
-        float x = (float) enemy.getX();
-        float y = (float) enemy.getY();
+        float x = (float) antigen.getX();
+        float y = (float) antigen.getY();
         float distanceToPlayer = 30;
-        float healthPointPercentage = (float) enemy.getHealth() / enemy.getMaxHealth();
+        float healthPointPercentage = (float) antigen.getHealth() / antigen.getMaxHealth();
         float healthLeft, healthTop, healthRight, healthBottom, healthWidth, healthHeight;
 
         healthWidth = width;

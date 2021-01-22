@@ -1,6 +1,6 @@
 package com.example.gameforclass.towers;
 
-import com.example.gameforclass.enemies.Enemy;
+import com.example.gameforclass.enemies.Antigen;
 
 public class Towers {
 
@@ -17,13 +17,13 @@ public class Towers {
         this.range = range;
     }
 
-    public void shoot(Enemy target) {
+    public void shoot(Antigen target) {
         if (isHittable(target)) {
             target.takeDamage(power);
         }
     }
 
-    public boolean isHittable(Enemy target) {
+    public boolean isHittable(Antigen target) {
         double comparedX = Math.abs(target.getX() - towerX);
         double comparedY = Math.abs(target.getY() - towerY);
 

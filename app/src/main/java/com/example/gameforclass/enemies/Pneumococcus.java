@@ -1,14 +1,13 @@
 package com.example.gameforclass.enemies;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.example.gameforclass.Map;
 
-public class Pneumococcus extends Enemy {
+public class Pneumococcus extends Antigen {
 
     public Pneumococcus(Context context, Map map) {
-        super(context, map, 100, 5, EnemyType.BACTERIA);
+        super(context, map, 100, 5, EnemyType.BACTERIA, 30, 100);
     }
 
 }

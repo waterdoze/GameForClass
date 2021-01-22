@@ -13,15 +13,14 @@ import com.example.gameforclass.R;
 
 import java.util.ArrayList;
 
-public class Enemy {
+public class Antigen {
 
-    public enum EnemyType {
-        VIRUS, FUNGI, BACTERIA
-    }
+
 
     private int health, maxHealth, biomolecule, velocity;
     private double currentX, currentY, nextX, nextY;
     private int gear = 0, counter = 2, margin = 2;
+    private int tileX, tileY;
 
     private EnemyType type;
     private Bitmap unit;
@@ -29,13 +28,15 @@ public class Enemy {
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Enemy(Context context, Map map, int health, int biomolecule, EnemyType type) {
+    public Antigen(Context context, Map map, int health, int biomolecule, EnemyType type, int tileX, int tileY) {
 
         this.unit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.aspergillus), 120, 120, false);
         this.map = map;
         this.health = health;
         this.biomolecule = biomolecule;
         this.type = type;
+        this.tileX = tileX;
+        this.tileY = tileY;
 
         maxHealth = health;
         velocity = 12;
