@@ -26,7 +26,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public static int TILE_HEIGHT = 70;
     int tileRows, tileCols;
 
-    private char[][] tiles;
+    private char[][] tiles;//P = Path
 
     private Bitmap background; //background image of lungs
     private Bitmap neutro; //neutrophil(temporary)

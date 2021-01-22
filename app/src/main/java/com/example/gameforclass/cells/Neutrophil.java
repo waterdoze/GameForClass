@@ -10,7 +10,7 @@ import com.example.gameforclass.TowerType;
 public class Neutrophil extends Tower{
     public Neutrophil(int x, int y, TowerDefensePog TDP) {
         super(x, y);
-
+        dmg = 20;
         towerType = TowerType.NEUTROPHIL;
 
         isPhagocyte = true;

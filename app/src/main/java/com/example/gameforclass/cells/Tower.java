@@ -9,12 +9,14 @@ import java.util.ArrayList;
 public class Tower extends Entity {
     public int range;
     public int dmg;
-    public boolean isPhagocyte;
+    public int biomolecules;
+
+    public boolean isPhagocyte;//Can this cell attack stuff
+
     public TowerType towerType;
 
     public Tower(int tileX, int tileY) {
         super(tileX, tileY, 0);
-
     }
 
     public double distanceTo(Entity other){
