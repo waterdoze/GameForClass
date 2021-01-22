@@ -67,7 +67,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         setFocusable(true);
 
-        tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
+       //tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
+        tileRows = 10; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
         Antigen a = new Aspergillus(this); //Testing, only temporary
