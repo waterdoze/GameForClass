@@ -1,6 +1,6 @@
 package com.example.gameforclass.towers;
 
-import com.example.gameforclass.enemies.Antigen;
+import com.example.gameforclass.antigens.Antigen;
 
 public class Towers {
 

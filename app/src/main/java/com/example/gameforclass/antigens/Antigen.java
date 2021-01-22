@@ -1,19 +1,18 @@
-package com.example.gameforclass.enemies;
+package com.example.gameforclass.antigens;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
+import com.example.gameforclass.EnemyType;
+import com.example.gameforclass.Entity;
 import com.example.gameforclass.Healthbar;
 import com.example.gameforclass.Map;
 import com.example.gameforclass.R;
 
 import java.util.ArrayList;
 
-public class Antigen {
+public class Antigen extends Entity {
 
 
 
@@ -21,6 +20,7 @@ public class Antigen {
     private double currentX, currentY, nextX, nextY;
     private int gear = 0, counter = 2, margin = 2;
     private int tileX, tileY;
+    public int dy, dx;
 
     private EnemyType type;
     private Bitmap unit;
@@ -30,6 +30,8 @@ public class Antigen {
 
     public Antigen(Context context, Map map, int health, int biomolecule, EnemyType type, int tileX, int tileY) {
 
+        super(tileX, tileY, 1);
+
         this.unit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.aspergillus), 120, 120, false);
         this.map = map;
         this.health = health;
@@ -37,6 +39,7 @@ public class Antigen {
         this.type = type;
         this.tileX = tileX;
         this.tileY = tileY;
+        dy = dx = 0;
 
         maxHealth = health;
         velocity = 12;
@@ -50,6 +53,12 @@ public class Antigen {
         nextY = path.get(counter + 1);
         counter += 2;
 
+    }
+
+    public Antigen(int tileX, int tileY, EnemyType antigenType, int health) {
+        super(tileX, tileY, 1);
+        this.type = antigenType;
+        this.health = health;
     }
 
     public EnemyType getType() {

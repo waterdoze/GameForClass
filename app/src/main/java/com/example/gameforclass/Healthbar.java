@@ -6,7 +6,7 @@ import android.graphics.Paint;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.gameforclass.enemies.Antigen;
+import com.example.gameforclass.antigens.Antigen;
 
 public class Healthbar {
 
