@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
+import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
 
 import java.util.ArrayList;
@@ -64,13 +65,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
-        Antigen a = new Antigen(20, 2, EnemyType.ASPERGILLUS, 100); //Testing, only temporary
+        Antigen a = new Aspergillus(this); //Testing, only temporary
         a.screenX = 500; a.screenY= 500;
 
-        Tower t = new Tower(25,25 );
+        Tower t = new Neutrophil(25,25, this);
 
         neutro = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);//no neutrophil image I guess... Sadge
         neutro = Bitmap.createScaledBitmap(neutro, 120, 120, false);
+
+        towers.add(t);
 
 
         addEnemy(a);
@@ -139,7 +142,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         for(Antigen e : enemies)
         {
             if(e.screenX == 500) e.dx = 10;
-            else if(e.screenY == 1000) e.dx = -10;
+            else if(e.screenX == 1000) e.dx = -10;
 
             e.move();
         }
