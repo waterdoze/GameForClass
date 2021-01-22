@@ -149,18 +149,21 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void update() { //move things around, logic
 //would we call a target method here?
 
+
+
         one.move();
 
-//        for(Antigen e : enemies)
-//        {
-//            if(e.screenX == 500) e.dx = 10;
-//            else if(e.screenX == 1000) e.dx = -10;
-//
-//            e.move();
-//        }
-//        for(Tower t: towers){
-//            t.attack(enemies);
-//        }
+        for(Antigen e : enemies)
+        {
+//           if(e.getHealth() <= 0) enemies.remove(e); //wont work that good
+
+        }
+
+
+        for(Tower t: towers){
+
+            t.attack(enemies);
+        }
 
     }
 
