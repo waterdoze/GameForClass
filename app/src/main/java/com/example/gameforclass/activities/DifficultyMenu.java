@@ -1,6 +1,5 @@
 package com.example.gameforclass.activities;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;

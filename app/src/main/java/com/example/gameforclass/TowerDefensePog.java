@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -36,6 +37,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
 
+    Map map;
+    Aspergillus one;
 
     private GameLoop gameLoop;  //Handles drawing the class every frame
     private Context context;
@@ -46,6 +49,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public TowerDefensePog(Context context) {
         super(context);
 
+        this.context = context;
         screenX = 1440; screenY = 900;
 
         this.getHolder().setFixedSize(screenX, screenY);
@@ -53,10 +57,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
+        map = new Map(getResources().getString(R.string.map_coordinate), screenX, screenY);
+        one = new Aspergillus(context, map);
 
         SurfaceHolder SH = getHolder();
         SH.addCallback(this);
-        this.context = context;
 
         gameLoop = new GameLoop(this, SH);
 
@@ -131,7 +136,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
 
+        canvas.drawBitmap(one.getImage(), one.getX(), one.getY(), paint);
+        one.getHealthbar().draw(canvas);
+
     }
+
 
     public void drawTowers(Canvas canvas){
         for(Tower e: towers) canvas.drawBitmap(neutro, e.screenX, e.screenY, paint);
@@ -139,16 +148,19 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void update() { //move things around, logic
 //would we call a target method here?
-        for(Antigen e : enemies)
-        {
-            if(e.screenX == 500) e.dx = 10;
-            else if(e.screenX == 1000) e.dx = -10;
 
-            e.move();
-        }
-        for(Tower t: towers){
-            t.attack(enemies);
-        }
+        one.move();
+
+//        for(Antigen e : enemies)
+//        {
+//            if(e.screenX == 500) e.dx = 10;
+//            else if(e.screenX == 1000) e.dx = -10;
+//
+//            e.move();
+//        }
+//        for(Tower t: towers){
+//            t.attack(enemies);
+//        }
 
     }
 

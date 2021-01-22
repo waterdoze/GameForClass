@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gameforclass.TowerDefensePog;
 
+import com.example.gameforclass.TowerDefensePog;
+
 
 public class GameFragment extends Fragment {
 
@@ -28,9 +30,6 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         TowerDefensePog TDP = new TowerDefensePog(this.getActivity());
-
-
-
 
         return TDP;
 
