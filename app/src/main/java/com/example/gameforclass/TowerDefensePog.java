@@ -151,16 +151,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         one.move();
 
-        for(Antigen e : enemies)
-        {
-            if(e.screenX == 500) e.dx = 10;
-            else if(e.screenX == 1000) e.dx = -10;
-
-            e.move();
-        }
-        for(Tower t: towers){
-            t.attack(enemies);
-        }
+//        for(Antigen e : enemies)
+//        {
+//            if(e.screenX == 500) e.dx = 10;
+//            else if(e.screenX == 1000) e.dx = -10;
+//
+//            e.move();
+//        }
+//        for(Tower t: towers){
+//            t.attack(enemies);
+//        }
 
     }
 

@@ -31,9 +31,6 @@ public class GameFragment extends Fragment {
 
         TowerDefensePog TDP = new TowerDefensePog(this.getActivity());
 
-
-
-
         return TDP;
 
     }
