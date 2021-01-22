@@ -15,11 +15,11 @@
             android:screenOrientation="landscape"
 
         </activity>
-        <activity android:name=".DifficultyMenu">
+        <activity android:name=".activities.DifficultyMenu">
 
             android:screenOrientation="landscape"
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
 
             android:screenOrientation="landscape"
             <intent-filter>

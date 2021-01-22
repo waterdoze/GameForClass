@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.Aspergillus;
+import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public static int TILE_HEIGHT = 70;
     int tileRows, tileCols;
 
-    private char[][] tiles;
+    private char[][] tiles;//P = Path
 
     private Bitmap background; //background image of lungs
     private Bitmap neutro; //neutrophil(temporary)
@@ -63,13 +65,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
-        Antigen a = new Antigen(20, 2, EnemyType.ASPERGILLUS); //Testing, only temporary
+        Antigen a = new Aspergillus(this); //Testing, only temporary
         a.screenX = 500; a.screenY= 500;
 
-        Tower t = new Tower(25,25 );
+        Tower t = new Neutrophil(25,25, this);
 
         neutro = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);//no neutrophil image I guess... Sadge
         neutro = Bitmap.createScaledBitmap(neutro, 120, 120, false);
+
+        towers.add(t);
 
 
         addEnemy(a);
@@ -98,6 +102,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawBackground(canvas);
         drawGrid(canvas);
         drawEnemies(canvas);
+        drawTowers(canvas);
 
     }
 
@@ -124,7 +129,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-        //for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
+        for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
 
     }
 
@@ -137,9 +142,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         for(Antigen e : enemies)
         {
             if(e.screenX == 500) e.dx = 10;
-            else if(e.screenY == 1000) e.dx = -10;
+            else if(e.screenX == 1000) e.dx = -10;
 
             e.move();
+        }
+        for(Tower t: towers){
+            t.attack(enemies);
         }
 
     }
@@ -151,14 +159,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 //            case ASPERGILLUS:  enemies.add(new Aspergillus(this)); break;
 //            case HIV:          enemies.add(new HIV(this)); break;
 //        }
-        enemies.add(new Antigen(5,5, EnemyType.ASPERGILLUS));
+        enemies.add(new Aspergillus(this));
     }
 
     public void addEnemy(Antigen e)
     {
         enemies.add(e);
     } //add an enemy by making the object yourself
+    public void addTower(Tower t)
+    {towers.add(t);}
 // Deez nuts
-
 
 }
