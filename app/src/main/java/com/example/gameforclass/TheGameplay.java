@@ -12,13 +12,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 
+import com.example.gameforclass.cells.Tower;
+
 public class TheGameplay extends AppCompatActivity {
 
     private int difficulty = 0; //EASY = 1; MEDIUM = 2; HARD = 3;
 
     //TheGameplay is the activity in which the GameFragment class runs in
-
-    TowerDefensePog TDP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,6 @@ public class TheGameplay extends AppCompatActivity {
         difficulty = i.getIntExtra("difficulty", 0); //If data not received, 0 is returned
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
-
-
     }
 
     //SETVISIBILITY VALUES: 0 == VISIBLE      4 == INVISIBLE      8 == GONE
@@ -51,5 +49,10 @@ public class TheGameplay extends AppCompatActivity {
         SideBar.setVisibility(setSmall);
         BigSideBar.setVisibility(setBig);
         BigTabButton.setVisibility(setBig);
+    }
+
+    public void neutroButton(View v) {
+        TowerDefensePog game = (TowerDefensePog) findViewById(R.id.gameFragment);
+        game.setTowerPlacementMode(TowerType.NEUTROPHIL);
     }
 }

@@ -27,6 +27,9 @@ public class Tower extends Entity {
         if(!isPhagocyte)return;
         int dist = 99999999;
         Antigen target = null;
+
+        if(enemies.isEmpty()) return;
+
         for(Antigen a: enemies){
             if(distanceTo(a) <= dist){
                 target = a;

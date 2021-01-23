@@ -6,10 +6,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
@@ -22,7 +25,15 @@ import java.util.ArrayList;
 
 //TowerDefensePog manages all game objects and logic, and also drawing things to the screen
 
-public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback {
+public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
+
+    boolean towerPlacementMode;//Tells if we need to draw the grid\
+    boolean placing = false;//Tells if the player is currently selecting(clicking) a square
+    private Bitmap placeableImage = new Aspergillus(this).image;//I'm trying to make an image that will follow the finger while the player drags it around
+    private float touchX;
+    private float touchY;
+
+    Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
@@ -36,6 +47,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
+
 
     Map map;
     Aspergillus one;
@@ -51,13 +63,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         this.context = context;
         screenX = 1440; screenY = 900;
+        towerPlacementMode = false;placing = false;
 
         this.getHolder().setFixedSize(screenX, screenY);
+        setOnTouchListener(this);
+        setFocusable(false);
 
         background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
-        map = new Map(getResources().getString(R.string.map_coordinate), screenX, screenY);
+        map = new Map(getResources().getString(R.string.map_coordinate), screenX, screenY); //An
         one = new Aspergillus(context, map);
 
         SurfaceHolder SH = getHolder();
@@ -65,24 +80,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         gameLoop = new GameLoop(this, SH);
 
-        setFocusable(true);
+        //setFocusable(true);
 
        //tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
         tileRows = 10; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
-        Antigen a = new Aspergillus(this); //Testing, only temporary
-        a.screenX = 500; a.screenY= 500;
 
-        Tower t = new Neutrophil(25,25, this);
-
-        neutro = BitmapFactory.decodeResource(getResources(), R.drawable.aspergillus);//no neutrophil image I guess... Sadge
-        neutro = Bitmap.createScaledBitmap(neutro, 120, 120, false);
-
-        towers.add(t);
+        //Tower t = new Neutrophil(0,0, this);
 
 
-        addEnemy(a);
+        //towers.add(t);
+
 
     }
 
@@ -106,7 +115,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void draw(Canvas canvas) {
         super.draw(canvas);
         drawBackground(canvas);
-        drawGrid(canvas);
+        if(towerPlacementMode){
+            drawGrid(canvas);
+            if(placing){
+                drawPlaceable(canvas);
+            }
+        }
         drawEnemies(canvas);
         drawTowers(canvas);
 
@@ -127,6 +141,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    public void drawPlaceable(Canvas canvas){
+
+        canvas.drawBitmap(placeableImage, touchX, touchY, paint);
+        canvas.drawRect(touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH + TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
+        //Rect is trying to highlight the square that it will be placed on when the user lets go
+        //xStart, yStart, xEnd, yEnd
+    }
+
     public void drawBackground(Canvas canvas) { //made this it's own method in case we add anything
 
         canvas.drawBitmap(background, 0, 0, paint);
@@ -135,7 +157,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-        for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
+       if(!enemies.isEmpty()) for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
 
         canvas.drawBitmap(one.getImage(), one.getX(), one.getY(), paint);
         one.getHealthbar().draw(canvas);
@@ -144,7 +166,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void drawTowers(Canvas canvas){
-        for(Tower e: towers) canvas.drawBitmap(neutro, e.screenX, e.screenY, paint);
+        for(Tower e: towers) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
     }
 
     public void update() { //move things around, logic
@@ -154,11 +176,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         one.move();
 
-        for(Antigen e : enemies)
-        {
+//        for(Antigen e : enemies)
+//        {
 //           if(e.getHealth() <= 0) enemies.remove(e); //wont work that good
-
-        }
+//
+//        }
 
 
         for(Tower t: towers){
@@ -166,6 +188,50 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             t.attack(enemies);
         }
 
+        if(towerPlacementMode){
+
+        }
+
+    }
+
+    public void setTowerPlacementMode(TowerType selected){//initiated by the buttons in the sidebar
+        towerPlacementMode = !towerPlacementMode;
+        setFocusable(towerPlacementMode);
+        if(selected == null) return;
+        switch(selected) {
+            case NEUTROPHIL:
+                towerWeGonnaPlace = new Neutrophil(0,0, this);
+                break;
+        }
+        //need to set the placeable bitmap to be connected to selected
+    }
+
+    public void endTowerPlacementMode(){//
+        towerPlacementMode = !towerPlacementMode;
+        setFocusable(towerPlacementMode);
+
+        //need to set the placeable bitmap to be connected to selected
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event){
+        switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                placing = true;
+            case MotionEvent.ACTION_MOVE:
+                touchX = event.getX();
+                touchY = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                touchX = event.getX();
+                touchY = event.getY();
+                endTowerPlacementMode();
+                towerWeGonnaPlace.screenX = (int)touchX;
+                towerWeGonnaPlace.screenY = (int) touchY;
+                if(towerWeGonnaPlace != null) addTower(towerWeGonnaPlace);
+                break;
+        }
+        return true;
     }
 
     public void addEnemy(EnemyType name) { //one way to add an enemy just by its name
@@ -178,12 +244,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         enemies.add(new Aspergillus(this));
     }
 
-    public void addEnemy(Antigen e)
-    {
-        enemies.add(e);
-    } //add an enemy by making the object yourself
-    public void addTower(Tower t)
-    {towers.add(t);}
-// Deez nuts
+    public void addEnemy(Antigen e){enemies.add(e);} //add an enemy by making the object yourself
+
+    public void addTower(Tower t){towers.add(t);}// Deez nuts
+
+    public void addTower(int x, int y){//adds based on screen coordinates
+
+    }
 
 }

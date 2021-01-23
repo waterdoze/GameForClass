@@ -32,9 +32,15 @@ public class GameLoop extends Thread{
 
             try {
                 canvas = SH.lockCanvas(); //grab the canvas to draw on it
-                TDP.update();
-                TDP.draw(canvas);
-                SH.unlockCanvasAndPost(canvas); //let the canvas go and be rendered
+
+                if(canvas != null)
+                {
+                    TDP.update();
+                    TDP.draw(canvas);
+                    SH.unlockCanvasAndPost(canvas);
+                }
+                //let the canvas go and be rendered
+                sleep(10);
 
             } catch (Exception e) {
                 e.printStackTrace();
