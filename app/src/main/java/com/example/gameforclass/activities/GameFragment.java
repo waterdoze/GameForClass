@@ -2,6 +2,7 @@ package com.example.gameforclass.activities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +18,7 @@ public class GameFragment extends Fragment {
 
 
     private static final String TAG = "Testing";
+    private TowerDefensePog TDP;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -26,13 +28,11 @@ public class GameFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        TowerDefensePog TDP = new TowerDefensePog(this.getActivity());
+        TDP = new TowerDefensePog(this.getActivity());
 
         return TDP;
 
     }
-
 }
