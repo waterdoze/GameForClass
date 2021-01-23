@@ -8,8 +8,8 @@ import com.example.gameforclass.TowerDefensePog;
 import com.example.gameforclass.TowerType;
 
 public class Neutrophil extends Tower{
-    public Neutrophil(int x, int y, TowerDefensePog TDP) {
-        super(x, y);
+    public Neutrophil(int tileX, int tileY, TowerDefensePog TDP) {
+        super(tileX, tileY);
         dmg = 20;
         towerType = TowerType.NEUTROPHIL;
 
@@ -19,4 +19,5 @@ public class Neutrophil extends Tower{
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
         setImage(img);
     }
+
 }
