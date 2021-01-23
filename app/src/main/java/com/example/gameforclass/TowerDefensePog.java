@@ -207,8 +207,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void endTowerPlacementMode(){//
-        towerPlacementMode = !towerPlacementMode;
+        towerPlacementMode = false;
         setFocusable(towerPlacementMode);
+        towerWeGonnaPlace = null;
 
         //need to set the placeable bitmap to be connected to selected
     }
@@ -225,10 +226,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             case MotionEvent.ACTION_UP:
                 touchX = event.getX();
                 touchY = event.getY();
+
+
+                if(towerWeGonnaPlace != null)
+                {
+                    addTower(towerWeGonnaPlace);
+                    towerWeGonnaPlace.screenX = (int)touchX;
+                    towerWeGonnaPlace.screenY = (int) touchY;
+                }
                 endTowerPlacementMode();
-                towerWeGonnaPlace.screenX = (int)touchX;
-                towerWeGonnaPlace.screenY = (int) touchY;
-                if(towerWeGonnaPlace != null) addTower(towerWeGonnaPlace);
                 break;
         }
         return true;
