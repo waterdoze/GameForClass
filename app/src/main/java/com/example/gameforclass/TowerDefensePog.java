@@ -50,7 +50,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     Map map;
-    Aspergillus one;
+    Antigen one;
 
     private GameLoop gameLoop;  //Handles drawing the class every frame
     private Context context;
@@ -73,7 +73,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
         map = new Map(getResources().getString(R.string.map_coordinate), screenX, screenY); //An
-        one = new Aspergillus(context, map);
+        one = new Aspergillus(context, map, this);
+
+
+        enemies.add(one);
+        enemies.add(new Aspergillus(this));
 
         SurfaceHolder SH = getHolder();
         SH.addCallback(this);
@@ -82,7 +86,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         //setFocusable(true);
 
-        tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
+       //tileRows = screenY / TILE_HEIGHT; tileCols = screenX / TILE_WIDTH;
+        tileRows = 10; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
 
@@ -156,10 +161,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawEnemies(Canvas canvas) {
 
-       if(!enemies.isEmpty()) for(Antigen e: enemies) canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
+       if(!enemies.isEmpty())
+       {
+           for(Antigen e: enemies)
+           {
+               canvas.drawBitmap(e.image, e.screenX, e.screenY, paint);
+               e.getHealthbar().draw(canvas);
+           }
+       }
 
-        canvas.drawBitmap(one.getImage(), one.getX(), one.getY(), paint);
-        one.getHealthbar().draw(canvas);
 
     }
 
@@ -171,15 +181,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void update() { //move things around, logic
 //would we call a target method here?
 
+        if(!enemies.isEmpty())
+        {
+            for(Antigen e : enemies)
+            {
+                //e.move();
+                if(e.getHealth() <= 0) enemies.remove(e); //wont work that good
 
+            }
+        }
 
-        one.move();
-
-//        for(Antigen e : enemies)
-//        {
-//           if(e.getHealth() <= 0) enemies.remove(e); //wont work that good
-//
-//        }
 
 
         for(Tower t: towers){
@@ -187,9 +198,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             t.attack(enemies);
         }
 
-        if(towerPlacementMode){
 
-        }
+
+
 
     }
 
@@ -206,8 +217,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void endTowerPlacementMode(){//
-        towerPlacementMode = !towerPlacementMode;
+        towerPlacementMode = false;
         setFocusable(towerPlacementMode);
+        towerWeGonnaPlace = null;
 
         //need to set the placeable bitmap to be connected to selected
     }
@@ -224,10 +236,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             case MotionEvent.ACTION_UP:
                 touchX = event.getX();
                 touchY = event.getY();
+
+
+                if(towerWeGonnaPlace != null)
+                {
+                    addTower(towerWeGonnaPlace);
+                    towerWeGonnaPlace.screenX = (int)(touchX - touchX % TILE_WIDTH);
+                    towerWeGonnaPlace.screenY = (int) (touchY - touchY % TILE_HEIGHT);
+                }
                 endTowerPlacementMode();
-                towerWeGonnaPlace.screenX = (int)touchX;
-                towerWeGonnaPlace.screenY = (int) touchY;
-                if(towerWeGonnaPlace != null) addTower(towerWeGonnaPlace);
                 break;
         }
         return true;
