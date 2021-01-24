@@ -23,7 +23,6 @@ public class Antigen extends Entity {
     public int dy, dx;
 
     private EnemyType type;
-    private Bitmap unit;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
@@ -32,7 +31,7 @@ public class Antigen extends Entity {
 
         super(tileX, tileY, 1);
 
-        this.unit = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.aspergillus), 120, 120, false);
+
         this.map = map;
         this.health = health;
         this.biomolecule = biomolecule;
@@ -59,6 +58,7 @@ public class Antigen extends Entity {
         super(tileX, tileY, 1);
         this.type = antigenType;
         this.health = health;
+
     }
 
     public EnemyType getType() {
@@ -94,10 +94,6 @@ public class Antigen extends Entity {
 
     public int getMaxHealth() {
         return maxHealth;
-    }
-
-    public Bitmap getImage() {
-        return unit;
     }
 
     public Healthbar getHealthbar() {

@@ -13,8 +13,14 @@ import com.example.gameforclass.antigens.Antigen;
 
 public class Aspergillus extends Antigen {
 
-    public Aspergillus(Context context, Map map) {
-        super(context, map,100, 50, EnemyType.ASPERGILLUS, 30, 100);
+
+
+    public Aspergillus(Context context, Map map, TowerDefensePog TDP) {
+        super(context, map,70, 50, EnemyType.ASPERGILLUS, 30, 100);
+
+        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.aspergillus);
+        img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
+        setImage(img);
     }
 
     public Aspergillus(TowerDefensePog TDP)
@@ -26,23 +32,5 @@ public class Aspergillus extends Antigen {
         setImage(img);
     }
 
-    @Override
-    public void move() {
-        super.move();
-    }
 
-    @Override
-    public void takeDamage(int damage) {
-        super.takeDamage(damage);
-    }
-
-    @Override
-    public Bitmap getImage() {
-        return super.getImage();
-    }
-
-    @Override
-    public Healthbar getHealthbar() {
-        return super.getHealthbar();
-    }
 }
