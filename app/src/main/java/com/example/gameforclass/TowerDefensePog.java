@@ -209,11 +209,19 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
             if(t.attackTimer == 50)
             {
-                if(t.attack(enemies)) attacked = true;
-                t.attackTimer = 0;
+                if(t.attack(enemies)){
+                    attacked = true;
+                    t.attackTimer = 0;
+                }
 
             }
-            else {t.attackTimer++; t.attackPellet.move();}
+            else {
+                t.attackTimer++;
+                if(t.attackPellet!=null) {
+                    t.attackPellet.move();
+                    if (t.attackPellet.hitEm) t.attackPellet = null;
+                }
+            }
 
         }
 

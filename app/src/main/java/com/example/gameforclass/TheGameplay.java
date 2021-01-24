@@ -2,12 +2,16 @@ package com.example.gameforclass;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -47,16 +51,49 @@ public class TheGameplay extends AppCompatActivity {
         ScrollView BigSideBar = findViewById(R.id.BigSideBar);
         ImageButton SmallTabButton = findViewById(R.id.SmallTabButton);
         ImageButton BigTabButton = findViewById(R.id.BigTabButton);
+        ObjectAnimator animation = ObjectAnimator.ofFloat(SideBar, "translationX", 500f);
+        animation.setDuration(1000);
+        animation.start();
+//        AnimatorSet tabs = new AnimatorSet();
+//        tabs.playTogether(
+//                ObjectAnimator.ofFloat(SideBar, "translationX", 510f),
+//                ObjectAnimator.ofFloat(SmallTabButton, "translationX", 510f)
+//        );
+//        tabs.setDuration(1000);
+//        tabs.start();
+        animation.addListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+
+        });
 
         int setBig = 0; int setSmall = 8;
         if(v.getId() == R.id.BigTabButton){//if this is the big tab button we pressed, then we want to make the big ones disappear
             setBig = 8;
             setSmall = 0;
         }
-        SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
+        //SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
         SideBar.setVisibility(setSmall);
-        BigSideBar.setVisibility(setBig);
-        BigTabButton.setVisibility(setBig);
+        //BigSideBar.setVisibility(setBig);
+        //BigTabButton.setVisibility(setBig);
     }
 
     public void neutroButton(View v) {

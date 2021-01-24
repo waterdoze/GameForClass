@@ -16,8 +16,8 @@ public class AttackPellet {
         this.targetX = targetX;
         this.targetY = targetY;
         this.size = dmg / 5;
-        dx = (targetX - screenX)/5;
-        dy = (targetY - screenY)/5;
+        dx = (targetX - screenX)/7;
+        dy = (targetY - screenY)/7;
     }
 
     public void move(){
