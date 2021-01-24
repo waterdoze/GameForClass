@@ -31,7 +31,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/BigSideBar"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rabies_hard_mode"
+        app:srcCompat="@drawable/cholera_easy_mode"
         tools:visibility="invisible" />
 
     <ScrollView
@@ -149,6 +149,9 @@
                 android:id="@+id/imageButton3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:scaleType="centerInside"
                 app:srcCompat="@drawable/buttontemplate" />
         </LinearLayout>
     </ScrollView>

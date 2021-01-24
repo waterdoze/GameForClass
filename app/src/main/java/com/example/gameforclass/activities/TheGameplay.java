@@ -1,13 +1,20 @@
 package com.example.gameforclass.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -27,6 +34,8 @@ public class TheGameplay extends AppCompatActivity {
     //TheGameplay is the activity in which the GameFragment class runs in
 
     TowerDefensePog game;
+    boolean sideBarisBig;
+    boolean animationEnded;
 
 
     @Override
@@ -40,26 +49,115 @@ public class TheGameplay extends AppCompatActivity {
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
 
+        sideBarisBig = false; animationEnded = false;
          game = (TowerDefensePog) findViewById(R.id.gameFragment);
+         AnimatorSet invisAnim = new AnimatorSet();
+        invisAnim.setDuration(50);
+        invisAnim.playTogether(
+                ObjectAnimator.ofFloat(findViewById(R.id.BigSideBar), "translationX", 705f),
+                ObjectAnimator.ofFloat(findViewById(R.id.BigTabButton), "translationX", 705f)
+        );
+        invisAnim.start();
     }
 
     //SETVISIBILITY VALUES: 0 == VISIBLE      4 == INVISIBLE      8 == GONE
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")//Allows the setVisibility to take values other than the constants
     public void changeSideBar(View v){//If the expand button is pressed, this is called. Animation will be added soon
+        animationEnded = false;
         ScrollView SideBar = findViewById(R.id.SideBar);
         ScrollView BigSideBar = findViewById(R.id.BigSideBar);
         ImageButton SmallTabButton = findViewById(R.id.SmallTabButton);
         ImageButton BigTabButton = findViewById(R.id.BigTabButton);
+        AnimatorSet setOne = new AnimatorSet();
+        AnimatorSet setTwo = new AnimatorSet();
 
         int setBig = 0; int setSmall = 8;
-        if(v.getId() == R.id.BigTabButton){//if this is the big tab button we pressed, then we want to make the big ones disappear
+        if(sideBarisBig){//if this is the big tab button we pressed, then we want to make the big ones disappear
             setBig = 8;
             setSmall = 0;
         }
-        SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
-        SideBar.setVisibility(setSmall);
-        BigSideBar.setVisibility(setBig);
-        BigTabButton.setVisibility(setBig);
+
+
+        ObjectAnimator SmallSideBarAnim = ObjectAnimator.ofFloat(SideBar, "translationX", (!sideBarisBig)?510f : 0f);
+        SmallSideBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if(!animationEnded){
+                    sideBarisBig = true;
+                    animationEnded = true;
+                    SideBar.setVisibility(8);
+                    SmallTabButton.setVisibility(8);
+                    BigSideBar.setVisibility(0);
+                    BigTabButton.setVisibility(0);
+                    setTwo.start();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+
+        });
+        ObjectAnimator BigSideBarAnim = ObjectAnimator.ofFloat(BigSideBar, "translationX", sideBarisBig?705f : 0f);
+        BigSideBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if(!animationEnded){
+                    sideBarisBig = false;
+                    animationEnded = true;
+                    SideBar.setVisibility(0);
+                    SmallTabButton.setVisibility(0);
+                    BigSideBar.setVisibility(8);
+                    BigTabButton.setVisibility(8);
+                    setOne.start();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+
+        });
+        setOne.playTogether(
+                ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?510f : 0f),
+                SmallSideBarAnim
+        );
+        setOne.setDuration(400);
+        setTwo.playTogether(
+                ObjectAnimator.ofFloat(BigTabButton, "translationX", sideBarisBig?705f : 0f),
+                BigSideBarAnim
+        );//.723
+        setTwo.setDuration(450);
+        if(!sideBarisBig){setOne.start();}
+        else {setTwo.start();}
+
+//        SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
+//        SideBar.setVisibility(setSmall);
+//        BigSideBar.setVisibility(setBig);
+//        BigTabButton.setVisibility(setBig);
     }
 
     public void neutroButton(View v) {

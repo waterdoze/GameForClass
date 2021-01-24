@@ -2,7 +2,9 @@ package com.example.gameforclass.cells;
 
 import android.util.Log;
 
+import com.example.gameforclass.AttackPellet;
 import com.example.gameforclass.Entity;
+import com.example.gameforclass.TowerDefensePog;
 import com.example.gameforclass.TowerType;
 import com.example.gameforclass.antigens.Antigen;
 
@@ -12,7 +14,8 @@ public class Tower extends Entity {
     public int range;
     public int dmg;
     public int biomolecules;
-    public int attackTimer = 0;
+    public int attackTimer = 50;
+    public AttackPellet attackPellet;
 
     public boolean isPhagocyte;//Can this cell attack stuff
 
@@ -21,7 +24,6 @@ public class Tower extends Entity {
     public Tower(int tileX, int tileY)
     {
         super(tileX, tileY, 0);
-
     }
 
     public double distanceTo(Entity other){
@@ -30,7 +32,6 @@ public class Tower extends Entity {
 
     public boolean attack(ArrayList<Antigen> enemies){ //return false if did not attack
         if(!isPhagocyte)return false;
-        int dist = 99999999;
         Antigen target = null;
         double d = 0;
 
@@ -40,14 +41,16 @@ public class Tower extends Entity {
 
             d = distanceTo(a);
 
-            if(target == null && d <= dist ){ //if there's no target yet, set it to any target
-                target = a;                                                                                 //set to closest target in enemies list
+            if(target == null && d <= range ){ //if there's no target yet, set it to any target
+                target = a;                   //set to closest target in enemies list
             }
-            else if (d <= dist && target != null && d < distanceTo(target)) target = a;
+            else if (d <= range && target != null && d < distanceTo(target)) target = a;
 
         }
         if(target == null) return false;
         target.takeDamage(dmg); //if an enemy is in range, attack
+        //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+        attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);
         return true;
     }
 }
