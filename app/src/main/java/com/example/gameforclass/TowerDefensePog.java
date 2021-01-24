@@ -88,7 +88,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         gameLoop = new GameLoop(this, SH);
 
-        tileRows = 10; tileCols = 20;
+        tileRows = 12; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
 
