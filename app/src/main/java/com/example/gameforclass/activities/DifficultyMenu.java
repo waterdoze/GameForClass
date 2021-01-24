@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.gameforclass.R;
-import com.example.gameforclass.TheGameplay;
 
 public class DifficultyMenu extends AppCompatActivity {
 

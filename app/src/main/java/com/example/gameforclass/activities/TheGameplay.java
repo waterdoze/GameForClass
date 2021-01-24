@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.gameforclass.R;
+import com.example.gameforclass.TowerDefensePog;
+import com.example.gameforclass.TowerType;
 import com.example.gameforclass.cells.Tower;
 
 import org.w3c.dom.Text;
