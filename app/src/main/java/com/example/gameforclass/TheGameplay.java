@@ -11,14 +11,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.gameforclass.cells.Tower;
+
+import org.w3c.dom.Text;
 
 public class TheGameplay extends AppCompatActivity {
 
     private int difficulty = 0; //EASY = 1; MEDIUM = 2; HARD = 3;
 
     //TheGameplay is the activity in which the GameFragment class runs in
+
+    TowerDefensePog game;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,8 @@ public class TheGameplay extends AppCompatActivity {
         difficulty = i.getIntExtra("difficulty", 0); //If data not received, 0 is returned
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
+
+         game = (TowerDefensePog) findViewById(R.id.gameFragment);
     }
 
     //SETVISIBILITY VALUES: 0 == VISIBLE      4 == INVISIBLE      8 == GONE
@@ -52,7 +60,23 @@ public class TheGameplay extends AppCompatActivity {
     }
 
     public void neutroButton(View v) {
-        TowerDefensePog game = (TowerDefensePog) findViewById(R.id.gameFragment);
+
         game.setTowerPlacementMode(TowerType.NEUTROPHIL);
     }
+
+    public void changeText(int playerHP, int bio, int round)
+    {
+        runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread
+            @Override
+            public void run() {
+                ((TextView)findViewById(R.id.PlayerHealth)).setText(String.format("Health: %d/100", playerHP));
+                ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("BM: %d", bio));
+                ((TextView)findViewById(R.id.RoundCounter)).setText(String.format("Round: %d", round));
+
+            }
+        });
+
+    }
+
+
 }

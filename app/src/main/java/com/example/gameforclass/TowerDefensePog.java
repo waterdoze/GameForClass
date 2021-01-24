@@ -10,9 +10,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
@@ -35,7 +35,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private float touchX;
     private float touchY;
 
+    boolean firstUpdate = true;
+
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
+
+    int playerHP = 100;
+    int playerBiomolecules = 100;
+    int round = 1;
 
     int drawTimer = 0;
     int addEnemyTimer = 0;
@@ -84,11 +90,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         gameLoop = new GameLoop(this, SH);
 
-        tileRows = 10; tileCols = 20;
+        tileRows = 12; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
-
-
-
 
 
     }
@@ -151,8 +154,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawPlaceable(Canvas canvas){
 
-        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX, touchY, paint);
-        canvas.drawRect(touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH + TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
+        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX - TILE_WIDTH, touchY - TILE_HEIGHT, paint);
+        canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
     }
@@ -193,6 +196,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void update() { //move things around, logic
 
+        if(firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
+        {
+            firstUpdate = false;
+            ((TheGameplay)context).changeText(playerHP, playerBiomolecules, round);
+        }
+
         updateEnemies();
 
 
@@ -216,11 +225,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         {
             for(int i=0; i < enemies.size(); i++)
             {
-                enemies.get(i).move();
-                if(enemies.get(i).getHealth() <= 0)
+                Antigen e = enemies.get(i);
+                e.move();
+                if(e.getHealth() <= 0 || e.pathFinished)
                 {
+                    if(e.pathFinished) //decrease player health if enemy got to the end of the path
+                    {
+                        playerHP -= 1;
+
+                    }
+                    else if(e.getHealth() <= 0) //add biomolecules to the total amount
+                    {
+                        playerBiomolecules += e.getBiomolecule();
+                    }
                     enemies.remove(i);
                     i--;
+
+                    ((TheGameplay)context).changeText(playerHP, playerBiomolecules, round); //updates UI text
                 }
 
             }
@@ -238,20 +259,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
+
     public void setTowerPlacementMode(TowerType selected){//initiated by the buttons in the sidebar
-        towerPlacementMode = !towerPlacementMode;
-        setFocusable(towerPlacementMode);
+        towerPlacementMode = true;
+
         if(selected == null) return;
         switch(selected) {
             case NEUTROPHIL:
                 towerWeGonnaPlace = new Neutrophil(0,0, this);
                 break;
         }
+        setFocusable(towerPlacementMode);
         //need to set the placeable bitmap to be connected to selected
     }
 
     public void endTowerPlacementMode(){//
         towerPlacementMode = false;
+        placing = false;
         setFocusable(towerPlacementMode);
         towerWeGonnaPlace = null;
 
@@ -275,7 +299,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if(towerWeGonnaPlace != null)
                 {
                     addTower(towerWeGonnaPlace);
-                    towerWeGonnaPlace.posX = (int)(touchX - touchX % TILE_WIDTH);
+                    towerWeGonnaPlace.posX = (int)(touchX - touchX % TILE_WIDTH - TILE_WIDTH);
                     towerWeGonnaPlace.posY = (int) (touchY - touchY % TILE_HEIGHT);
                 }
                 endTowerPlacementMode();
