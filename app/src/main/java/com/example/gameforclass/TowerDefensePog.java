@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
+import com.example.gameforclass.antigens.HIV;
+import com.example.gameforclass.antigens.Pneumococcus;
 import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
 
@@ -36,6 +38,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
     int drawTimer = 0;
+    int addEnemyTimer = 0;
 
     boolean attacked = false;
 
@@ -75,8 +78,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
-        
-        enemies.add(new Aspergillus(context, this));
 
         SurfaceHolder SH = getHolder();
         SH.addCallback(this);
@@ -189,7 +190,25 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void update() { //move things around, logic
 
+        updateEnemies();
 
+
+        for(Tower t: towers){
+
+            if(t.attackTimer == 50)
+            {
+                if(t.attack(enemies)) attacked = true;
+                t.attackTimer = 0;
+
+            }
+            else t.attackTimer++;
+
+        }
+
+    }
+
+    public void updateEnemies()
+    {
         if(!enemies.isEmpty())  // move enemies and check if they're dead
         {
             for(int i=0; i < enemies.size(); i++)
@@ -204,18 +223,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             }
         }
 
-
-
-        for(Tower t: towers){
-
-            if(t.attackTimer == 50)
+        if(enemies.size() < 5) //only 5 enemies on screen at a time for now
+        {
+            if(addEnemyTimer == 20)
             {
-                if(t.attack(enemies)) attacked = true;
-                t.attackTimer = 0;
-
+                addEnemy(EnemyType.ASPERGILLUS);
+                addEnemyTimer = 0;
             }
-            else t.attackTimer++;
-
+            else addEnemyTimer++;
         }
 
     }
@@ -268,12 +283,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void addEnemy(EnemyType name) { //one way to add an enemy just by its name
 
-//        switch(name) {
-//            case PNEUMOCOCCUS: enemies.add(new Pneumococcus(this)); break;
-//            case ASPERGILLUS:  enemies.add(new Aspergillus(this)); break;
-//            case HIV:          enemies.add(new HIV(this)); break;
-//        }
-        enemies.add(new Aspergillus(context, this));
+        switch(name) {
+            case PNEUMOCOCCUS: enemies.add(new Pneumococcus(context, this)); break;
+            case ASPERGILLUS:  enemies.add(new Aspergillus(context, this)); break;
+            case HIV:          enemies.add(new HIV(context, this)); break;
+        }
+
     }
 
     public void addEnemy(Antigen e){enemies.add(e);} //add an enemy by making the object yourself
