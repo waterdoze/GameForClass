@@ -71,7 +71,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public TowerDefensePog(Context context) {
         super(context);
-
+        //yep cock
         this.context = context;
         screenX = 1440; screenY = 900;
         towerPlacementMode = false; placing = false;
