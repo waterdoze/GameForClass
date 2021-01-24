@@ -10,9 +10,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.antigens.Antigen;
@@ -36,6 +36,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private float touchY;
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
+
+    int playerHP = 100;
+    int playerBiomolecules = 0;
+    int round = 1;
 
     int drawTimer = 0;
     int addEnemyTimer = 0;
@@ -213,11 +217,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         {
             for(int i=0; i < enemies.size(); i++)
             {
-                enemies.get(i).move();
-                if(enemies.get(i).getHealth() <= 0)
+                Antigen e = enemies.get(i);
+                e.move();
+                if(e.getHealth() <= 0 || e.pathFinished)
                 {
+                    if(e.pathFinished) //decrease player health if enemy got to the end of the path
+                    {
+                        playerHP -= 1;
+
+                    }
+                    else if(e.getHealth() <= 0) //add biomolecules to the total amount
+                    {
+                        playerBiomolecules += e.getBiomolecule();
+                    }
                     enemies.remove(i);
                     i--;
+
+                    ((TheGameplay)context).changeText(playerHP, playerBiomolecules, round); //updates UI text
                 }
 
             }
@@ -234,6 +250,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
 
     }
+
 
     public void setTowerPlacementMode(TowerType selected){//initiated by the buttons in the sidebar
         towerPlacementMode = !towerPlacementMode;

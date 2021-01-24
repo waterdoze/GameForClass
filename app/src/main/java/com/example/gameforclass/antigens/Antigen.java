@@ -22,6 +22,8 @@ public class Antigen extends Entity {
     private int gear = 0, counter = 2, margin = 2;
     public int dy, dx;
 
+    public boolean pathFinished = false;
+
     private int screenX, screenY; //SIZE OF THE FRAGMENT
 
     private EnemyType type;
@@ -96,6 +98,8 @@ public class Antigen extends Entity {
 
     public void move() {
 
+        if(pathFinished) return;
+
         double changeX;
         double changeY;
 
@@ -169,6 +173,11 @@ public class Antigen extends Entity {
                 nextX = path.get(counter);
                 nextY = path.get(counter + 1);
                 counter += 2;
+            }
+            else
+            {
+                pathFinished = true;
+                return;
             }
         }
 
