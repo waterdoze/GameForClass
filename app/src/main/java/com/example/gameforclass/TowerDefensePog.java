@@ -35,10 +35,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private float touchX;
     private float touchY;
 
+    boolean firstUpdate = true;
+
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
     int playerHP = 100;
-    int playerBiomolecules = 0;
+    int playerBiomolecules = 100;
     int round = 1;
 
     int drawTimer = 0;
@@ -90,9 +92,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         tileRows = 12; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
-
-
-
 
 
     }
@@ -193,6 +192,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void update() { //move things around, logic
+
+        if(firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
+        {
+            firstUpdate = false;
+            ((TheGameplay)context).changeText(playerHP, playerBiomolecules, round);
+        }
 
         updateEnemies();
 
