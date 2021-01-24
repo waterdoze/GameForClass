@@ -9,6 +9,7 @@ import com.example.gameforclass.Entity;
 import com.example.gameforclass.Healthbar;
 import com.example.gameforclass.Map;
 import com.example.gameforclass.R;
+import com.example.gameforclass.TowerDefensePog;
 
 import java.util.ArrayList;
 
@@ -19,31 +20,33 @@ public class Antigen extends Entity {
     private int health, maxHealth, biomolecule, velocity;
     private double currentX, currentY, nextX, nextY;
     private int gear = 0, counter = 2, margin = 2;
-    private int tileX, tileY;
     public int dy, dx;
+
+    private int screenX, screenY; //SIZE OF THE FRAGMENT
 
     private EnemyType type;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, Map map, int health, int biomolecule, EnemyType type, int tileX, int tileY) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, EnemyType type, int tileX, int tileY) {
 
         super(tileX, tileY, 1);
 
+        screenX = 1440; screenY = 900; //SIZE OF THE FRAGMENT
+        map = new Map(TDP.getResources().getString(R.string.map_coordinate), screenX, screenY);
 
-        this.map = map;
+
         this.health = health;
         this.biomolecule = biomolecule;
         this.type = type;
-        this.tileX = tileX;
-        this.tileY = tileY;
         dy = dx = 0;
 
         maxHealth = health;
         velocity = 12;
 
         path = map.getSolvedCoordinateArray();
+
         healthbar = new Healthbar(context, this);
 
         currentX = path.get(0);
@@ -54,12 +57,6 @@ public class Antigen extends Entity {
 
     }
 
-    public Antigen(int tileX, int tileY, EnemyType antigenType, int health) {
-        super(tileX, tileY, 1);
-        this.type = antigenType;
-        this.health = health;
-
-    }
 
     public EnemyType getType() {
         return type;
@@ -177,5 +174,8 @@ public class Antigen extends Entity {
                 counter += 2;
             }
         }
+
+        posX = (int)currentX;
+        posY = (int)currentY;
     }
 }

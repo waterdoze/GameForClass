@@ -20,7 +20,7 @@ public class Tower extends Entity {
     }
 
     public double distanceTo(Entity other){
-        return Math.sqrt( ( Math.abs( (double)(this.screenX-other.screenX) ) + Math.abs( (double)(this.screenY-other.screenY) ) ) );
+        return Math.sqrt( ( Math.abs( (double)(this.posX-other.posX) ) + Math.abs( (double)(this.posY-other.posY) ) ) );
     }
 
     public void attack(ArrayList<Antigen> enemies){
