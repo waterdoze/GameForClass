@@ -155,8 +155,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawPlaceable(Canvas canvas){
 
-        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX, touchY, paint);
-        canvas.drawRect(touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH + TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
+        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX - TILE_WIDTH, touchY - TILE_HEIGHT, paint);
+        canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
     }
@@ -253,19 +253,21 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void setTowerPlacementMode(TowerType selected){//initiated by the buttons in the sidebar
-        towerPlacementMode = !towerPlacementMode;
-        setFocusable(towerPlacementMode);
+        towerPlacementMode = true;
+
         if(selected == null) return;
         switch(selected) {
             case NEUTROPHIL:
                 towerWeGonnaPlace = new Neutrophil(0,0, this);
                 break;
         }
+        setFocusable(towerPlacementMode);
         //need to set the placeable bitmap to be connected to selected
     }
 
     public void endTowerPlacementMode(){//
         towerPlacementMode = false;
+        placing = false;
         setFocusable(towerPlacementMode);
         towerWeGonnaPlace = null;
 
@@ -289,7 +291,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if(towerWeGonnaPlace != null)
                 {
                     addTower(towerWeGonnaPlace);
-                    towerWeGonnaPlace.posX = (int)(touchX - touchX % TILE_WIDTH);
+                    towerWeGonnaPlace.posX = (int)(touchX - touchX % TILE_WIDTH - TILE_WIDTH);
                     towerWeGonnaPlace.posY = (int) (touchY - touchY % TILE_HEIGHT);
                 }
                 endTowerPlacementMode();
