@@ -143,7 +143,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void drawPlaceable(Canvas canvas){
 
         canvas.drawBitmap(placeableImage, touchX, touchY, paint);
-        canvas.drawRect(touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH + TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
+        canvas.drawRect(touchX - (touchX % TILE_WIDTH + TILE_WIDTH), touchY - (touchY % TILE_HEIGHT + TILE_HEIGHT), touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
     }
@@ -225,8 +225,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 touchX = event.getX();
                 touchY = event.getY();
                 endTowerPlacementMode();
-                towerWeGonnaPlace.screenX = (int)(touchX - touchX % TILE_WIDTH);
-                towerWeGonnaPlace.screenY = (int) (touchY - touchY % TILE_HEIGHT);
+                towerWeGonnaPlace.screenX = (int)(touchX - (touchX % TILE_WIDTH + TILE_WIDTH));
+                towerWeGonnaPlace.screenY = (int) (touchY - (touchY % TILE_HEIGHT + TILE_HEIGHT));
                 if(towerWeGonnaPlace != null) addTower(towerWeGonnaPlace);
                 break;
         }
