@@ -5,16 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
 import com.example.gameforclass.antigens.HIV;
@@ -31,11 +30,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     boolean towerPlacementMode;//Tells if we need to draw the grid\
     boolean placing = false; //Tells if the player is currently selecting(clicking) a square
-   // private Bitmap placeableImage = new Aspergillus(this).image;//I'm trying to make an image that will follow the finger while the player drags it around
     private float touchX;
     private float touchY;
 
-    boolean firstUpdate = true;
+    boolean firstUpdate = true; //if it's the first time calling update()
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
@@ -43,16 +41,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int playerBiomolecules = 100;
     int round = 1;
 
-    int drawTimer = 0;
-    int addEnemyTimer = 0;
+    int drawTimer = 0; //for drawing the word attack on screen
+    int addEnemyTimer = 0; //for having a delay when enemies come on screen
 
-    boolean attacked = false;
+    boolean attacked = false; //if a tower is attacking
 
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
     int tileRows, tileCols;
 
-    private char[][] tiles;//P = Path
+    private char[][] tiles;//The grid for tower placement; P = Path
 
     private Bitmap background; //background image of lungs
 
@@ -60,19 +58,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
 
-
-    Map map;
-    Antigen one;
-
     private GameLoop gameLoop;  //Handles drawing the class every frame
-    private Context context;
+    private Context context; //the activity; to use, cast as (TheGameplay)
     public int screenX, screenY; //Size of the FRAGMENT, not the whole screen
 
-    private Paint paint = new Paint();
+    private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
 
     public TowerDefensePog(Context context) {
         super(context);
-
+        //yep cock
         this.context = context;
         screenX = 1440; screenY = 900;
         towerPlacementMode = false; placing = false;
