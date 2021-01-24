@@ -35,6 +35,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
+    int drawTimer = 0;
+
+    boolean attacked = false;
+
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
     int tileRows, tileCols;
@@ -71,11 +75,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
-
-        one = new Aspergillus(context, this);
-
-
-        enemies.add(one);
+        
         enemies.add(new Aspergillus(context, this));
 
         SurfaceHolder SH = getHolder();
@@ -121,6 +121,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawEnemies(canvas);
         drawTowers(canvas);
 
+        if(attacked)
+        {
+            if(drawTimer++ < 20) drawAttack(canvas);
+            else
+            {
+                attacked = false;
+                drawTimer = 0;
+            }
+        }
+
     }
 
     public void drawGrid(Canvas canvas) {
@@ -140,7 +150,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawPlaceable(Canvas canvas){
 
-        canvas.drawBitmap(towerWeGonnaPlace.image, touchX, touchY, paint);
+        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX, touchY, paint);
         canvas.drawRect(touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH + TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
@@ -169,25 +179,44 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         for(Tower e: towers) canvas.drawBitmap(e.image, e.posX, e.posY, paint);
     }
 
-    public void update() { //move things around, logic
-//would we call a target method here?
+    public void drawAttack(Canvas canvas) {
+        int color = ContextCompat.getColor(context, R.color.teal_200);
+        paint.setColor(color);
+        paint.setTextSize(100);
 
-        if(!enemies.isEmpty())
+        canvas.drawText("ATTACKED", 200, 200, paint);
+    }
+
+    public void update() { //move things around, logic
+
+
+        if(!enemies.isEmpty())  // move enemies and check if they're dead
         {
-            for(Antigen e : enemies)
+            for(int i=0; i < enemies.size(); i++)
             {
-                e.move();
-                if(e.getHealth() <= 0) enemies.remove(e); //wont work that good
+                enemies.get(i).move();
+                if(enemies.get(i).getHealth() <= 0)
+                {
+                    enemies.remove(i);
+                    i--;
+                }
 
             }
         }
 
 
 
-//        for(Tower t: towers){
-//
-//            t.attack(enemies);
-//        }
+        for(Tower t: towers){
+
+            if(t.attackTimer == 50)
+            {
+                if(t.attack(enemies)) attacked = true;
+                t.attackTimer = 0;
+
+            }
+            else t.attackTimer++;
+
+        }
 
     }
 

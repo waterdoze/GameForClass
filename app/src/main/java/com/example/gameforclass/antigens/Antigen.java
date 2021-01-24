@@ -71,10 +71,7 @@ public class Antigen extends Entity {
     public void takeDamage(int damage) {
 
         health -= damage;
-
-        if (health <= 0) {
-
-        }
+        if(health < 0) health = 0;
     }
 
     public int getX() {

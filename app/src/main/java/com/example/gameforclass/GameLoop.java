@@ -9,6 +9,7 @@ public class GameLoop extends Thread{
     TowerDefensePog TDP; //class with the game logic
     SurfaceHolder SH;
     private boolean isRunning = false;
+    private boolean cLocked = false;
 
     public GameLoop(TowerDefensePog TDP, SurfaceHolder SH) {
         this.TDP = TDP;
@@ -24,22 +25,34 @@ public class GameLoop extends Thread{
     public void run() {
         super.run();
 
-        Canvas canvas;
+        Canvas canvas = null;
         while(isRunning) {
 
 
             //update and render game
 
             try {
-                canvas = SH.lockCanvas(); //grab the canvas to draw on it
 
-                if(canvas != null)
+                if(!cLocked)
                 {
-                    TDP.update();
-                    TDP.draw(canvas);
-                    SH.unlockCanvasAndPost(canvas);
+                    canvas = SH.lockCanvas();
+                    cLocked = true;
+
+                    if(canvas != null)
+                    {
+                        TDP.update();
+                        TDP.draw(canvas);
+                    }
+
+
                 }
-                //let the canvas go and be rendered
+
+                if(cLocked)
+                {
+                    if(canvas != null) SH.unlockCanvasAndPost(canvas);
+                    cLocked = false;
+                }
+
                 sleep(10);
 
             } catch (Exception e) {
