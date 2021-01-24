@@ -30,7 +30,6 @@ public class Tower extends Entity {
 
     public boolean attack(ArrayList<Antigen> enemies){ //return false if did not attack
         if(!isPhagocyte)return false;
-        int dist = 99999999;
         Antigen target = null;
         double d = 0;
 
@@ -40,10 +39,10 @@ public class Tower extends Entity {
 
             d = distanceTo(a);
 
-            if(target == null && d <= dist ){ //if there's no target yet, set it to any target
-                target = a;                                                                                 //set to closest target in enemies list
+            if(target == null && d <= range ){ //if there's no target yet, set it to any target
+                target = a;                   //set to closest target in enemies list
             }
-            else if (d <= dist && target != null && d < distanceTo(target)) target = a;
+            else if (d <= range && target != null && d < distanceTo(target)) target = a;
 
         }
         if(target == null) return false;
