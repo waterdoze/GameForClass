@@ -2,7 +2,9 @@ package com.example.gameforclass.cells;
 
 import android.util.Log;
 
+import com.example.gameforclass.AttackPellet;
 import com.example.gameforclass.Entity;
+import com.example.gameforclass.TowerDefensePog;
 import com.example.gameforclass.TowerType;
 import com.example.gameforclass.antigens.Antigen;
 
@@ -13,6 +15,7 @@ public class Tower extends Entity {
     public int dmg;
     public int biomolecules;
     public int attackTimer = 0;
+    public AttackPellet attackPellet;
 
     public boolean isPhagocyte;//Can this cell attack stuff
 
@@ -46,6 +49,7 @@ public class Tower extends Entity {
 
         }
         if(target == null) return false;
+        attackPellet = new AttackPellet(tileX + TowerDefensePog.TILE_WIDTH/2, tileY + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
         target.takeDamage(dmg); //if an enemy is in range, attack
         return true;
     }
