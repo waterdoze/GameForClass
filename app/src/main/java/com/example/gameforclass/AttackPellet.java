@@ -15,7 +15,7 @@ public class AttackPellet {
         this.screenY = screenY;
         this.targetX = targetX;
         this.targetY = targetY;
-        this.size = dmg / 5;
+        this.size = dmg / 3;
         dx = (targetX - screenX)/7;
         dy = (targetY - screenY)/7;
     }
