@@ -82,9 +82,26 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         gameLoop = new GameLoop(this, SH);
 
-        tileRows = 12;
-        tileCols = 20;
+        tileRows = 13; tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
+
+        tiles = new char[][]
+                {
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'}
+
+                };
 
 
     }
@@ -118,9 +135,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawEnemies(canvas);
         drawTowers(canvas);
 
-        if (attacked) {
-            if (drawTimer++ < 20) drawAttack(canvas);
-            else {
+
+        if(attacked)
+        {
+
+            if(drawTimer++ > 20)
+            {
                 attacked = false;
                 drawTimer = 0;
             }
@@ -174,13 +194,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    public void drawAttack(Canvas canvas) {
-        int color = ContextCompat.getColor(context, R.color.teal_200);
-        paint.setColor(color);
-        paint.setTextSize(100);
-
-        canvas.drawText("ATTACKED", 200, 200, paint);
-    }
 
     public void update() { //move things around, logic
 
@@ -195,7 +208,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         for (Tower t : towers) {
 
 
-            if(t.attackTimer == 50)
+            if(t.attackTimer == 50 && t.attackPellet == null)
             {
                 if(t.attack(enemies)){
                     attacked = true;
