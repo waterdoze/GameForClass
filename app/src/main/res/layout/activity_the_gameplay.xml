@@ -5,6 +5,7 @@
     android:id="@+id/Screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activities.TheGameplay">
 
     <FrameLayout
@@ -13,7 +14,7 @@
         android:layout_height="325dp"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <fragment
             android:id="@+id/gameFragment"
@@ -199,13 +200,9 @@
         android:layout_marginStart="43dp"
         android:layout_marginLeft="43dp"
         android:layout_marginTop="324dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
         android:layout_marginBottom="12dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/BigSideBar"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -229,14 +226,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Next Round" />
+            android:text="Round+1" />
 
         <Button
             android:id="@+id/decRoundButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="Round-1" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

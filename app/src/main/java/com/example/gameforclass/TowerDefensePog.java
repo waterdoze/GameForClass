@@ -324,8 +324,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void addTower(Tower t){towers.add(t);}// Deez nuts
 
-    public void addTower(int x, int y){//adds based on screen coordinates
-
+    //DEV TAB STUFF
+    public void incHealth(){
+        playerHP+=10;
     }
-
+    public void incBM(){
+        playerBiomolecules+=10;
+    }
+    public void nextRound(){
+        round+=1;
+    }
+    public void lastRound(){
+        round-=1;
+    }
 }
