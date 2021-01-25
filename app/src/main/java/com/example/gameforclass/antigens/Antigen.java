@@ -45,7 +45,7 @@ public class Antigen extends Entity {
         dy = dx = 0;
 
         maxHealth = health;
-        velocity = 12;
+        velocity = 50;
 
         path = map.getSolvedCoordinateArray();
 

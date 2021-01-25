@@ -33,7 +33,7 @@ public class Map {
         for (String s: coordinateArray) {
             double x = Double.parseDouble(s.substring(1, 6));
             double y = Double.parseDouble(s.substring(8, 13));
-            solvedCoordinateArray.add(x * width * 1.04);
+            solvedCoordinateArray.add(x * width * 1.06);
             solvedCoordinateArray.add(y * height);
         }
     }
