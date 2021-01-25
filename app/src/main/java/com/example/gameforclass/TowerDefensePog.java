@@ -278,6 +278,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         towerPlacementMode = false;
         placing = false;
         setFocusable(towerPlacementMode);
+        playerBiomolecules -= towerWeGonnaPlace.biomolecules;
         towerWeGonnaPlace = null;
 
         //need to set the placeable bitmap to be connected to selected
