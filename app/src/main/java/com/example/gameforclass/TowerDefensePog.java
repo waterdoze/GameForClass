@@ -166,9 +166,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-    public void drawTowers(Canvas canvas) {
 
-        for (Tower e : towers) canvas.drawBitmap(e.image, e.posX, e.posY, paint);
+    public void drawTowers(Canvas canvas){
+        for(Tower e: towers) {
+            canvas.drawBitmap(e.image, e.posX, e.posY, paint);
+            if(e.attackPellet!=null)canvas.drawCircle(e.attackPellet.screenX, e.attackPellet.screenY, e.attackPellet.size, paint);
+        }
     }
 
     public void drawAttack(Canvas canvas) {
@@ -191,11 +194,22 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         for (Tower t : towers) {
 
-            if (t.attackTimer == 50) {
-                if (t.attack(enemies)) attacked = true;
-                t.attackTimer = 0;
 
-            } else t.attackTimer++;
+            if(t.attackTimer == 50)
+            {
+                if(t.attack(enemies)){
+                    attacked = true;
+                    t.attackTimer = 0;
+                }
+
+            }
+            else {
+                t.attackTimer++;
+                if(t.attackPellet!=null) {
+                    t.attackPellet.move();
+                    if (t.attackPellet.hitEm) t.attackPellet = null;
+                }
+            }
 
         }
 

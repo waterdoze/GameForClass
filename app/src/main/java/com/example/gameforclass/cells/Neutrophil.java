@@ -12,7 +12,7 @@ public class Neutrophil extends Tower{
         super(tileX, tileY);
         dmg = 20;
         towerType = TowerType.NEUTROPHIL;
-
+        range = 20;
         isPhagocyte = true;
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.neutrophilbutton);//set to neutrophil
