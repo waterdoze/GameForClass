@@ -11,10 +11,10 @@ public class AttackPellet {
     int acceptableError = 30;
     boolean hitEm = false;
     public AttackPellet(int screenX, int screenY, int targetX, int targetY, int dmg){
-        this.screenX = screenX;
-        this.screenY = screenY;
-        this.targetX = targetX;
-        this.targetY = targetY;
+        this.screenX = screenX+TowerDefensePog.TILE_WIDTH/2;
+        this.screenY = screenY+TowerDefensePog.TILE_HEIGHT/2;
+        this.targetX = targetX+TowerDefensePog.TILE_WIDTH/2;
+        this.targetY = targetY+TowerDefensePog.TILE_HEIGHT/2;
         this.size = dmg / 3;
         dx = (targetX - screenX)/7;
         dy = (targetY - screenY)/7;
