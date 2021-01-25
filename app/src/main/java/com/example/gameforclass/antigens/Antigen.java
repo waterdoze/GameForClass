@@ -17,7 +17,8 @@ public class Antigen extends Entity {
 
 
 
-    private int health, maxHealth, biomolecule, velocity;
+    private int health, maxHealth, biomolecule;
+    public int velocity;
     private double currentX, currentY, nextX, nextY;
     private int gear = 0, counter = 2, margin = 2;
     public int dy, dx;
@@ -45,7 +46,7 @@ public class Antigen extends Entity {
         dy = dx = 0;
 
         maxHealth = health;
-        velocity = 50;
+        velocity = 10;
 
         path = map.getSolvedCoordinateArray();
 

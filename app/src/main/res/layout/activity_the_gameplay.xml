@@ -212,6 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="devTab"
             android:text="Health+10" />
 
         <Button
@@ -219,6 +220,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="devTab"
             android:text="BM+10" />
 
         <Button
@@ -226,6 +228,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="devTab"
             android:text="Round+1" />
 
         <Button
@@ -233,6 +236,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="devTab"
             android:text="Round-1" />
     </LinearLayout>
 

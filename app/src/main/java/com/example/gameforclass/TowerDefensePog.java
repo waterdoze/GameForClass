@@ -32,6 +32,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     boolean placing = false; //Tells if the player is currently selecting(clicking) a square
     boolean firstUpdate = true; //if it's the first time calling update()
     boolean attacked = false; //if a tower is attacking
+    boolean cantAfford = false;
 
     private float touchX;
     private float touchY;
@@ -42,6 +43,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     int drawTimer = 0; //for drawing the word attack on screen
     int addEnemyTimer = 0; //for having a delay when enemies come on screen
+    int cantAffordTimer = 0; //showing text that you cant afford something
 
     int tileRows, tileCols;
 
@@ -58,12 +60,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Bitmap background; //background image of lungs
     private GameLoop gameLoop;  //Handles drawing the class every frame
     private Context context; //the activity; to use, cast as (TheGameplay)
+    private TheGameplay theActivity;
     private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
 
     public TowerDefensePog(Context context) {
         super(context);
         //yep cock
         this.context = context;
+        theActivity = (TheGameplay)context;
         screenX = 1440;
         screenY = 900;
         towerPlacementMode = false;
@@ -135,6 +139,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawEnemies(canvas);
         drawTowers(canvas);
 
+        if(cantAfford) {
+            if(cantAffordTimer++ < 50) drawAnnoyingText(canvas);
+            else {
+                cantAffordTimer = 0;
+                cantAfford = false;
+            }
+        }
+
 
         if(attacked)
         {
@@ -192,13 +204,21 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    public void drawAnnoyingText(Canvas canvas) {
+        int color = ContextCompat.getColor(context, R.color.teal_200);
+        paint.setColor(color);
+        paint.setTextSize(100);
+
+        canvas.drawText("YOU CANT AFFORD THAT", 200, 200, paint);
+    }
+
 
     public void update() { //move things around, logic
 
         if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
         {
             firstUpdate = false;
-            ((TheGameplay) context).changeText(playerHP, playerBiomolecules, round);
+            theActivity.changeText(playerHP, playerBiomolecules, round);
         }
 
         updateEnemies();
@@ -235,16 +255,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if (e.getHealth() <= 0 || e.pathFinished) {
                     if (e.pathFinished) //decrease player health if enemy got to the end of the path
                     {
-                        playerHP -= 1;
+                        decHealth(5);
+
 
                     } else if (e.getHealth() <= 0) //add biomolecules to the total amount
                     {
-                        playerBiomolecules += e.getBiomolecule();
+                        incBM(e.getBiomolecule());
                     }
                     enemies.remove(i);
                     i--;
 
-                    ((TheGameplay) context).changeText(playerHP, playerBiomolecules, round); //updates UI text
                 }
 
             }
@@ -262,23 +282,36 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void setTowerPlacementMode(TowerType selected) {//initiated by the buttons in the sidebar
+
         towerPlacementMode = true;
 
         if (selected == null) return;
         switch (selected) {
             case NEUTROPHIL:
                 towerWeGonnaPlace = new Neutrophil(0, 0, this);
+                if(!canAfford(towerWeGonnaPlace.biomolecules)) //if you cant afford the tower
+                {
+                    towerWeGonnaPlace = null;
+                    towerPlacementMode = false;
+                    cantAfford = true;
+                    return;
+                }
                 break;
         }
         setFocusable(towerPlacementMode);
         //need to set the placeable bitmap to be connected to selected
     }
 
+    public boolean canAfford(int towerCost) {
+        return playerBiomolecules >= towerCost;
+    }
+
+
     public void endTowerPlacementMode() {//
         towerPlacementMode = false;
         placing = false;
         setFocusable(towerPlacementMode);
-        playerBiomolecules -= towerWeGonnaPlace.biomolecules;
+        decBM(towerWeGonnaPlace.biomolecules);
         towerWeGonnaPlace = null;
 
         //need to set the placeable bitmap to be connected to selected
@@ -311,6 +344,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void addEnemy(EnemyType name) { //one way to add an enemy just by its name
 
+        
         switch (name) {
             case PNEUMOCOCCUS:
                 enemies.add(new Pneumococcus(context, this));
@@ -333,17 +367,42 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         towers.add(t);
     }// Deez nuts
 
+    public void decBM(int towerCost) {
+        playerBiomolecules -= towerCost;
+        if(playerBiomolecules < 0) playerBiomolecules = 0;
+        theActivity.changeText(playerHP, playerBiomolecules, round);
+    }
+    public void incBM(int antigenGain) {
+        playerBiomolecules += antigenGain;
+        if(playerBiomolecules > 999999) playerBiomolecules = 999999;
+        theActivity.changeText(playerHP, playerBiomolecules, round);
+    }
+
+    public void changeVel(int amount)
+    {
+        for(Antigen e: enemies) e.velocity += amount;
+    }
+
+
     //DEV TAB STUFF
     public void incHealth(){
         playerHP+=10;
+        if(playerHP > 100) playerHP = 100;
+        theActivity.changeText(playerHP, playerBiomolecules, round);
     }
-    public void incBM(){
-        playerBiomolecules+=10;
+    public void decHealth(int amount) {
+        playerHP-=amount;
+        if(playerHP < 0) playerHP = 0;
+        theActivity.changeText(playerHP, playerBiomolecules, round);
     }
     public void nextRound(){
         round+=1;
+        changeVel(5);
+        theActivity.changeText(playerHP, playerBiomolecules, round);
     }
     public void lastRound(){
         round-=1;
+        changeVel(-5);
+        theActivity.changeText(playerHP, playerBiomolecules, round);
     }
 }

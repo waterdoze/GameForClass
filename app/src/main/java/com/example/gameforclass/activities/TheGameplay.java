@@ -185,7 +185,7 @@ public class TheGameplay extends AppCompatActivity {
                 game.incHealth();
                 break;
             case R.id.bmIncButton:
-                game.incBM();
+                game.incBM(10);
                 break;
             case R.id.nextRoundButton:
                 game.nextRound();
