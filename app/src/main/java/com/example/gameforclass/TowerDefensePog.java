@@ -161,11 +161,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    public void drawPlaceable(Canvas canvas) {
-
-        if (towerWeGonnaPlace != null)
-            canvas.drawBitmap(towerWeGonnaPlace.image, touchX - TILE_WIDTH, touchY - TILE_HEIGHT, paint);
+    public void drawPlaceable(Canvas canvas){
         canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
+        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX - (int)(TILE_WIDTH * 1.5), touchY - TILE_HEIGHT/2, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
     }
@@ -280,6 +278,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         towerPlacementMode = false;
         placing = false;
         setFocusable(towerPlacementMode);
+        playerBiomolecules -= towerWeGonnaPlace.biomolecules;
         towerWeGonnaPlace = null;
 
         //need to set the placeable bitmap to be connected to selected
@@ -334,8 +333,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         towers.add(t);
     }// Deez nuts
 
-    public void addTower(int x, int y) {//adds based on screen coordinates
-
+    //DEV TAB STUFF
+    public void incHealth(){
+        playerHP+=10;
     }
-
+    public void incBM(){
+        playerBiomolecules+=10;
+    }
+    public void nextRound(){
+        round+=1;
+    }
+    public void lastRound(){
+        round-=1;
+    }
 }

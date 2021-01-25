@@ -179,5 +179,21 @@ public class TheGameplay extends AppCompatActivity {
 
     }
 
+    public void devTab(View v){
+        switch(v.getId()){
+            case R.id.healthIncButton:
+                game.incHealth();
+                break;
+            case R.id.bmIncButton:
+                game.incBM();
+                break;
+            case R.id.nextRoundButton:
+                game.nextRound();
+                break;
+            case R.id.decRoundButton:
+                game.lastRound();
+                break;
+        }
+    }
 
 }
