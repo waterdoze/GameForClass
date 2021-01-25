@@ -34,7 +34,7 @@ public class Healthbar {
         float healthLeft, healthTop, healthRight, healthBottom, healthWidth, healthHeight;
 
         healthWidth = width;
-        healthLeft = x - width / 2;
+        healthLeft = (float) (x - (width / 5.8));
         healthRight = healthLeft + healthWidth * healthPointPercentage;
         healthBottom = y - distanceToPlayer;
         healthTop = healthBottom - height;
