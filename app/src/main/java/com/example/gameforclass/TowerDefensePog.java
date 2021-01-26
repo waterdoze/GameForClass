@@ -119,8 +119,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                 };
 
-        
-
 
     }
 
