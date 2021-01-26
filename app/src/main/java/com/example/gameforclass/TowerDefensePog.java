@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -33,9 +34,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     boolean firstUpdate = true; //if it's the first time calling update()
     boolean attacked = false; //if a tower is attacking
     boolean cantAfford = false;
+    boolean cantPlace = false;
+    boolean opacityInc = false;
 
     private float touchX;
     private float touchY;
+
+    private int cyanColor;
 
     int playerHP = 100;
     int playerBiomolecules = 100;
@@ -44,6 +49,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int drawTimer = 0; //for drawing the word attack on screen
     int addEnemyTimer = 0; //for having a delay when enemies come on screen
     int cantAffordTimer = 0; //showing text that you cant afford something
+    int cantPlaceTimer = 0; //showing text that you cant place something on the path
+    int opacityTimer = 100;
 
     int tileRows, tileCols;
 
@@ -65,6 +72,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public TowerDefensePog(Context context) {
         super(context);
+
+        cyanColor = ContextCompat.getColor(context, R.color.teal_200);
+
         //yep cock
         this.context = context;
         theActivity = (TheGameplay)context;
@@ -91,19 +101,19 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         tiles = new char[][]
                 {
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'},
-                        {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'}
+                        {'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'O', 'P', 'P', 'O', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'P', 'P', 'O', 'P', 'P', 'P', 'P', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'P', 'P', 'P', 'O', 'P', 'P', 'P', 'P', 'P', 'P', 'O', 'P', 'P', 'O', 'O', 'O', 'O'},
+                        {'O', 'O', 'O', 'P', 'P', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'O', 'O', 'P', 'P', 'O', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'O', 'O', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'O', 'O', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'O', 'O', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'O', 'P', 'P', 'O', 'O', 'P', 'P', 'O', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'P', 'P', 'P', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'P', 'P', 'O', 'O'},
+                        {'O', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'O'}
 
                 };
 
@@ -132,6 +142,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawBackground(canvas);
         if (towerPlacementMode) {
             drawGrid(canvas);
+            drawPathTiles(canvas);
             if (placing) {
                 drawPlaceable(canvas);
             }
@@ -140,10 +151,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawTowers(canvas);
 
         if(cantAfford) {
-            if(cantAffordTimer++ < 50) drawAnnoyingText(canvas);
+            if(cantAffordTimer++ < 50) drawCantAffordText(canvas);
             else {
                 cantAffordTimer = 0;
                 cantAfford = false;
+            }
+        }
+
+        if(cantPlace) {
+            if(cantPlaceTimer++ < 50) drawCantPlaceText(canvas);
+            else {
+                cantPlaceTimer = 0;
+                cantPlace = false;
             }
         }
 
@@ -162,8 +181,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawGrid(Canvas canvas) {
 
-        int color = ContextCompat.getColor(context, R.color.teal_200);
-        paint.setColor(color);
+
+        paint.setColor(cyanColor);
 
         for (int i = 0; i <= tileRows; i++) {
             canvas.drawLine(0, TILE_HEIGHT * i, screenX, TILE_HEIGHT * i, paint); //startX, startY, stopX, stopY, paint
@@ -171,6 +190,35 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         for (int i = 0; i <= tileCols; i++) {
             canvas.drawLine(TILE_WIDTH * i, 0, TILE_WIDTH * i, screenY, paint);
         }
+    }
+
+    public void drawPathTiles(Canvas canvas) {
+
+        paint.setColor(Color.RED);
+
+        paint.setAlpha(opacityTimer);
+        if(opacityInc)
+        {
+            if(opacityTimer >= 100) opacityInc = false;
+            else opacityTimer+=2;
+        }
+        else
+        {
+            if(opacityTimer <= 50) opacityInc = true;
+            else opacityTimer-=2;
+        }
+
+
+        for(int i=0; i < tileRows; i++)
+        {
+            for(int x=0; x < tileCols; x++)
+            {
+                if(tiles[i][x] == 'P') canvas.drawRect(x*TILE_HEIGHT, i*TILE_WIDTH, x*TILE_HEIGHT + TILE_HEIGHT, i*TILE_WIDTH + TILE_WIDTH, paint);
+            }
+        }
+
+       paint.setAlpha(255);
+        paint.setColor(cyanColor);
     }
 
     public void drawPlaceable(Canvas canvas){
@@ -204,12 +252,19 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    public void drawAnnoyingText(Canvas canvas) {
-        int color = ContextCompat.getColor(context, R.color.teal_200);
-        paint.setColor(color);
+    public void drawCantAffordText(Canvas canvas) {
+
+        paint.setColor(cyanColor);
         paint.setTextSize(100);
 
         canvas.drawText("YOU CANT AFFORD THAT", 200, 200, paint);
+    }
+
+    public void drawCantPlaceText(Canvas canvas) {
+        paint.setColor(cyanColor);
+        paint.setTextSize(100);
+
+        canvas.drawText("YOU CANT PLACE THERE", 200, 200, paint);
     }
 
 
@@ -311,7 +366,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         towerPlacementMode = false;
         placing = false;
         setFocusable(towerPlacementMode);
-        decBM(towerWeGonnaPlace.biomolecules);
+        if(!cantPlace) decBM(towerWeGonnaPlace.biomolecules);
         towerWeGonnaPlace = null;
 
         //need to set the placeable bitmap to be connected to selected
@@ -330,11 +385,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 touchX = event.getX();
                 touchY = event.getY();
 
+                int yPos = (int) (touchY - touchY % TILE_HEIGHT);
+                int xPos = (int) (touchX - touchX % TILE_WIDTH - TILE_WIDTH);
 
-                if (towerWeGonnaPlace != null) {
+                if(tiles[yPos / TILE_HEIGHT][xPos / TILE_WIDTH] == 'P')
+                {
+                    cantPlace = true;
+                }
+
+                else if (towerWeGonnaPlace != null) {
                     addTower(towerWeGonnaPlace);
-                    towerWeGonnaPlace.posX = (int) (touchX - touchX % TILE_WIDTH - TILE_WIDTH);
-                    towerWeGonnaPlace.posY = (int) (touchY - touchY % TILE_HEIGHT);
+                    towerWeGonnaPlace.posX = xPos;
+                    towerWeGonnaPlace.posY = yPos;
                 }
                 endTowerPlacementMode();
                 break;
@@ -397,12 +459,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
     public void nextRound(){
         round+=1;
-        changeVel(5);
         theActivity.changeText(playerHP, playerBiomolecules, round);
     }
     public void lastRound(){
         round-=1;
-        changeVel(-5);
         theActivity.changeText(playerHP, playerBiomolecules, round);
     }
 }
