@@ -45,7 +45,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int playerHP = 100;
     int playerBiomolecules = 100;
     int round = 1;
-
     int drawTimer = 0; //for drawing the word attack on screen
     int addEnemyTimer = 0; //for having a delay when enemies come on screen
     int cantAffordTimer = 0; //showing text that you cant afford something
@@ -53,6 +52,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int opacityTimer = 100;
 
     int tileRows, tileCols;
+    int[] pathTilesX, pathTilesY;
 
     public int screenX, screenY; //Size of the FRAGMENT, not the whole screen
     public static int TILE_WIDTH = 70;
@@ -69,6 +69,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Context context; //the activity; to use, cast as (TheGameplay)
     private TheGameplay theActivity;
     private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
+
+
 
     public TowerDefensePog(Context context) {
         super(context);
@@ -116,6 +118,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         {'O', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'O'}
 
                 };
+
+        
 
 
     }
@@ -222,10 +226,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void drawPlaceable(Canvas canvas){
+        paint.setAlpha(opacityTimer);
         canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
         if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX - (int)(TILE_WIDTH * 1.5), touchY - TILE_HEIGHT/2, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
+        paint.setAlpha(255);
     }
 
     public void drawBackground(Canvas canvas) { //made this its own method in case we add anything
