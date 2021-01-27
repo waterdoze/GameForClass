@@ -10,7 +10,7 @@ import com.example.gameforclass.antigens.Antigen;
 public class HIV extends Antigen {
 
     public HIV(Context context, TowerDefensePog TDP) {
-        super(context, TDP, 200, 100, EnemyType.HIV, 30, 100);
+        super(context, TDP, 200, 100, 15, EnemyType.HIV, 30, 100);
     }
 
 }

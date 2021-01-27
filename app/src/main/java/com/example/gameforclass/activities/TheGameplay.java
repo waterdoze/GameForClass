@@ -49,9 +49,11 @@ public class TheGameplay extends AppCompatActivity {
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
 
-        sideBarisBig = false; animationEnded = false;
-         game = (TowerDefensePog) findViewById(R.id.gameFragment);
-         AnimatorSet invisAnim = new AnimatorSet();
+        sideBarisBig = false;
+        animationEnded = false;
+        game = (TowerDefensePog) findViewById(R.id.gameFragment);
+
+        AnimatorSet invisAnim = new AnimatorSet();
         invisAnim.setDuration(50);
         invisAnim.playTogether(
                 ObjectAnimator.ofFloat(findViewById(R.id.BigSideBar), "translationX", 705f),
@@ -163,6 +165,10 @@ public class TheGameplay extends AppCompatActivity {
     public void neutroButton(View v) {
 
         game.setTowerPlacementMode(TowerType.NEUTROPHIL);
+    }
+
+    public void resumeButton(View v) {
+        game.resumeGame();
     }
 
     public void changeText(int playerHP, int bio, int round)

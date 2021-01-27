@@ -7,11 +7,13 @@ public class Campaign {
 
     private EnemyType[][] matrix;
     private int waitTime;
+    private int currentArray;
     private double multiplier;
 
     public Campaign(int difficulty) {
 
         waitTime = 30;
+        currentArray = 0;
         matrix = new EnemyType[10][10];
 
         if (difficulty == 1) {
@@ -20,8 +22,8 @@ public class Campaign {
                      {
                              {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null, null, null},
                              {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null},
-                             {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null, null, null},
-                             {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null, null, null},
+                             {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS},
+                             {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.HIV, EnemyType.HIV, EnemyType.HIV, null, null, null, null},
                              {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null, null, null},
                              {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null, null, null},
                              {EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, EnemyType.ASPERGILLUS, null, null, null, null, null, null, null},
@@ -65,6 +67,19 @@ public class Campaign {
     }
 
     public int getWaitTime() {
-        return waitTime;
+        int result = waitTime;
+        updateWaitTime();
+        return result;
+    }
+
+    private void updateWaitTime() {
+    }
+
+    public EnemyType[] getCurrentArray() {
+        return matrix[currentArray];
+    }
+
+    public void setNextRound() {
+        currentArray++;
     }
 }

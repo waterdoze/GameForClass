@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -36,6 +37,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     boolean cantAfford = false;
     boolean cantPlace = false;
     boolean opacityInc = false;
+    boolean pauseGame = false;
 
     private float touchX;
     private float touchY;
@@ -45,6 +47,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int playerHP = 100;
     int playerBiomolecules = 100;
     int round = 1;
+
+    int counter = 0;
+
     int drawTimer = 0; //for drawing the word attack on screen
     int addEnemyTimer = 0; //for having a delay when enemies come on screen
     int cantAffordTimer = 0; //showing text that you cant afford something
@@ -59,6 +64,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public static int TILE_HEIGHT = 70;
 
     private char[][] tiles;//The grid for tower placement; P = Path
+    private EnemyType[] set;
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
 
@@ -68,6 +74,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private GameLoop gameLoop;  //Handles drawing the class every frame
     private Context context; //the activity; to use, cast as (TheGameplay)
     private TheGameplay theActivity;
+    private Campaign campaign;
     private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
 
 
@@ -79,11 +86,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         //yep cock
         this.context = context;
-        theActivity = (TheGameplay)context;
-        screenX = 1440;
-        screenY = 900;
-        towerPlacementMode = false;
-        placing = false;
+        this.theActivity = (TheGameplay) context;
+        this.screenX = 1440;
+        this.screenY = 900;
+        this.towerPlacementMode = false;
+        this.placing = false;
 
         this.getHolder().setFixedSize(screenX, screenY);
         setOnTouchListener(this);
@@ -97,8 +104,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         SH.addCallback(this);
 
         gameLoop = new GameLoop(this, SH);
-
-        tileRows = 13; tileCols = 20;
+        campaign = new Campaign(1);
+        tileRows = 13;
+        tileCols = 20;
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
         tiles = new char[][]
@@ -154,8 +162,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         drawEnemies(canvas);
         drawTowers(canvas);
 
-        if(cantAfford) {
-            if(cantAffordTimer++ < 50) drawCantAffordText(canvas);
+
+        if (cantAfford) {
+            if (cantAffordTimer++ < 50) drawCantAffordText(canvas);
             else {
                 cantAffordTimer = 0;
                 cantAfford = false;
@@ -171,11 +180,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
 
 
-        if(attacked)
-        {
+        if (attacked) {
 
-            if(drawTimer++ > 20)
-            {
+            if (drawTimer++ > 20) {
                 attacked = false;
                 drawTimer = 0;
             }
@@ -225,10 +232,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         paint.setColor(cyanColor);
     }
 
-    public void drawPlaceable(Canvas canvas){
+    public void drawPlaceable(Canvas canvas) {
         paint.setAlpha(opacityTimer);
         canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
-        if(towerWeGonnaPlace != null) canvas.drawBitmap(towerWeGonnaPlace.image, touchX - (int)(TILE_WIDTH * 1.5), touchY - TILE_HEIGHT/2, paint);
+        if (towerWeGonnaPlace != null)
+            canvas.drawBitmap(towerWeGonnaPlace.image, touchX - (int) (TILE_WIDTH * 1.5), touchY - TILE_HEIGHT / 2, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
         paint.setAlpha(255);
@@ -251,10 +259,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
-    public void drawTowers(Canvas canvas){
-        for(Tower e: towers) {
+    public void drawTowers(Canvas canvas) {
+        for (Tower e : towers) {
             canvas.drawBitmap(e.image, e.posX, e.posY, paint);
-            if(e.attackPellet!=null)canvas.drawCircle(e.attackPellet.screenX, e.attackPellet.screenY, e.attackPellet.size, paint);
+            if (e.attackPellet != null)
+                canvas.drawCircle(e.attackPellet.screenX, e.attackPellet.screenY, e.attackPellet.size, paint);
         }
     }
 
@@ -275,39 +284,42 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void update() { //move things around, logic
-
-        if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
-        {
-            firstUpdate = false;
-            theActivity.changeText(playerHP, playerBiomolecules, round);
-        }
-
-        updateEnemies();
-
-        for (Tower t : towers) {
-
-
-            if(t.attackTimer == 50 && t.attackPellet == null)
+        if (!pauseGame) {
+            Log.d("message", "isUpdating");
+            if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
             {
-                if(t.attack(enemies)){
-                    attacked = true;
-                    t.attackTimer = 0;
+                firstUpdate = false;
+                theActivity.changeText(playerHP, playerBiomolecules, round);
+            }
+
+            updateEnemies();
+
+            for (Tower t : towers) {
+
+
+                if (t.attackTimer == 50 && t.attackPellet == null) {
+                    if (t.attack(enemies)) {
+                        attacked = true;
+                        t.attackTimer = 0;
+                    }
+
+                } else {
+                    t.attackTimer++;
+                    if (t.attackPellet != null) {
+                        t.attackPellet.move();
+                        if (t.attackPellet.hitEm) t.attackPellet = null;
+                    }
                 }
 
             }
-            else {
-                t.attackTimer++;
-                if(t.attackPellet!=null) {
-                    t.attackPellet.move();
-                    if (t.attackPellet.hitEm) t.attackPellet = null;
-                }
-            }
-
         }
-
+        Log.d("message2", "" + pauseGame);
     }
 
     public void updateEnemies() {
+
+        set = campaign.getCurrentArray();
+
         if (!enemies.isEmpty())  // move enemies and check if they're dead
         {
             for (int i = 0; i < enemies.size(); i++) {
@@ -325,32 +337,47 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                     }
                     enemies.remove(i);
                     i--;
-
                 }
-
             }
         }
-
-        if (enemies.size() < 5) //only 5 enemies on screen at a time for now
+        if (counter < 10)
         {
-            if (addEnemyTimer == 5) {
-                addEnemy(EnemyType.ASPERGILLUS);
+            int waitTime = campaign.getWaitTime();
+            if (addEnemyTimer == waitTime) {
+                if (set[counter] != null) {
+                    addEnemy(set[counter]);
+                }
                 addEnemyTimer = 0;
+                counter++;
             } else addEnemyTimer++;
         }
+        else if (enemies.isEmpty()) {
+            campaign.setNextRound();
+            counter = 0;
+            round++;
+            pauseGame();
+        }
 
+
+    }
+
+    public void pauseGame() {
+        pauseGame = true;
+    }
+
+    public void resumeGame() {
+        pauseGame = false;
     }
 
 
     public void setTowerPlacementMode(TowerType selected) {//initiated by the buttons in the sidebar
-
         towerPlacementMode = true;
 
         if (selected == null) return;
         switch (selected) {
             case NEUTROPHIL:
                 towerWeGonnaPlace = new Neutrophil(0, 0, this);
-                if(!canAfford(towerWeGonnaPlace.biomolecules)) //if you cant afford the tower
+                if (!canAfford(towerWeGonnaPlace.biomolecules)) //if you cant afford the tower
                 {
                     towerWeGonnaPlace = null;
                     towerPlacementMode = false;
@@ -369,12 +396,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void endTowerPlacementMode() {//
-        towerPlacementMode = false;
-        placing = false;
-        setFocusable(towerPlacementMode);
-        if(!cantPlace) decBM(towerWeGonnaPlace.biomolecules);
-        towerWeGonnaPlace = null;
-
+        if (towerWeGonnaPlace != null) {
+            towerPlacementMode = false;
+            placing = false;
+            setFocusable(towerPlacementMode);
+            if (!cantPlace) decBM(towerWeGonnaPlace.biomolecules);
+            towerWeGonnaPlace = null;
+        }
         //need to set the placeable bitmap to be connected to selected
     }
 
@@ -412,7 +440,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void addEnemy(EnemyType name) { //one way to add an enemy just by its name
 
-        
+
         switch (name) {
             case PNEUMOCOCCUS:
                 enemies.add(new Pneumococcus(context, this));
@@ -437,30 +465,31 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void decBM(int towerCost) {
         playerBiomolecules -= towerCost;
-        if(playerBiomolecules < 0) playerBiomolecules = 0;
-        theActivity.changeText(playerHP, playerBiomolecules, round);
-    }
-    public void incBM(int antigenGain) {
-        playerBiomolecules += antigenGain;
-        if(playerBiomolecules > 999999) playerBiomolecules = 999999;
+        if (playerBiomolecules < 0) playerBiomolecules = 0;
         theActivity.changeText(playerHP, playerBiomolecules, round);
     }
 
-    public void changeVel(int amount)
-    {
-        for(Antigen e: enemies) e.velocity += amount;
+    public void incBM(int antigenGain) {
+        playerBiomolecules += antigenGain;
+        if (playerBiomolecules > 999999) playerBiomolecules = 999999;
+        theActivity.changeText(playerHP, playerBiomolecules, round);
+    }
+
+    public void changeVel(int amount) {
+        for (Antigen e : enemies) e.velocity += amount;
     }
 
 
     //DEV TAB STUFF
-    public void incHealth(){
-        playerHP+=10;
-        if(playerHP > 100) playerHP = 100;
+    public void incHealth() {
+        playerHP += 10;
+        if (playerHP > 100) playerHP = 100;
         theActivity.changeText(playerHP, playerBiomolecules, round);
     }
+
     public void decHealth(int amount) {
-        playerHP-=amount;
-        if(playerHP < 0) playerHP = 0;
+        playerHP -= amount;
+        if (playerHP < 0) playerHP = 0;
         theActivity.changeText(playerHP, playerBiomolecules, round);
     }
     public void nextRound(){
@@ -469,6 +498,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
     public void lastRound(){
         round-=1;
+
         theActivity.changeText(playerHP, playerBiomolecules, round);
     }
 }
