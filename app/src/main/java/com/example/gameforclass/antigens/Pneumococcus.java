@@ -15,7 +15,7 @@ public class Pneumococcus extends Antigen {
 
     public Pneumococcus(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,70, 50, EnemyType.PNEUMOCOCCUS, 30, 100);
+        super(context, TDP,70, 50, 20, EnemyType.PNEUMOCOCCUS, 30, 100);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.aspergillus);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

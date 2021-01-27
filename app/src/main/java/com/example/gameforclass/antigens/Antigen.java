@@ -32,7 +32,7 @@ public class Antigen extends Entity {
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, EnemyType type, int tileX, int tileY) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, EnemyType type, int tileX, int tileY) {
 
         super(tileX, tileY, 1);
 
@@ -46,7 +46,7 @@ public class Antigen extends Entity {
         dy = dx = 0;
 
         maxHealth = health;
-        velocity = 10;
+        this.velocity = velocity;
 
         path = map.getSolvedCoordinateArray();
 
