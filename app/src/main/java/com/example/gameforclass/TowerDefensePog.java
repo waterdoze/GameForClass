@@ -6,12 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.activities.TheGameplay;
@@ -40,8 +42,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private float touchX;
     private float touchY;
 
-    private int cyanColor;
-
     int playerHP = 100;
     int playerBiomolecules = 100;
     int round = 1;
@@ -53,7 +53,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     int tileRows, tileCols;
     int[] pathTilesX, pathTilesY;
-
     public int screenX, screenY; //Size of the FRAGMENT, not the whole screen
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
@@ -69,9 +68,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Context context; //the activity; to use, cast as (TheGameplay)
     private TheGameplay theActivity;
     private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
+    private int cyanColor;
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public TowerDefensePog(Context context) {
         super(context);
 
@@ -118,6 +119,24 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         {'O', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'O'}
 
                 };
+
+        ArrayList<Integer> tileXList = new ArrayList<Integer>();
+        ArrayList<Integer> tileYList = new ArrayList<Integer>();
+
+
+        for(int y=0; y < tileRows; y++)
+        {
+            for(int x=0; x < tileCols; x++)
+            {
+                if(tiles[y][x] == 'P')
+                {
+                    tileYList.add(y); tileXList.add(x);
+                }
+            }
+        }
+
+        pathTilesX = tileXList.stream().mapToInt(x -> x).toArray();
+        pathTilesY = tileYList.stream().mapToInt(x -> x).toArray();
 
 
     }
@@ -211,12 +230,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
 
 
-        for(int i=0; i < tileRows; i++)
+        for(int i=0; i < pathTilesX.length; i++)
         {
-            for(int x=0; x < tileCols; x++)
-            {
-                if(tiles[i][x] == 'P') canvas.drawRect(x*TILE_HEIGHT, i*TILE_WIDTH, x*TILE_HEIGHT + TILE_HEIGHT, i*TILE_WIDTH + TILE_WIDTH, paint);
-            }
+            canvas.drawRect(pathTilesX[i]*TILE_WIDTH, pathTilesY[i]*TILE_HEIGHT, pathTilesX[i]*TILE_WIDTH + TILE_WIDTH, pathTilesY[i]*TILE_HEIGHT + TILE_HEIGHT, paint);
         }
 
        paint.setAlpha(255);
