@@ -37,7 +37,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     boolean cantAfford = false;
     boolean cantPlace = false;
     boolean opacityInc = false;
-    boolean pauseGame = false;
+    boolean pauseGame = true;
 
     private float touchX;
     private float touchY;
@@ -344,8 +344,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             if (addEnemyTimer == waitTime) {
                 if (set[counter] != null) {
                     addEnemy(set[counter]);
+                    addEnemyTimer = 0;
                 }
-                addEnemyTimer = 0;
+                else {
+                    addEnemyTimer = waitTime;
+                }
                 counter++;
             } else addEnemyTimer++;
         }
@@ -354,6 +357,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             counter = 0;
             round++;
             pauseGame();
+            for (Tower t: towers) {
+                t.attackPellet = null;
+            }
         }
 
 

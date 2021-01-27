@@ -16,7 +16,7 @@ public class Neutrophil extends Tower{
         biomolecules = 50;
         isPhagocyte = true;
 
-        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.neutrophilbutton);//set to neutrophil
+        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.neutrophil);//set to neutrophil
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
         setImage(img);
     }
