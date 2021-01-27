@@ -389,7 +389,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
     public void setTowerPlacementMode(TowerType selected) {//initiated by the buttons in the sidebar
-        towerPlacementMode = true;
+
 
         if (selected == null) return;
         switch (selected) {
@@ -398,12 +398,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if (!canAfford(towerWeGonnaPlace.biomolecules)) //if you cant afford the tower
                 {
                     towerWeGonnaPlace = null;
-                    towerPlacementMode = false;
                     cantAfford = true;
                     return;
                 }
                 break;
         }
+        towerPlacementMode = true;
         setFocusable(towerPlacementMode);
         //need to set the placeable bitmap to be connected to selected
     }
