@@ -9,23 +9,16 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.gameforclass.R;
-import com.example.gameforclass.TowerDefensePog;
-import com.example.gameforclass.TowerType;
-import com.example.gameforclass.cells.Tower;
-
-import org.w3c.dom.Text;
+import com.example.gameforclass.background.TowerDefensePog;
+import com.example.gameforclass.cells.TowerType;
 
 public class TheGameplay extends AppCompatActivity {
 

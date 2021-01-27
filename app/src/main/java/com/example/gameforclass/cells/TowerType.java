@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.cells;
 
 public enum TowerType {
     NEUTROPHIL,

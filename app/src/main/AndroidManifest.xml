@@ -19,7 +19,7 @@
 
             android:screenOrientation="landscape"
         </activity>
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.StartingScreen">
 
             android:screenOrientation="landscape"
             <intent-filter>

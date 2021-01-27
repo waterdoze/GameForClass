@@ -1,11 +1,7 @@
 package com.example.gameforclass.cells;
 
-import android.util.Log;
-
-import com.example.gameforclass.AttackPellet;
+import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
-import com.example.gameforclass.TowerDefensePog;
-import com.example.gameforclass.TowerType;
 import com.example.gameforclass.antigens.Antigen;
 
 import java.util.ArrayList;
@@ -53,5 +49,26 @@ public class Tower extends Entity {
         attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);
         return true;
     }
+
+    public AttackPellet getAttackPellet() {
+        return attackPellet;
+    }
+
+    public void setAttackPellet(AttackPellet a) {
+        attackPellet = a;
+    }
+
+    public int getAttackTimer() {
+        return attackTimer;
+    }
+
+    public void setAttackTimer(int attackTimer) {
+        this.attackTimer = attackTimer;
+    }
+
+    public int getBiomolecules() {
+        return biomolecules;
+    }
+
 }
 

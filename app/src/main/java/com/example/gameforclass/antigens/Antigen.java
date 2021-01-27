@@ -1,15 +1,12 @@
 package com.example.gameforclass.antigens;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
-import com.example.gameforclass.EnemyType;
 import com.example.gameforclass.Entity;
-import com.example.gameforclass.Healthbar;
-import com.example.gameforclass.Map;
+import com.example.gameforclass.animation.Healthbar;
+import com.example.gameforclass.background.Map;
 import com.example.gameforclass.R;
-import com.example.gameforclass.TowerDefensePog;
+import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
 
@@ -27,12 +24,12 @@ public class Antigen extends Entity {
 
     private int screenX, screenY; //SIZE OF THE FRAGMENT
 
-    private EnemyType type;
+    private AntigenType type;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, EnemyType type, int tileX, int tileY) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY) {
 
         super(tileX, tileY, 1);
 
@@ -61,7 +58,7 @@ public class Antigen extends Entity {
     }
 
 
-    public EnemyType getType() {
+    public AntigenType getType() {
         return type;
     }
 
@@ -93,8 +90,20 @@ public class Antigen extends Entity {
         return maxHealth;
     }
 
-    public Healthbar getHealthbar() {
+    public Healthbar getHealthBar() {
         return healthbar;
+    }
+
+    public boolean pathIsFinished() {
+        return pathFinished;
+    }
+
+    public int getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 
     public void move() {

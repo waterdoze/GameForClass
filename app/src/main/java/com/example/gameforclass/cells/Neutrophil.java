@@ -4,8 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.gameforclass.R;
-import com.example.gameforclass.TowerDefensePog;
-import com.example.gameforclass.TowerType;
+import com.example.gameforclass.background.TowerDefensePog;
 
 public class Neutrophil extends Tower{
     public Neutrophil(int tileX, int tileY, TowerDefensePog TDP) {

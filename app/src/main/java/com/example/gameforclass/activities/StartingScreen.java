@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.example.gameforclass.R;
 
-public class MainActivity extends AppCompatActivity {
+public class StartingScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DifficultyMenu.class));
+                startActivity(new Intent(StartingScreen.this, DifficultyMenu.class));
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.animation;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,7 @@ import android.graphics.Paint;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Antigen;
 
 public class Healthbar {

@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.background;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -17,9 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import com.example.gameforclass.R;
+import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.antigens.HIV;
 import com.example.gameforclass.antigens.Pneumococcus;
 import com.example.gameforclass.cells.Neutrophil;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
-    boolean towerPlacementMode;//Tells if we need to draw the grid\
+    boolean towerPlacementMode = false;//Tells if we need to draw the grid\
     boolean placing = false; //Tells if the player is currently selecting(clicking) a square
     boolean firstUpdate = true; //if it's the first time calling update()
     boolean attacked = false; //if a tower is attacking
@@ -56,20 +58,24 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int cantPlaceTimer = 0; //showing text that you cant place something on the path
     int opacityTimer = 100;
 
-    int tileRows, tileCols;
+    int tileRows = 13;
+    int tileCols = 20;
     int[] pathTilesX, pathTilesY;
-    public int screenX, screenY; //Size of the FRAGMENT, not the whole screen
+    public int screenX = 1440;
+    public int screenY = 900; //Size of the FRAGMENT, not the whole screen
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
 
     private char[][] tiles;//The grid for tower placement; P = Path
-    private EnemyType[] set;
+    private AntigenType[] set;
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
-    private Bitmap background; //background image of lungs
+    //background image of lungs
+    private Bitmap background = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung), screenX, screenY, false);
+
     private GameLoop gameLoop;  //Handles drawing the class every frame
     private Context context; //the activity; to use, cast as (TheGameplay)
     private TheGameplay theActivity;
@@ -81,24 +87,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public TowerDefensePog(Context context) {
+
         super(context);
 
         cyanColor = ContextCompat.getColor(context, R.color.teal_200);
-
         //yep cock
         this.context = context;
         this.theActivity = (TheGameplay) context;
-        this.screenX = 1440;
-        this.screenY = 900;
-        this.towerPlacementMode = false;
-        this.placing = false;
 
         this.getHolder().setFixedSize(screenX, screenY);
         setOnTouchListener(this);
         setFocusable(false);
 
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.centered_lung);
-        background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
 
 
         SurfaceHolder SH = getHolder();
@@ -106,10 +106,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         gameLoop = new GameLoop(this, SH);
         campaign = new Campaign(1);
-        tileRows = 13;
-        tileCols = 20;
-        tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
 
+        tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
         tiles = new char[][]
                 {
                         {'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'O', 'P', 'P', 'O', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'O'},
@@ -132,12 +130,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         ArrayList<Integer> tileYList = new ArrayList<>();
 
 
-        for(int y=0; y < tileRows; y++)
-        {
-            for(int x=0; x < tileCols; x++)
-            {
-                if(tiles[y][x] == 'P')
-                {
+        for(int y=0; y < tileRows; y++) {
+
+            for(int x=0; x < tileCols; x++) {
+
+                if(tiles[y][x] == 'P') {
                     tileYList.add(y); tileXList.add(x);
                 }
             }
@@ -250,7 +247,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         paint.setAlpha(opacityTimer);
         canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
         if (towerWeGonnaPlace != null)
-            canvas.drawBitmap(towerWeGonnaPlace.image, touchX - (int) (TILE_WIDTH * 1.5), touchY - TILE_HEIGHT / 2, paint);
+            canvas.drawBitmap(towerWeGonnaPlace.getImage(), touchX - (int) (TILE_WIDTH * 1.5), touchY - TILE_HEIGHT / 2, paint);
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
         paint.setAlpha(255);
@@ -265,8 +262,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void drawEnemies(Canvas canvas) {
 
         for (Antigen e : enemies) {
-            canvas.drawBitmap(e.image, e.posX, e.posY, paint);
-            e.getHealthbar().draw(canvas);
+            canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
+            e.getHealthBar().draw(canvas);
         }
 
 
@@ -275,9 +272,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawTowers(Canvas canvas) {
         for (Tower e : towers) {
-            canvas.drawBitmap(e.image, e.posX, e.posY, paint);
-            if (e.attackPellet != null)
-                canvas.drawCircle(e.attackPellet.screenX, e.attackPellet.screenY, e.attackPellet.size, paint);
+            canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
+            if (e.getAttackPellet() != null)
+                canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
         }
     }
 
@@ -310,17 +307,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             for (Tower t : towers) {
 
 
-                if (t.attackTimer == 50 && t.attackPellet == null) {
+                if (t.getAttackTimer() == 50 && t.getAttackPellet() == null) {
                     if (t.attack(enemies)) {
                         attacked = true;
-                        t.attackTimer = 0;
+                        t.setAttackTimer(0);
                     }
 
                 } else {
-                    t.attackTimer++;
-                    if (t.attackPellet != null) {
-                        t.attackPellet.move();
-                        if (t.attackPellet.hitEm) t.attackPellet = null;
+                    t.setAttackTimer(t.getAttackTimer() + 1);
+                    if (t.getAttackPellet() != null) {
+                        t.getAttackPellet().move();
+                        if (t.getAttackPellet().hasHitEm()) t.setAttackPellet(null);
                     }
                 }
 
@@ -337,8 +334,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             for (int i = 0; i < enemies.size(); i++) {
                 Antigen e = enemies.get(i);
                 e.move();
-                if (e.getHealth() <= 0 || e.pathFinished) {
-                    if (e.pathFinished) //decrease player health if enemy got to the end of the path
+                if (e.getHealth() <= 0 || e.pathIsFinished()) {
+                    if (e.pathIsFinished()) //decrease player health if enemy got to the end of the path
                     {
                         decHealth(5);
 
@@ -372,7 +369,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             round++;
             pauseGame();
             for (Tower t: towers) {
-                t.attackPellet = null;
+                t.setAttackPellet(null);
             }
         }
 
@@ -395,7 +392,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         switch (selected) {
             case NEUTROPHIL:
                 towerWeGonnaPlace = new Neutrophil(0, 0, this);
-                if (!canAfford(towerWeGonnaPlace.biomolecules)) //if you cant afford the tower
+                if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower
                 {
                     towerWeGonnaPlace = null;
                     towerPlacementMode = false;
@@ -418,7 +415,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             towerPlacementMode = false;
             placing = false;
             setFocusable(towerPlacementMode);
-            if (!cantPlace) decBM(towerWeGonnaPlace.biomolecules);
+            if (!cantPlace) decBM(towerWeGonnaPlace.getBiomolecules());
             towerWeGonnaPlace = null;
         }
         //need to set the placeable bitmap to be connected to selected
@@ -451,8 +448,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if(tiles[yPos][xPos] == 'P') cantPlace = true;
 
                 else if (towerWeGonnaPlace != null) {
-                    towerWeGonnaPlace.posX = xPos * TILE_WIDTH; //convert to normal coords
-                    towerWeGonnaPlace.posY = yPos * TILE_HEIGHT;
+                    towerWeGonnaPlace.setX(xPos * TILE_WIDTH); ; //convert to normal coords
+                    towerWeGonnaPlace.setY(yPos * TILE_HEIGHT);
                     addTower(towerWeGonnaPlace);
 
                 }
@@ -462,7 +459,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         return true;
     }
 
-    public void addEnemy(EnemyType name) { //one way to add an enemy just by its name
+    public void addEnemy(AntigenType name) { //one way to add an enemy just by its name
 
 
         switch (name) {
@@ -500,7 +497,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void changeVel(int amount) {
-        for (Antigen e : enemies) e.velocity += amount;
+        for (Antigen e : enemies) e.setVelocity(e.getVelocity() + amount);
     }
 
 

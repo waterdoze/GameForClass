@@ -2,6 +2,8 @@ package com.example.gameforclass;
 
 import android.graphics.Bitmap;
 
+import com.example.gameforclass.background.TowerDefensePog;
+
 public abstract class Entity {//Maybe this class can hold the image for the entity instead of all of the lower classes
     public int tileX;
     public int tileY;
@@ -22,6 +24,26 @@ public abstract class Entity {//Maybe this class can hold the image for the enti
         image = costume;
     }
 
+    public Bitmap getImage() {
+        return image;
+    }
+
     public int getTileX(){return tileX;}
     public int getTileY(){return tileY;}
+
+    public int getX() {
+        return posX;
+    }
+
+    public void setX(int x) {
+        posX = x;
+    }
+
+    public int getY() {
+        return posY;
+    }
+
+    public void setY(int y) {
+        posY = y;
+    }
 }
