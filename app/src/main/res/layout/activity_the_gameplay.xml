@@ -10,9 +10,10 @@
 
     <FrameLayout
 
+        android:id="@+id/frameLayout"
         android:layout_width="577dp"
-        android:layout_height="325dp"
 
+        android:layout_height="325dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -78,7 +79,6 @@
                 android:layout_width="75dp"
                 android:layout_height="89dp"
                 android:adjustViewBounds="true"
-                android:onClick="resumeButton"
                 android:padding="0dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/macrophagebutton" />
@@ -196,6 +196,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="381dp"
         android:layout_height="42dp"
         android:layout_marginStart="43dp"
@@ -240,5 +241,16 @@
             android:onClick="devTab"
             android:text="Round-1" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:onClick="resumeButton"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:srcCompat="@android:drawable/ic_media_ff" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
