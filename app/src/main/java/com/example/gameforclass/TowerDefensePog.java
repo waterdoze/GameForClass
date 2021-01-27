@@ -285,7 +285,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void update() { //move things around, logic
         if (!pauseGame) {
-            Log.d("message", "isUpdating");
             if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
             {
                 firstUpdate = false;
@@ -313,7 +312,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
             }
         }
-        Log.d("message2", "" + pauseGame);
     }
 
     public void updateEnemies() {
