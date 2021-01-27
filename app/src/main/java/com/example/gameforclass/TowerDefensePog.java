@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -13,6 +14,7 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.activities.TheGameplay;
@@ -42,8 +44,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private float touchX;
     private float touchY;
 
-    private int cyanColor;
-
     int playerHP = 100;
     int playerBiomolecules = 100;
     int round = 1;
@@ -58,7 +58,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     int tileRows, tileCols;
     int[] pathTilesX, pathTilesY;
-
     public int screenX, screenY; //Size of the FRAGMENT, not the whole screen
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
@@ -76,9 +75,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private TheGameplay theActivity;
     private Campaign campaign;
     private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
+    private int cyanColor;
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public TowerDefensePog(Context context) {
         super(context);
 
@@ -127,7 +128,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                 };
 
-        
+        ArrayList<Integer> tileXList = new ArrayList<>();
+        ArrayList<Integer> tileYList = new ArrayList<>();
+
+
+        for(int y=0; y < tileRows; y++)
+        {
+            for(int x=0; x < tileCols; x++)
+            {
+                if(tiles[y][x] == 'P')
+                {
+                    tileYList.add(y); tileXList.add(x);
+                }
+            }
+        }
+
+        pathTilesX = tileXList.stream().mapToInt(x -> x).toArray();
+        pathTilesY = tileYList.stream().mapToInt(x -> x).toArray();
 
 
     }
@@ -220,12 +237,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
 
 
-        for(int i=0; i < tileRows; i++)
+        for(int i=0; i < pathTilesX.length; i++)
         {
-            for(int x=0; x < tileCols; x++)
-            {
-                if(tiles[i][x] == 'P') canvas.drawRect(x*TILE_HEIGHT, i*TILE_WIDTH, x*TILE_HEIGHT + TILE_HEIGHT, i*TILE_WIDTH + TILE_WIDTH, paint);
-            }
+            canvas.drawRect(pathTilesX[i]*TILE_WIDTH, pathTilesY[i]*TILE_HEIGHT, pathTilesX[i]*TILE_WIDTH + TILE_WIDTH, pathTilesY[i]*TILE_HEIGHT + TILE_HEIGHT, paint);
         }
 
        paint.setAlpha(255);
@@ -414,7 +428,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                placing = true;
+                if(towerPlacementMode)placing = true;
             case MotionEvent.ACTION_MOVE:
                 touchX = event.getX();
                 touchY = event.getY();
@@ -425,16 +439,22 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                 int yPos = (int) (touchY - touchY % TILE_HEIGHT);
                 int xPos = (int) (touchX - touchX % TILE_WIDTH - TILE_WIDTH);
+                yPos = yPos / TILE_HEIGHT;
+                xPos = xPos / TILE_WIDTH; //THESE ARE NOW TILE COORDS
 
-                if(tiles[yPos / TILE_HEIGHT][xPos / TILE_WIDTH] == 'P')
+                if(yPos >= tileRows || xPos >= tileCols)
                 {
-                    cantPlace = true;
+                    if(towerPlacementMode) cantPlace = true;
+                     break;
                 }
 
+                if(tiles[yPos][xPos] == 'P') cantPlace = true;
+
                 else if (towerWeGonnaPlace != null) {
+                    towerWeGonnaPlace.posX = xPos * TILE_WIDTH; //convert to normal coords
+                    towerWeGonnaPlace.posY = yPos * TILE_HEIGHT;
                     addTower(towerWeGonnaPlace);
-                    towerWeGonnaPlace.posX = xPos;
-                    towerWeGonnaPlace.posY = yPos;
+
                 }
                 endTowerPlacementMode();
                 break;
