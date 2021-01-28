@@ -55,13 +55,8 @@ public class Antigen extends Entity {
         nextY = path.get(counter + 1);
         counter += 2;
 
+
     }
-
-
-    public AntigenType getType() {
-        return type;
-    }
-
 
     public int getBiomolecule() {
         return biomolecule;
@@ -72,38 +67,6 @@ public class Antigen extends Entity {
 
         health -= damage;
         if(health < 0) health = 0;
-    }
-
-    public int getX() {
-        return (int) currentX;
-    }
-
-    public int getY() {
-        return (int) currentY;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public Healthbar getHealthBar() {
-        return healthbar;
-    }
-
-    public boolean pathIsFinished() {
-        return pathFinished;
-    }
-
-    public int getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(int velocity) {
-        this.velocity = velocity;
     }
 
     public void move() {
@@ -193,5 +156,41 @@ public class Antigen extends Entity {
 
         posX = (int)currentX;
         posY = (int)currentY;
+    }
+
+    public AntigenType getType() {
+        return type;
+    }
+
+    public int getX() {
+        return (int) currentX;
+    }
+
+    public int getY() {
+        return (int) currentY;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public Healthbar getHealthBar() {
+        return healthbar;
+    }
+
+    public boolean pathIsFinished() {
+        return pathFinished;
+    }
+
+    public int getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 }

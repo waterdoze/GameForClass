@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -50,7 +51,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int playerBiomolecules = 100;
     int round = 1;
 
-    int counter = 0;
+    int enemyRoundCounter = 0;
 
     int drawTimer = 0; //for drawing the word attack on screen
     int addEnemyTimer = 0; //for having a delay when enemies come on screen
@@ -239,7 +240,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             canvas.drawRect(pathTilesX[i]*TILE_WIDTH, pathTilesY[i]*TILE_HEIGHT, pathTilesX[i]*TILE_WIDTH + TILE_WIDTH, pathTilesY[i]*TILE_HEIGHT + TILE_HEIGHT, paint);
         }
 
-       paint.setAlpha(255);
+        paint.setAlpha(255);
         paint.setColor(cyanColor);
     }
 
@@ -255,6 +256,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawBackground(Canvas canvas) { //made this its own method in case we add anything
 
+        paint.setColor(cyanColor);
         canvas.drawBitmap(background, 0, 0, paint);
 
     }
@@ -273,6 +275,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void drawTowers(Canvas canvas) {
         for (Tower e : towers) {
             canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
+            paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
+            canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
             if (e.getAttackPellet() != null)
                 canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
         }
@@ -301,26 +305,26 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 firstUpdate = false;
                 theActivity.changeText(playerHP, playerBiomolecules, round);
             }
-
             updateEnemies();
 
             for (Tower t : towers) {
-
-
-                if (t.getAttackTimer() == 50 && t.getAttackPellet() == null) {
+                if (t.getTimerCounter() == t.getAttackTimer() && t.getAttackPellet() == null) {
                     if (t.attack(enemies)) {
+
                         attacked = true;
-                        t.setAttackTimer(0);
+                        t.setTimerCounter(0);
                     }
 
-                } else {
-                    t.setAttackTimer(t.getAttackTimer() + 1);
+                }
+
+                else {
+                    t.setTimerCounter(t.getTimerCounter() + 1);
                     if (t.getAttackPellet() != null) {
                         t.getAttackPellet().move();
                         if (t.getAttackPellet().hasHitEm()) t.setAttackPellet(null);
                     }
                 }
-
+                
             }
         }
     }
@@ -349,23 +353,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 }
             }
         }
-        if (counter < 10)
+        if (enemyRoundCounter < 10)
         {
             int waitTime = campaign.getWaitTime();
             if (addEnemyTimer == waitTime) {
-                if (set[counter] != null) {
-                    addEnemy(set[counter]);
+                if (set[enemyRoundCounter] != null) {
+                    addEnemy(set[enemyRoundCounter]);
                     addEnemyTimer = 0;
                 }
                 else {
                     addEnemyTimer = waitTime;
                 }
-                counter++;
+                enemyRoundCounter++;
             } else addEnemyTimer++;
         }
         else if (enemies.isEmpty()) {
             campaign.setNextRound();
-            counter = 0;
+            enemyRoundCounter = 0;
             round++;
             pauseGame();
             for (Tower t: towers) {
@@ -421,9 +425,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         //need to set the placeable bitmap to be connected to selected
     }
 
+    public void upgrade() {
+
+    }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
+
             case MotionEvent.ACTION_DOWN:
                 if(towerPlacementMode)placing = true;
             case MotionEvent.ACTION_MOVE:
@@ -439,19 +448,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 yPos = yPos / TILE_HEIGHT;
                 xPos = xPos / TILE_WIDTH; //THESE ARE NOW TILE COORDS
 
-                if(yPos >= tileRows || xPos >= tileCols)
-                {
+                if (yPos >= tileRows || xPos >= tileCols) {
                     if(towerPlacementMode) cantPlace = true;
                      break;
                 }
 
-                if(tiles[yPos][xPos] == 'P') cantPlace = true;
+                if(tiles[yPos][xPos] == 'P') { cantPlace = true; }
 
                 else if (towerWeGonnaPlace != null) {
                     towerWeGonnaPlace.setX(xPos * TILE_WIDTH); ; //convert to normal coords
                     towerWeGonnaPlace.setY(yPos * TILE_HEIGHT);
                     addTower(towerWeGonnaPlace);
-
+                    tiles[yPos][xPos] = 'T';
                 }
                 endTowerPlacementMode();
                 break;
