@@ -12,7 +12,7 @@ import com.example.gameforclass.antigens.Antigen;
 public class Healthbar {
 
     private Antigen antigen;
-    private int width, height, margin;
+    private int width, height;
     private Paint healthPaint;
 
     public Healthbar(Context context, Antigen antigen) {
@@ -32,7 +32,7 @@ public class Healthbar {
         float y = (float) antigen.getY();
         float distanceToPlayer = 30;
         float healthPointPercentage = (float) antigen.getHealth() / antigen.getMaxHealth();
-        float healthLeft, healthTop, healthRight, healthBottom, healthWidth, healthHeight;
+        float healthLeft, healthTop, healthRight, healthBottom, healthWidth;
 
         healthWidth = width;
         healthLeft = (float) (x - (width / 5.8));

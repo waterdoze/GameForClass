@@ -19,7 +19,7 @@ public class AttackPellet {
         this.screenY = screenY+TowerDefensePog.TILE_HEIGHT/2;
         this.targetX = targetX+TowerDefensePog.TILE_WIDTH/2;
         this.targetY = targetY+TowerDefensePog.TILE_HEIGHT/2;
-        this.size = dmg / 3;
+        this.size = dmg;
         dx = (targetX - screenX)/7;
         dy = (targetY - screenY)/7;
     }
