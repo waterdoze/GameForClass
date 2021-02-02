@@ -168,10 +168,19 @@ public class TheGameplay extends AppCompatActivity {
         game.resumeGame();
     }
 
+    //TODO connect these methods with actual upgrade buttons in xml
     public void upgradeNeutroButton(View v) {
         game.upgrade(UpgradeType.AFFECT_NEUTROPHIL);
     }
 
+    public void upgradeMacroButton(View v) {
+        game.upgrade(UpgradeType.AFFECT_MACROPHAGE);
+    }
+
+    public void upgradeNaiveCellButton(View v) {
+        game.upgrade(UpgradeType.AFFECT_NAIVE_CELL);
+    }
+    //--------------------
     public void changeText(int playerHP, int bio, int round)
     {
         runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread

@@ -462,18 +462,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 touchX = event.getX();
                 touchY = event.getY();
 
-                int yPos = (int) (touchY - touchY % TILE_HEIGHT);
-                int xPos = (int) (touchX - touchX % TILE_WIDTH - TILE_WIDTH);
-                yPos = yPos / TILE_HEIGHT;
-                xPos = xPos / TILE_WIDTH; //THESE ARE NOW TILE COORDS
+                int yPos = (int) (touchY - touchY % TILE_HEIGHT) / TILE_HEIGHT;
+                int xPos = (int) (touchX - touchX % TILE_WIDTH - TILE_WIDTH) / TILE_WIDTH;
 
                 if (yPos >= tileRows || xPos >= tileCols) {
                     if(towerPlacementMode) cantPlace = true;
                      break;
                 }
 
-                if(tiles[yPos][xPos] == 'P') { cantPlace = true; }
-
+                if(tiles[yPos][xPos] == 'P') {
+                    cantPlace = true;
+                }
                 else if (tiles[yPos][xPos] == 'T') {
                     towersPlaced[yPos][xPos].switchRangeToggle();
                 }

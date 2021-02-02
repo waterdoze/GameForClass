@@ -17,6 +17,14 @@ public class Upgrade {
     public void improve(UpgradeType upgrade) {
 
         switch (upgrade) {
+            case AFFECT_NAIVE_CELL:
+                for (Tower t: array) {
+                    if (t.getTowerType() == TowerType.CYTOTOXICTCELL) {
+                        t.setDmg(t.getDmg() + 5);
+                        t.setRange(t.getRange() + 50);
+                    }
+                }
+                break;
             case AFFECT_MACROPHAGE:
                 for (Tower t: array) {
                     if (t.getTowerType() == TowerType.MACROPHAGE) {

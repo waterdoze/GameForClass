@@ -4,9 +4,6 @@
     <string name="VirusImage">image of the virus for the starting screen</string>
     <string name="quitButton">Quit</string>
     <string name="title_activity_easy">EasyActivity</string>
-    <string name="easyChosen">Coward</string>
-    <string name="mediumChosen">Meh</string>
-    <string name="hardChosen">Poggers</string>
     <string name="title_activity_game">GameActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
