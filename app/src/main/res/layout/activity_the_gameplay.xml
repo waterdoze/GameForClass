@@ -241,12 +241,23 @@
         android:id="@+id/imageButton4"
         android:layout_width="53dp"
         android:layout_height="28dp"
-        android:layout_marginStart="384dp"
-        android:layout_marginLeft="384dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginLeft="304dp"
+        android:layout_marginBottom="16dp"
         android:onClick="resumeButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_media_ff" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:cropToPadding="false"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/playbutton"
+        tools:layout_editor_absoluteX="387dp"
+        tools:layout_editor_absoluteY="355dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
