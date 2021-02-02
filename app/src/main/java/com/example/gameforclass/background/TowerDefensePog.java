@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.cells.Macrophage;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
@@ -26,6 +27,8 @@ import com.example.gameforclass.antigens.HIV;
 import com.example.gameforclass.antigens.Pneumococcus;
 import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
+import com.example.gameforclass.cells.Upgrade;
+import com.example.gameforclass.cells.UpgradeType;
 
 import java.util.ArrayList;
 
@@ -65,6 +68,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public int screenY = 900; //Size of the FRAGMENT, not the whole screen
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
+
+    private Upgrade upgradeObject = new Upgrade();
 
     private Tower[][] towersPlaced;
     private char[][] tiles;//The grid for tower placement; P = Path
@@ -391,12 +396,26 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         pauseGame = false;
     }
 
+    public void upgrade(UpgradeType upgrade) {
+        upgradeObject.insertTowerArray(towers);
+        upgradeObject.improve(upgrade);
+    }
 
     public void setTowerPlacementMode(TowerType selected) {//initiated by the buttons in the sidebar
         towerPlacementMode = true;
 
         if (selected == null) return;
         switch (selected) {
+            case MACROPHAGE:
+                towerWeGonnaPlace = new Macrophage(0, 0, this);
+                if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower
+                {
+                    towerWeGonnaPlace = null;
+                    towerPlacementMode = false;
+                    cantAfford = true;
+                    return;
+                }
+                break;
             case NEUTROPHIL:
                 towerWeGonnaPlace = new Neutrophil(0, 0, this);
                 if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower
@@ -428,9 +447,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         //need to set the placeable bitmap to be connected to selected
     }
 
-    public void upgrade() {
-
-    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.gameforclass.R;
 import com.example.gameforclass.background.TowerDefensePog;
 import com.example.gameforclass.cells.TowerType;
+import com.example.gameforclass.cells.UpgradeType;
 
 public class TheGameplay extends AppCompatActivity {
 
@@ -156,12 +157,19 @@ public class TheGameplay extends AppCompatActivity {
     }
 
     public void neutroButton(View v) {
-
         game.setTowerPlacementMode(TowerType.NEUTROPHIL);
+    }
+
+    public void macroButton(View v) {
+        game.setTowerPlacementMode(TowerType.MACROPHAGE);
     }
 
     public void resumeButton(View v) {
         game.resumeGame();
+    }
+
+    public void upgradeNeutroButton(View v) {
+        game.upgrade(UpgradeType.AFFECT_NEUTROPHIL);
     }
 
     public void changeText(int playerHP, int bio, int round)

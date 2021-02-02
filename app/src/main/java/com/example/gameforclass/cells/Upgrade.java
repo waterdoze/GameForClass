@@ -6,19 +6,32 @@ public class Upgrade {
 
     private ArrayList<Tower> array;
 
-    public Upgrade(ArrayList<Tower> array) {
-        this.array = array;
+    public Upgrade() {
 
     }
 
-    private void improve(UpgradeType upgrade) {
+    public void insertTowerArray(ArrayList<Tower> array) {
+        this.array = array;
+    }
+
+    public void improve(UpgradeType upgrade) {
 
         switch (upgrade) {
-            case VACCINE_INJECTION:
+            case AFFECT_MACROPHAGE:
+                for (Tower t: array) {
+                    if (t.getTowerType() == TowerType.MACROPHAGE) {
+                        t.setDmg(t.getDmg() + 5);
+                        t.setRange(t.getRange() + 50);
+                    }
+                }
                 break;
-            case OMEGA_RANGE:
-                break;
-            case MRNA_VACCINE_INJECTION:
+            case AFFECT_NEUTROPHIL:
+                for (Tower t: array) {
+                    if (t.getTowerType() == TowerType.NEUTROPHIL) {
+                        t.setDmg(t.getDmg() + 5);
+                        t.setRange(t.getRange() + 50);
+                    }
+                }
                 break;
         }
     }
