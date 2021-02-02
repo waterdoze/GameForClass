@@ -1,7 +1,5 @@
 package com.example.gameforclass.cells;
 
-import android.util.Log;
-
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.antigens.Antigen;
@@ -9,16 +7,18 @@ import com.example.gameforclass.antigens.Antigen;
 import java.util.ArrayList;
 
 public class Tower extends Entity {
+
     public int range;
     public int dmg;
     public int biomolecules;
-
     public int attackTimer;
     public int timerCounter = 0;
 
     public AttackPellet attackPellet;
 
+    private boolean rangeToggle = false;
     public boolean isPhagocyte;//Can this cell attack stuff
+
 
     public TowerType towerType;
 
@@ -75,9 +75,17 @@ public class Tower extends Entity {
     public int getTimerCounter() {
         return timerCounter;
     }
+
     public void setTimerCounter(int time) {
         timerCounter = time;
     }
 
+    public void switchRangeToggle() {
+        rangeToggle = !rangeToggle;
+    }
+
+    public boolean rangeToggleIsOn() {
+        return rangeToggle;
+    }
 }
 

@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -67,6 +66,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public static int TILE_WIDTH = 70;
     public static int TILE_HEIGHT = 70;
 
+    private Tower[][] towersPlaced;
     private char[][] tiles;//The grid for tower placement; P = Path
     private AntigenType[] set;
     private ArrayList<Tower> towers = new ArrayList<>();
@@ -108,6 +108,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         gameLoop = new GameLoop(this, SH);
         campaign = new Campaign(1);
 
+        towersPlaced = new Tower[tileRows][tileCols];
         tiles = new char[tileRows][tileCols]; //divide the screen up into tiles
         tiles = new char[][]
                 {
@@ -276,7 +277,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         for (Tower e : towers) {
             canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
             paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
-            canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
+            if (e.rangeToggleIsOn()) {
+                canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
+            }
             if (e.getAttackPellet() != null)
                 canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
         }
@@ -455,11 +458,15 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                 if(tiles[yPos][xPos] == 'P') { cantPlace = true; }
 
+                else if (tiles[yPos][xPos] == 'T') {
+                    towersPlaced[yPos][xPos].switchRangeToggle();
+                }
                 else if (towerWeGonnaPlace != null) {
                     towerWeGonnaPlace.setX(xPos * TILE_WIDTH); ; //convert to normal coords
                     towerWeGonnaPlace.setY(yPos * TILE_HEIGHT);
                     addTower(towerWeGonnaPlace);
                     tiles[yPos][xPos] = 'T';
+                    towersPlaced[yPos][xPos] = towerWeGonnaPlace;
                 }
                 endTowerPlacementMode();
                 break;

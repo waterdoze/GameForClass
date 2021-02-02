@@ -5,16 +5,13 @@ import java.util.ArrayList;
 public class Upgrade {
 
     private ArrayList<Tower> array;
-    private UpgradeType upgrade;
 
-    public Upgrade(ArrayList<Tower> array, UpgradeType upgrade) {
+    public Upgrade(ArrayList<Tower> array) {
         this.array = array;
-        this.upgrade = upgrade;
 
-        improve();
     }
 
-    private void improve() {
+    private void improve(UpgradeType upgrade) {
 
         switch (upgrade) {
             case VACCINE_INJECTION:

@@ -169,8 +169,8 @@ public class TheGameplay extends AppCompatActivity {
         runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread
             @Override
             public void run() {
-                ((TextView)findViewById(R.id.PlayerHealth)).setText(String.format("Health: %d/100", playerHP));
-                ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("BM: %d", bio));
+                ((TextView)findViewById(R.id.PlayerHealth)).setText(String.format("%d", playerHP));
+                ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("%d", bio));
                 ((TextView)findViewById(R.id.RoundCounter)).setText(String.format("Round: %d", round));
 
             }
