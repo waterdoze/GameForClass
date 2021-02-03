@@ -280,6 +280,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawTowers(Canvas canvas) {
         for (Tower e : towers) {
+            paint.setColor(cyanColor);
             canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
             paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
             if (e.rangeToggleIsOn()) {
