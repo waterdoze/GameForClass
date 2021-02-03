@@ -9,23 +9,17 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.gameforclass.R;
-import com.example.gameforclass.TowerDefensePog;
-import com.example.gameforclass.TowerType;
-import com.example.gameforclass.cells.Tower;
-
-import org.w3c.dom.Text;
+import com.example.gameforclass.background.TowerDefensePog;
+import com.example.gameforclass.cells.TowerType;
+import com.example.gameforclass.cells.UpgradeType;
 
 public class TheGameplay extends AppCompatActivity {
 
@@ -163,21 +157,37 @@ public class TheGameplay extends AppCompatActivity {
     }
 
     public void neutroButton(View v) {
-
         game.setTowerPlacementMode(TowerType.NEUTROPHIL);
+    }
+
+    public void macroButton(View v) {
+        game.setTowerPlacementMode(TowerType.MACROPHAGE);
     }
 
     public void resumeButton(View v) {
         game.resumeGame();
     }
 
+    //TODO connect these methods with actual upgrade buttons in xml
+    public void upgradeNeutroButton(View v) {
+        game.upgrade(UpgradeType.AFFECT_NEUTROPHIL);
+    }
+
+    public void upgradeMacroButton(View v) {
+        game.upgrade(UpgradeType.AFFECT_MACROPHAGE);
+    }
+
+    public void upgradeNaiveCellButton(View v) {
+        game.upgrade(UpgradeType.AFFECT_NAIVE_CELL);
+    }
+    //--------------------
     public void changeText(int playerHP, int bio, int round)
     {
         runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread
             @Override
             public void run() {
-                ((TextView)findViewById(R.id.PlayerHealth)).setText(String.format("Health: %d/100", playerHP));
-                ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("BM: %d", bio));
+                ((TextView)findViewById(R.id.PlayerHealth)).setText(String.format("%d", playerHP));
+                ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("%d", bio));
                 ((TextView)findViewById(R.id.RoundCounter)).setText(String.format("Round: %d", round));
 
             }

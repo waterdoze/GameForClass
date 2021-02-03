@@ -1,7 +1,6 @@
-package com.example.gameforclass;
+package com.example.gameforclass.background;
 
 import android.graphics.Canvas;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 
 public class GameLoop extends Thread{

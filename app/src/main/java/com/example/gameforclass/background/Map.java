@@ -1,4 +1,4 @@
-package com.example.gameforclass;
+package com.example.gameforclass.background;
 
 import android.graphics.Point;
 

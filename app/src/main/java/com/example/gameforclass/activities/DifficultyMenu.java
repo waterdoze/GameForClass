@@ -42,7 +42,6 @@ public class DifficultyMenu extends AppCompatActivity {
 
     public void displayEasyMode(View view) {
         mailman.putExtra("difficulty", 1);
-        displayToast(getString(R.string.easyChosen));
         startActivity(mailman);
 
 
@@ -50,14 +49,12 @@ public class DifficultyMenu extends AppCompatActivity {
 
     public void displayMediumMode(View view) {
         mailman.putExtra("difficulty", 2);
-        displayToast(getString(R.string.mediumChosen));
         startActivity(mailman);
 
     }
 
     public void displayHardMode(View view) {
         mailman.putExtra("difficulty", 3);
-        displayToast(getString(R.string.hardChosen));
         startActivity(mailman);
 
     }

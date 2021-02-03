@@ -1,15 +1,12 @@
 package com.example.gameforclass.antigens;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
-import com.example.gameforclass.EnemyType;
 import com.example.gameforclass.Entity;
-import com.example.gameforclass.Healthbar;
-import com.example.gameforclass.Map;
+import com.example.gameforclass.animation.Healthbar;
+import com.example.gameforclass.background.Map;
 import com.example.gameforclass.R;
-import com.example.gameforclass.TowerDefensePog;
+import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
 
@@ -27,12 +24,12 @@ public class Antigen extends Entity {
 
     private int screenX, screenY; //SIZE OF THE FRAGMENT
 
-    private EnemyType type;
+    private AntigenType type;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, EnemyType type, int tileX, int tileY) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY) {
 
         super(tileX, tileY, 1);
 
@@ -58,13 +55,8 @@ public class Antigen extends Entity {
         nextY = path.get(counter + 1);
         counter += 2;
 
+
     }
-
-
-    public EnemyType getType() {
-        return type;
-    }
-
 
     public int getBiomolecule() {
         return biomolecule;
@@ -75,26 +67,6 @@ public class Antigen extends Entity {
 
         health -= damage;
         if(health < 0) health = 0;
-    }
-
-    public int getX() {
-        return (int) currentX;
-    }
-
-    public int getY() {
-        return (int) currentY;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public Healthbar getHealthbar() {
-        return healthbar;
     }
 
     public void move() {
@@ -184,5 +156,41 @@ public class Antigen extends Entity {
 
         posX = (int)currentX;
         posY = (int)currentY;
+    }
+
+    public AntigenType getType() {
+        return type;
+    }
+
+    public int getX() {
+        return (int) currentX;
+    }
+
+    public int getY() {
+        return (int) currentY;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public Healthbar getHealthBar() {
+        return healthbar;
+    }
+
+    public boolean pathIsFinished() {
+        return pathFinished;
+    }
+
+    public int getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 }
