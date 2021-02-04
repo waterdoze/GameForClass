@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -280,6 +281,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void drawTowers(Canvas canvas) {
         for (Tower e : towers) {
+            paint.setColor(cyanColor);
             canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
             paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
             if (e.rangeToggleIsOn()) {
@@ -341,6 +343,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         set = campaign.getCurrentArray();
 
+
+
         if (!enemies.isEmpty())  // move enemies and check if they're dead
         {
             for (int i = 0; i < enemies.size(); i++) {
@@ -364,7 +368,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         if (enemyRoundCounter < 10)
         {
             int waitTime = campaign.getWaitTime();
-            if (addEnemyTimer == waitTime) {
+
+            if (addEnemyTimer >= waitTime) {
+                campaign.updateWaitTime();
                 if (set[enemyRoundCounter] != null) {
                     addEnemy(set[enemyRoundCounter]);
                     addEnemyTimer = 0;
@@ -448,6 +454,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {

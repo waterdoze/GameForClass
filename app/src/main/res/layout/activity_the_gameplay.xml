@@ -199,10 +199,11 @@
         android:adjustViewBounds="false"
         android:scaleType="fitStart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SideBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/bottombar" />
+        app:srcCompat="@drawable/bottombar"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/PlayerHealth"
@@ -247,11 +248,16 @@
         android:id="@+id/imageButton7"
         android:layout_width="42dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginRight="280dp"
+        android:layout_marginBottom="18dp"
         android:cropToPadding="false"
+        android:onClick="resumeButton"
         android:padding="0dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/playbutton"
-        tools:layout_editor_absoluteX="434dp"
-        tools:layout_editor_absoluteY="349dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/RoundCounter"
+        app:srcCompat="@drawable/playbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

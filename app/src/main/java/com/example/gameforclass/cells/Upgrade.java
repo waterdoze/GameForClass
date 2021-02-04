@@ -17,6 +17,8 @@ public class Upgrade {
     public void improve(UpgradeType upgrade) {
 
         switch (upgrade) {
+            case FEVER:
+                break;
             case AFFECT_NAIVE_CELL:
                 for (Tower t: array) {
                     if (t.getTowerType() == TowerType.CYTOTOXICTCELL) {
@@ -25,7 +27,7 @@ public class Upgrade {
                     }
                 }
                 break;
-            case AFFECT_MACROPHAGE:
+            case BONE_MARROW_UPGRADE:
                 for (Tower t: array) {
                     if (t.getTowerType() == TowerType.MACROPHAGE) {
                         t.setDmg(t.getDmg() + 5);
@@ -33,7 +35,7 @@ public class Upgrade {
                     }
                 }
                 break;
-            case AFFECT_NEUTROPHIL:
+            case NEUTROPHIL_TRANSFUSION:
                 for (Tower t: array) {
                     if (t.getTowerType() == TowerType.NEUTROPHIL) {
                         t.setDmg(t.getDmg() + 5);
