@@ -369,10 +369,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if (set[enemyRoundCounter] != null) {
                     addEnemy(set[enemyRoundCounter]);
                     addEnemyTimer = 0;
+                    campaign.randomWaitTime();
                 }
-                else {
-                    addEnemyTimer = waitTime;
-                }
+
                 enemyRoundCounter++;
             } else addEnemyTimer++;
         }
@@ -380,6 +379,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             campaign.setNextRound();
             enemyRoundCounter = 0;
             round++;
+            theActivity.changeText(playerHP, playerBiomolecules, round);
+
             pauseGame();
             for (Tower t: towers) {
                 t.setAttackPellet(null);
@@ -460,6 +461,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 touchY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
+
                 touchX = event.getX();
                 touchY = event.getY();
 
@@ -468,14 +470,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                 if (yPos >= tileRows || xPos >= tileCols) {
                     if(towerPlacementMode) cantPlace = true;
-                     break;
                 }
 
-                if(tiles[yPos][xPos] == 'P') {
+                if(tiles[yPos][xPos] == 'P' && towerPlacementMode) {
                     cantPlace = true;
                 }
                 else if (tiles[yPos][xPos] == 'T') {
-                    towersPlaced[yPos][xPos].switchRangeToggle();
+                    if(towerPlacementMode)
+                    {
+                        cantPlace = true;
+                    }
+                    else towersPlaced[yPos][xPos].switchRangeToggle();
                 }
                 else if (towerWeGonnaPlace != null) {
                     towerWeGonnaPlace.setX(xPos * TILE_WIDTH); ; //convert to normal coords

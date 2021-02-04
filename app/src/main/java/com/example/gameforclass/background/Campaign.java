@@ -66,12 +66,12 @@ public class Campaign {
     }
 
     public int getWaitTime() {
-        int result = waitTime;
-        updateWaitTime();
-        return result;
+        return waitTime;
     }
 
-    private void updateWaitTime() {
+    public void randomWaitTime() {
+        waitTime = (int)(5+Math.random()*50); //Wait time is random # of frames between 5 and 55
+        if(Math.random() * 2 < 1.0) waitTime = (waitTime / 2) + 1; //half of the time, cut waitTime in half
     }
 
     public AntigenType[] getCurrentArray() {

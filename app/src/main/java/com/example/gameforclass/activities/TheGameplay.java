@@ -188,7 +188,7 @@ public class TheGameplay extends AppCompatActivity {
             public void run() {
                 ((TextView)findViewById(R.id.PlayerHealth)).setText(String.format("%d", playerHP));
                 ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("%d", bio));
-                ((TextView)findViewById(R.id.RoundCounter)).setText(String.format("Round: %d", round));
+                ((TextView)findViewById(R.id.RoundCounter)).setText(String.format("Round %d", round));
 
             }
         });

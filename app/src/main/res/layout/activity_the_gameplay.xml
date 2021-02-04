@@ -234,10 +234,8 @@
 
     <TextView
         android:id="@+id/RoundCounter"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="15dp"
         android:fontFamily="cursive"
         android:text="Round 1"
