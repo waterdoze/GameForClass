@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,13 +17,14 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.antigens.Tuberculosis;
 import com.example.gameforclass.cells.Macrophage;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
 import com.example.gameforclass.antigens.AntigenType;
-import com.example.gameforclass.antigens.HIV;
+import com.example.gameforclass.antigens.Rhinovirus;
 import com.example.gameforclass.antigens.Pneumococcus;
 import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
@@ -384,8 +384,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         else if (enemies.isEmpty()) {
             campaign.setNextRound();
             enemyRoundCounter = 0;
-            round++;
             pauseGame();
+            round++;
+            theActivity.changeText(playerHP, playerBiomolecules, round);
             for (Tower t: towers) {
                 t.setAttackPellet(null);
             }
@@ -500,14 +501,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
         switch (name) {
+            case TUBERCULOSIS:
+                enemies.add(new Tuberculosis(context, this));
+                break;
             case PNEUMOCOCCUS:
                 enemies.add(new Pneumococcus(context, this));
                 break;
             case ASPERGILLUS:
                 enemies.add(new Aspergillus(context, this));
                 break;
-            case HIV:
-                enemies.add(new HIV(context, this));
+            case RHINOVIRUS:
+                enemies.add(new Rhinovirus(context, this));
                 break;
         }
 
