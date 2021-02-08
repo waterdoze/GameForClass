@@ -18,7 +18,7 @@ public class Antigen extends Entity {
     private int health, maxHealth, biomolecule;
     public int velocity;
     private double currentX, currentY, nextX, nextY;
-    private int gear = 0, counter = 2, margin = 2;
+    private int gear = 0, counter = 2;
     public int dy, dx;
 
     public boolean pathFinished = false;
@@ -77,8 +77,9 @@ public class Antigen extends Entity {
         double changeX;
         double changeY;
 
-        if (!(Math.abs(currentX - nextX) < margin && Math.abs(currentY - nextY) < margin)){
-            if (Math.abs(currentX - nextX) < margin && Math.abs(currentY - nextY) > margin) {
+        if (!(currentX == nextX && currentY == nextY)){
+            if (currentX == nextX && currentY != nextY) {
+
                 if (nextY < currentY) {
                     changeY = -1 * velocity;
                     currentY += changeY;
@@ -94,7 +95,8 @@ public class Antigen extends Entity {
                         currentY = nextY;
                     }
                 }
-            } else if (Math.abs(currentY - nextY) < margin && Math.abs(currentX - nextX) > margin) {
+            } else if (currentY == nextY && currentX != nextX) {
+
                 if (nextX < currentX) {
                     changeX = -1 * velocity;
                     currentX += changeX;
@@ -109,7 +111,7 @@ public class Antigen extends Entity {
                         currentX = nextX;
                     }
                 }
-            } else if (!(Math.abs(currentX - nextX) < margin) && !(Math.abs(currentY - nextY) < margin)) {
+            } else if (!(currentX == nextX) && !(currentY == nextY)) {
 
                 double slope = map.createSlope(nextX - currentX, nextY - currentY);
                 changeX = Math.sqrt(Math.pow(velocity, 2) / (Math.pow(slope, 2) + 1));
