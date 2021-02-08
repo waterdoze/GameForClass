@@ -11,6 +11,7 @@ public class Tuberculosis extends Antigen {
 
 
     public Tuberculosis(Context context, TowerDefensePog TDP) {
+
         super(context, TDP,1000, 5, 8, AntigenType.TUBERCULOSIS, 9, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.tuberculosis);
