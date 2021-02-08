@@ -374,7 +374,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if (set[enemyRoundCounter] != null) {
                     addEnemy(set[enemyRoundCounter]);
                     addEnemyTimer = 0;
-                    campaign.randomWaitTime();
                 }
 
                 enemyRoundCounter++;
