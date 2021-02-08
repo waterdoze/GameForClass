@@ -2,14 +2,24 @@ package com.example.gameforclass.background;
 
 import com.example.gameforclass.antigens.AntigenType;
 
+import java.util.TreeMap;
+
 public class Campaign {
 
     private AntigenType[][] matrix;
+    private int counter = 0;
     private int waitTime;
     private int currentArray;
+    private TreeMap<Integer, Integer> timeMap = new TreeMap<>();
+    //TODO utilize the multiplier for difficulty
     private double multiplier;
 
     public Campaign(int difficulty) {
+
+        timeMap.put(10, 25);
+        timeMap.put(33, 5);
+        timeMap.put(45, 25);
+        timeMap.put(46, 5);
 
         waitTime = 30;
         currentArray = 0;
@@ -22,9 +32,9 @@ public class Campaign {
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
-                             {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.HIV, AntigenType.HIV, AntigenType.HIV, null, null, null, null},
-                             {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                             {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
+                             {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS},
+                             {AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS},
+                             {AntigenType.TUBERCULOSIS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null, null},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
@@ -69,9 +79,14 @@ public class Campaign {
         return waitTime;
     }
 
-    public void randomWaitTime() {
-        waitTime = (int)(5+Math.random()*50); //Wait time is random # of frames between 5 and 55
-        if(Math.random() * 2 < 1.0) waitTime = (waitTime / 2) + 1; //half of the time, cut waitTime in half
+
+
+    public void updateWaitTime() {
+        counter++;
+        if (timeMap.containsKey(counter)) {
+            waitTime = timeMap.get(counter);
+        }
+
     }
 
     public AntigenType[] getCurrentArray() {

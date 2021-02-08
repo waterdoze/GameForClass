@@ -28,8 +28,9 @@ public class TheGameplay extends AppCompatActivity {
     //TheGameplay is the activity in which the GameFragment class runs in
 
     TowerDefensePog game;
-    boolean sideBarisBig;
-    boolean animationEnded;
+
+    private boolean sideBarisBig = false;
+    private boolean animationEnded = false;
 
 
     @Override
@@ -43,8 +44,7 @@ public class TheGameplay extends AppCompatActivity {
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
 
-        sideBarisBig = false;
-        animationEnded = false;
+
         game = (TowerDefensePog) findViewById(R.id.gameFragment);
 
         AnimatorSet invisAnim = new AnimatorSet();
@@ -56,6 +56,7 @@ public class TheGameplay extends AppCompatActivity {
         invisAnim.start();
     }
 
+
     //SETVISIBILITY VALUES: 0 == VISIBLE      4 == INVISIBLE      8 == GONE
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")//Allows the setVisibility to take values other than the constants
@@ -63,16 +64,15 @@ public class TheGameplay extends AppCompatActivity {
         animationEnded = false;
         ScrollView SideBar = findViewById(R.id.SideBar);
         ScrollView BigSideBar = findViewById(R.id.BigSideBar);
+
         ImageButton SmallTabButton = findViewById(R.id.SmallTabButton);
         ImageButton BigTabButton = findViewById(R.id.BigTabButton);
+
         AnimatorSet setOne = new AnimatorSet();
         AnimatorSet setTwo = new AnimatorSet();
+        AnimatorSet setThree = new AnimatorSet();
 
-        int setBig = 0; int setSmall = 8;
-        if(sideBarisBig){//if this is the big tab button we pressed, then we want to make the big ones disappear
-            setBig = 8;
-            setSmall = 0;
-        }
+
 
 
         ObjectAnimator SmallSideBarAnim = ObjectAnimator.ofFloat(SideBar, "translationX", (!sideBarisBig)?510f : 0f);
@@ -137,6 +137,8 @@ public class TheGameplay extends AppCompatActivity {
             }
 
         });
+
+
         setOne.playTogether(
                 ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?510f : 0f),
                 SmallSideBarAnim
@@ -147,8 +149,13 @@ public class TheGameplay extends AppCompatActivity {
                 BigSideBarAnim
         );//.723
         setTwo.setDuration(450);
-        if(!sideBarisBig){setOne.start();}
-        else {setTwo.start();}
+
+        if(!sideBarisBig) {
+            setOne.start();
+        }
+        else {
+            setTwo.start();
+        }
 
 //        SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
 //        SideBar.setVisibility(setSmall);
@@ -170,17 +177,23 @@ public class TheGameplay extends AppCompatActivity {
 
     //TODO connect these methods with actual upgrade buttons in xml
     public void upgradeNeutroButton(View v) {
-        game.upgrade(UpgradeType.AFFECT_NEUTROPHIL);
+        game.upgrade(UpgradeType.NEUTROPHIL_TRANSFUSION);
     }
 
     public void upgradeMacroButton(View v) {
-        game.upgrade(UpgradeType.AFFECT_MACROPHAGE);
+        game.upgrade(UpgradeType.BONE_MARROW_UPGRADE);
     }
 
     public void upgradeNaiveCellButton(View v) {
         game.upgrade(UpgradeType.AFFECT_NAIVE_CELL);
     }
+
+    public void upgradeFeverButton(View v) {
+        game.upgrade(UpgradeType.FEVER);
+    }
     //--------------------
+
+
     public void changeText(int playerHP, int bio, int round)
     {
         runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread

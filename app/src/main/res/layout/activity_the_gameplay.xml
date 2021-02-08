@@ -201,10 +201,10 @@
         android:adjustViewBounds="false"
         android:scaleType="fitStart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SideBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/bottombar" />
+        app:srcCompat="@drawable/bottombar"/>
 
     <TextView
         android:id="@+id/PlayerHealth"

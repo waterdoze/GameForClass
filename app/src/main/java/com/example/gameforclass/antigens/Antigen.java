@@ -1,6 +1,7 @@
 package com.example.gameforclass.antigens;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.animation.Healthbar;
