@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Tuberculosis;
 import com.example.gameforclass.cells.Macrophage;
+import com.example.gameforclass.cells.TCell;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
@@ -413,6 +414,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         if (selected == null) return;
         switch (selected) {
+            case NAIVE_T_CELL:
+                towerWeGonnaPlace = new TCell(0, 0, this);
+                if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower
+                {
+                    towerWeGonnaPlace = null;
+                    towerPlacementMode = false;
+                    cantAfford = true;
+                    return;
+                }
+                break;
             case MACROPHAGE:
                 towerWeGonnaPlace = new Macrophage(0, 0, this);
                 if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower

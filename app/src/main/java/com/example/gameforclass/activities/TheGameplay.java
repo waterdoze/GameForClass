@@ -171,6 +171,10 @@ public class TheGameplay extends AppCompatActivity {
         game.setTowerPlacementMode(TowerType.MACROPHAGE);
     }
 
+    public void naiveButton(View v) {
+        game.setTowerPlacementMode(TowerType.NAIVE_T_CELL);
+    }
+
     public void resumeButton(View v) {
         game.resumeGame();
     }

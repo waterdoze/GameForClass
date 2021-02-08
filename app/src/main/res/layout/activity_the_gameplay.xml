@@ -107,6 +107,7 @@
                 android:cropToPadding="true"
                 android:padding="0dp"
                 android:scaleType="centerInside"
+                android:onClick="naiveButton"
                 app:srcCompat="@drawable/naivetcellbutton" />
 
         </LinearLayout>

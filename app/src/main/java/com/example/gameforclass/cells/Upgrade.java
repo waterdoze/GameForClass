@@ -21,7 +21,7 @@ public class Upgrade {
                 break;
             case AFFECT_NAIVE_CELL:
                 for (Tower t: array) {
-                    if (t.getTowerType() == TowerType.CYTOTOXICTCELL) {
+                    if (t.getTowerType() == TowerType.NAIVE_T_CELL) {
                         t.setDmg(t.getDmg() + 5);
                         t.setRange(t.getRange() + 50);
                     }
