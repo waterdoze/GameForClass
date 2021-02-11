@@ -8,6 +8,25 @@
     android:background="@color/black"
     tools:context=".activities.TheGameplay">
 
+    <ScrollView
+        android:id="@+id/UpgradeSideBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="620dp"
+        android:layout_marginLeft="620dp"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
     <FrameLayout
 
         android:id="@+id/frameLayout"
@@ -27,24 +46,12 @@
 
     </FrameLayout>
 
-    <ImageButton
-        android:id="@+id/BigTabButton"
-        android:layout_width="26dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="30dp"
-        android:onClick="changeSideBar"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/BigSideBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cholera_easy_mode"
-        tools:visibility="invisible" />
-
     <ScrollView
         android:id="@+id/SideBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="580dp"
-        android:layout_marginLeft="580dp"
+        android:layout_marginStart="620dp"
+        android:layout_marginLeft="620dp"
         android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,9 +95,9 @@
                 android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"
+                android:onClick="macroButton"
                 android:padding="0dp"
                 android:scaleType="centerCrop"
-                android:onClick="macroButton"
                 app:srcCompat="@drawable/macrophagebutton" />
 
             <TextView
@@ -105,53 +112,44 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:cropToPadding="true"
+                android:onClick="naiveButton"
                 android:padding="0dp"
                 android:scaleType="centerInside"
-                android:onClick="naiveButton"
                 app:srcCompat="@drawable/naivetcellbutton" />
 
         </LinearLayout>
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/SmallTabButton"
-        android:layout_width="26dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="30dp"
+        android:id="@+id/TabButton"
+        android:layout_width="54dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="43dp"
         android:onClick="changeSideBar"
-        app:layout_constraintEnd_toStartOf="@+id/SideBar"
+        app:layout_constraintEnd_toStartOf="@+id/UpgradeTabButton"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rabies_hard_mode" />
+        app:srcCompat="@drawable/towerbutton"
+        android:scaleType="fitCenter"
+        android:padding="0dp"
+        android:adjustViewBounds="true"/>
 
-    <ScrollView
-        android:id="@+id/BigSideBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="500dp"
-        android:layout_marginLeft="500dp"
-        android:layout_marginTop="30dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageButton
+        android:id="@+id/UpgradeTabButton"
+        android:layout_width="56dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:onClick="changeSideBar"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TabButton"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/buttontemplate" />
-        </LinearLayout>
-    </ScrollView>
+        app:srcCompat="@drawable/upgradebutton"
+        android:scaleType="fitCenter"
+        android:padding="0dp"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
