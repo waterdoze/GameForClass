@@ -16,6 +16,7 @@ public class Tower extends Entity {
 
     private boolean rangeToggle = false;
     private boolean isPhagocyte;//Can this cell attack stuff
+    private boolean upgraded = false;
 
     private TowerType towerType;
 
@@ -73,6 +74,10 @@ public class Tower extends Entity {
         return rangeToggle;
     }
 
+    public boolean isUpgraded() {
+        return upgraded;
+    }
+
     public AttackPellet getAttackPellet() {
         return attackPellet;
     }
@@ -113,6 +118,10 @@ public class Tower extends Entity {
 
     public void setRange(int range) {
         this.range = range;
+    }
+
+    public void setUpgraded(boolean state) {
+        upgraded = state;
     }
 }
 

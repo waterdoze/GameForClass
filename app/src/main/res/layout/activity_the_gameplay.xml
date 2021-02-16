@@ -59,6 +59,7 @@
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
+                android:onClick="upgradeBCellButton"
                 android:padding="0dp"
                 android:paddingLeft="0dp"
                 android:paddingTop="0dp"
@@ -167,9 +168,10 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:cropToPadding="true"
+                android:onClick="bCellButton"
                 android:padding="0dp"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/bcell" />
+                app:srcCompat="@drawable/bcellbutton" />
 
             <TextView
                 android:id="@+id/textView5"

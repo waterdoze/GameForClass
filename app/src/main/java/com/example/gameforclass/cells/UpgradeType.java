@@ -4,5 +4,6 @@ public enum UpgradeType {
     NEUTROPHIL_TRANSFUSION,
     BONE_MARROW_UPGRADE,
     AFFECT_NAIVE_CELL,
-    FEVER
+    FEVER,
+    AFFECT_B_CELL
 }

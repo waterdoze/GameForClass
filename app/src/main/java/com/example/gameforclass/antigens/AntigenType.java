@@ -4,5 +4,6 @@ public enum AntigenType {
     PNEUMOCOCCUS,
     ASPERGILLUS,
     RHINOVIRUS,
-    TUBERCULOSIS
+    TUBERCULOSIS,
+    CORONAVIRUS
 }

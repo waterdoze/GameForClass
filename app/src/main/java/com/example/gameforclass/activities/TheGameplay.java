@@ -181,6 +181,8 @@ public class TheGameplay extends AppCompatActivity {
         game.setTowerPlacementMode(TowerType.NAIVE_T_CELL);
     }
 
+    public void bCellButton(View v) { game.setTowerPlacementMode(TowerType.B_CELL); }
+
     public void resumeButton(View v) {
         game.resumeGame();
     }
@@ -201,8 +203,8 @@ public class TheGameplay extends AppCompatActivity {
     public void upgradeFeverButton(View v) {
         game.upgrade(UpgradeType.FEVER);
     }
-    //--------------------
 
+    public void upgradeBCellButton(View v) { game.upgrade(UpgradeType.AFFECT_B_CELL);}
 
     public void changeText(int playerHP, int bio, int round)
     {
