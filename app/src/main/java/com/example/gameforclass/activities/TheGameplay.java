@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.animation.EmotionalSupport;
 import com.example.gameforclass.background.TowerDefensePog;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.cells.UpgradeType;
@@ -32,6 +33,7 @@ public class TheGameplay extends AppCompatActivity {
     private boolean sideBarisBig = false;
     private boolean animationEnded = false;
 
+    private EmotionalSupport eButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class TheGameplay extends AppCompatActivity {
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
 
-
+        eButton = new EmotionalSupport(getApplicationContext());
         game = (TowerDefensePog) findViewById(R.id.gameFragment);
 
 
@@ -185,6 +187,10 @@ public class TheGameplay extends AppCompatActivity {
 
     public void resumeButton(View v) {
         game.resumeGame();
+    }
+
+    public void emotionalSupportButton(View v) {
+        eButton.displayMessage();
     }
 
     //TODO connect these methods with actual upgrade buttons in xml
