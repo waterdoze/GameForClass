@@ -23,9 +23,9 @@ public class Tower extends Entity {
     private AttackPellet attackPellet;
 
 
-    public Tower(int tileX, int tileY, int range, int dmg, int biomolecules, int attackTimer, boolean isPhagocyte, TowerType towerType) {
+    public Tower(int tileX, int tileY, int range, int dmg, int biomolecules, int attackTimer, boolean isPhagocyte, TowerType towerType, double sizeMultiplier) {
 
-        super(tileX, tileY, 0);
+        super(tileX, tileY, 0, sizeMultiplier);
 
         this.range = range;
         this.dmg = dmg;

@@ -273,7 +273,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void drawEnemies(Canvas canvas) {
 
         for (Antigen e : enemies) {
-            canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
+            canvas.drawBitmap(e.getImage(), e.getImageX(), e.getImageY(), paint);
             e.getHealthBar().draw(canvas);
         }
 
@@ -284,7 +284,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void drawTowers(Canvas canvas) {
         for (Tower e : towers) {
             paint.setColor(cyanColor);
-            canvas.drawBitmap(e.getImage(), e.getX(), e.getY(), paint);
+            canvas.drawBitmap(e.getImage(), e.getImageX(), e.getImageY(), paint);
             paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
             if (e.rangeToggleIsOn()) {
                 canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
@@ -424,7 +424,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                     for (Tower t : towers) {
                         if (t.getTowerType() == TowerType.B_CELL) {
                             Bitmap img = BitmapFactory.decodeResource(this.getResources(), R.drawable.bcelluprgraded);
-                            img = Bitmap.createScaledBitmap(img, (int) (this.TILE_WIDTH * 1.25), (int) (this.TILE_HEIGHT * 1.25), false);
+                            img = Bitmap.createScaledBitmap(img, (int) (this.TILE_WIDTH * 1.4), (int) (this.TILE_HEIGHT * 1.4), false);
+                            t.setSizeMultiplier(1.4);
                             t.setImage(img);
                             t.setDmg(t.getDmg() + 20);
                             t.setRange(t.getRange() + 100);

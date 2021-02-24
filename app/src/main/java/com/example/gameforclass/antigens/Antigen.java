@@ -31,9 +31,9 @@ public class Antigen extends Entity {
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY, double sizeMultiplier) {
 
-        super(tileX, tileY, 1);
+        super(tileX, tileY, 1, sizeMultiplier);
 
         screenX = 1440; screenY = 900; //SIZE OF THE FRAGMENT
         map = new Map(TDP.getResources().getString(R.string.map_coordinate), screenX, screenY);
@@ -157,20 +157,15 @@ public class Antigen extends Entity {
             }
         }
 
-        posX = (int)currentX;
-        posY = (int)currentY;
+        posX = (int) currentX;
+        posY = (int) currentY;
+
+        setImageX();
+        setImageY();
     }
 
     public AntigenType getType() {
         return type;
-    }
-
-    public int getX() {
-        return (int) currentX;
-    }
-
-    public int getY() {
-        return (int) currentY;
     }
 
     public double getNextX() {

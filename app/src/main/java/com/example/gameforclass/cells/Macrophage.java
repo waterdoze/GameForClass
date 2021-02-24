@@ -11,7 +11,7 @@ public class Macrophage extends Tower{
     private int towerAffectingRadius = 2;
 
     public Macrophage(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 100, 15, 80, 20, true, TowerType.MACROPHAGE);
+        super(tileX, tileY, 100, 15, 80, 20, true, TowerType.MACROPHAGE, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.macrophage);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

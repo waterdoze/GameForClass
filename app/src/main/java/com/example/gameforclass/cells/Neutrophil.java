@@ -8,7 +8,7 @@ import com.example.gameforclass.background.TowerDefensePog;
 
 public class Neutrophil extends Tower{
     public Neutrophil(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 125, 15, 50, 4, true, TowerType.NEUTROPHIL);
+        super(tileX, tileY, 125, 15, 50, 4, true, TowerType.NEUTROPHIL, 1);
 
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.neutrophil);
