@@ -7,7 +7,6 @@ public class EmotionalSupport {
 
     private int counter = 0;
     private Context context;
-
     private String[] messages = new String[] {
             "It's all going to be okay in the end. If it's not okay, it's not the end.",
             "Your smile is my sunrise :)",
@@ -15,7 +14,9 @@ public class EmotionalSupport {
             "Someone out there loves you.",
             "You are braver than you believe, stronger than you seem, and smarter than you think!",
             "If you hear a voice within you saying \"YOU CANNOT PAINT,\" then by all means paint, and that voice will be silenced.",
-            "People might forget what you said and people might forget what you did, but they will never forget how you made them feel",
+            "People might forget what you said and forget what you did, but they will never forget how you made them feel",
+            "God doesn't give the hardest battles to his toughest soldiers. He creates the toughest soldiers out of life's hardest battles.",
+            "If they say it's impossible, it's impossible for them, not for you."
     };
 
     public EmotionalSupport(Context context) {

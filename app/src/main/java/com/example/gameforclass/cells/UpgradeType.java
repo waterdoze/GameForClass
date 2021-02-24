@@ -5,5 +5,6 @@ public enum UpgradeType {
     BONE_MARROW_UPGRADE,
     AFFECT_NAIVE_CELL,
     FEVER,
-    AFFECT_B_CELL
+    AFFECT_B_CELL,
+    ANTIBIOTIC
 }

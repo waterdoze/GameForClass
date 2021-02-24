@@ -185,6 +185,10 @@ public class TheGameplay extends AppCompatActivity {
 
     public void bCellButton(View v) { game.setTowerPlacementMode(TowerType.B_CELL); }
 
+    public void dendriticButton(View v) {
+        game.setTowerPlacementMode(TowerType.DENDRITIC_CELL);
+    }
+
     public void resumeButton(View v) {
         game.resumeGame();
     }
@@ -211,6 +215,10 @@ public class TheGameplay extends AppCompatActivity {
     }
 
     public void upgradeBCellButton(View v) { game.upgrade(UpgradeType.AFFECT_B_CELL);}
+
+    public void upgradeAntibioticButton(View v) {
+        game.upgrade(UpgradeType.ANTIBIOTIC);
+    }
 
     public void changeText(int playerHP, int bio, int round)
     {

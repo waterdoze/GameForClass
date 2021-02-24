@@ -21,6 +21,7 @@ import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Coronavirus;
 import com.example.gameforclass.antigens.Tuberculosis;
 import com.example.gameforclass.cells.BCell;
+import com.example.gameforclass.cells.DendriticCell;
 import com.example.gameforclass.cells.Macrophage;
 import com.example.gameforclass.cells.TCell;
 import com.example.gameforclass.cells.TowerType;
@@ -133,7 +134,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         {'O', 'O', 'P', 'P', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'P', 'P', 'O', 'O'},
                         {'O', 'O', 'P', 'P', 'P', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'P', 'P', 'O', 'O'},
                         {'O', 'O', 'O', 'P', 'P', 'P', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'P', 'O', 'O'}
-
                 };
 
         ArrayList<Integer> tileXList = new ArrayList<>();
@@ -317,11 +317,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 firstUpdate = false;
                 theActivity.changeText(playerHP, playerBiomolecules, round);
             }
+
             updateEnemies();
 
             for (Tower t : towers) {
+
                 if (t.getTimerCounter() == t.getAttackTimer() && t.getAttackPellet() == null) {
-                    if (t.attack(enemies)) {
+                    if (t.attack(enemies, towers)) {
 
                         attacked = true;
                         t.setTimerCounter(0);
@@ -344,9 +346,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void updateEnemies() {
 
         set = campaign.getCurrentArray();
-
-        Log.d("counternum", "" + enemies.size());
-
 
         if (!enemies.isEmpty()) { // move enemies and check if they're dead
 
@@ -410,19 +409,31 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void upgrade(UpgradeType upgrade) {
 
         switch (upgrade) {
+            case ANTIBIOTIC:
+                Antigen temp = enemies.get((enemies.size() - 1) / 2);
+                temp.setVelocity(temp.getVelocity() + 5);
+                temp.setHealth(temp.getMaxHealth() * 2);
+
+                enemies.clear();
+                enemies.add(temp);
+                break;
             case AFFECT_B_CELL:
-                if (!bCellUpgraded) {
+                if (!bCellUpgraded && canAfford(120)) {
+                    decBM(120);
                     bCellUpgraded = true;
                     for (Tower t : towers) {
                         if (t.getTowerType() == TowerType.B_CELL) {
-                            Bitmap img = BitmapFactory.decodeResource(this.getResources(), R.drawable.bcell);
-                            img = Bitmap.createScaledBitmap(img, this.TILE_WIDTH, this.TILE_HEIGHT, false);
+                            Bitmap img = BitmapFactory.decodeResource(this.getResources(), R.drawable.bcelluprgraded);
+                            img = Bitmap.createScaledBitmap(img, (int) (this.TILE_WIDTH * 1.25), (int) (this.TILE_HEIGHT * 1.25), false);
                             t.setImage(img);
+                            t.setDmg(t.getDmg() + 20);
+                            t.setRange(t.getRange() + 100);
                         }
                     }
                 }
                 break;
             case FEVER:
+
                 break;
             case AFFECT_NAIVE_CELL:
                 for (Tower t: towers) {
@@ -456,6 +467,16 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         if (selected == null) return;
         switch (selected) {
+            case DENDRITIC_CELL:
+                towerWeGonnaPlace = new DendriticCell(0, 0, this);
+                if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower
+                {
+                    towerWeGonnaPlace = null;
+                    towerPlacementMode = false;
+                    cantAfford = true;
+                    return;
+                }
+                break;
             case B_CELL:
                 towerWeGonnaPlace = new BCell(0, 0, this);
                 if (!canAfford(towerWeGonnaPlace.getBiomolecules())) //if you cant afford the tower
@@ -537,24 +558,41 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 int xPos = (int) (touchX - touchX % TILE_WIDTH - TILE_WIDTH) / TILE_WIDTH;
 
                 if (yPos >= tileRows || xPos >= tileCols) {
-                    if(towerPlacementMode) cantPlace = true;
-                     break;
+                    if (towerPlacementMode) cantPlace = true;
+                    break;
                 }
-
-                if(tiles[yPos][xPos] == 'P') {
-                    cantPlace = true;
-                }
-                else if (tiles[yPos][xPos] == 'T') {
-                    towersPlaced[yPos][xPos].switchRangeToggle();
-                    cantPlace = true;
+                if (towerWeGonnaPlace != null && towerWeGonnaPlace.getTowerType() != TowerType.DENDRITIC_CELL) {
+                    if (tiles[yPos][xPos] == 'P') {
+                        cantPlace = true;
+                    }
+                    else if (towerWeGonnaPlace != null) {
+                        towerWeGonnaPlace.setX(xPos * TILE_WIDTH);
+                        ; //convert to normal coords
+                        towerWeGonnaPlace.setY(yPos * TILE_HEIGHT);
+                        addTower(towerWeGonnaPlace);
+                        tiles[yPos][xPos] = 'T';
+                        towersPlaced[yPos][xPos] = towerWeGonnaPlace;
+                    }
 
                 }
                 else if (towerWeGonnaPlace != null) {
-                    towerWeGonnaPlace.setX(xPos * TILE_WIDTH); ; //convert to normal coords
-                    towerWeGonnaPlace.setY(yPos * TILE_HEIGHT);
-                    addTower(towerWeGonnaPlace);
-                    tiles[yPos][xPos] = 'T';
-                    towersPlaced[yPos][xPos] = towerWeGonnaPlace;
+                    if (tiles[yPos][xPos] == 'O') {
+                        cantPlace = true;
+                    }
+                    else if (towerWeGonnaPlace != null) {
+                        towerWeGonnaPlace.setX(xPos * TILE_WIDTH);
+                        ; //convert to normal coords
+                        towerWeGonnaPlace.setY(yPos * TILE_HEIGHT);
+                        addTower(towerWeGonnaPlace);
+                        tiles[yPos][xPos] = 'T';
+                        towersPlaced[yPos][xPos] = towerWeGonnaPlace;
+                    }
+                }
+                else {
+                    if (tiles[yPos][xPos] == 'T') {
+                        towersPlaced[yPos][xPos].switchRangeToggle();
+                        cantPlace = true;
+                    }
                 }
                 endTowerPlacementMode();
                 break;

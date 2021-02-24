@@ -7,8 +7,13 @@ import com.example.gameforclass.background.TowerDefensePog;
 public abstract class Entity {//Maybe this class can hold the image for the entity instead of all of the lower classes
     public int tileX;
     public int tileY;
+
     public int posX;
     public int posY;
+
+    public int imageX;
+    public int imageY;
+    
     public int entityType;
     public Bitmap image;
 

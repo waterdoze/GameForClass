@@ -3,6 +3,7 @@ package com.example.gameforclass.cells;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,6 @@ public class Tower extends Entity {
 
     private boolean rangeToggle = false;
     private boolean isPhagocyte;//Can this cell attack stuff
-    private boolean upgraded = false;
 
     private TowerType towerType;
 
@@ -39,7 +39,7 @@ public class Tower extends Entity {
         return Math.sqrt( Math.pow((this.getX()-other.getX()), 2) + Math.pow(this.getY()-other.getY(), 2));
     }
 
-    public boolean attack(ArrayList<Antigen> enemies) { //return false if did not attack
+    public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) { //return false if did not attack
         if (!isPhagocyte) {
             return false;
         }
@@ -74,9 +74,6 @@ public class Tower extends Entity {
         return rangeToggle;
     }
 
-    public boolean isUpgraded() {
-        return upgraded;
-    }
 
     public AttackPellet getAttackPellet() {
         return attackPellet;
@@ -120,8 +117,7 @@ public class Tower extends Entity {
         this.range = range;
     }
 
-    public void setUpgraded(boolean state) {
-        upgraded = state;
-    }
+
+
 }
 

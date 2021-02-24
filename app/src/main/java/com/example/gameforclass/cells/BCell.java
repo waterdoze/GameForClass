@@ -15,7 +15,7 @@ public class BCell extends Tower{
 
         Bitmap img;
         if (TDP.bCellisUpgraded()) {
-            img = BitmapFactory.decodeResource(TDP.getResources(), R.drawable.bcell);
+            img = BitmapFactory.decodeResource(TDP.getResources(), R.drawable.bcelluprgraded);
             setDmg(getDmg() + 20);
             setRange(getRange() + 100);
         }

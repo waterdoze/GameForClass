@@ -233,5 +233,13 @@ public class Antigen extends Entity {
         this.nextY = nextY;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
 
 }
