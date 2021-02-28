@@ -10,4 +10,5 @@
     <color name="settings">#FF6961</color>
     <color name="health_bar_border">#00FF00</color>
     <color name="range_highlight_color">#80808080</color>
+    <color name="pellet">#ADFF2F</color>
 </resources>

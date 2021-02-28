@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.animation.EmotionalSupport;
 import com.example.gameforclass.background.TowerDefensePog;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.cells.UpgradeType;
@@ -32,6 +33,7 @@ public class TheGameplay extends AppCompatActivity {
     private boolean sideBarisBig = false;
     private boolean animationEnded = false;
 
+    private EmotionalSupport eButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,18 @@ public class TheGameplay extends AppCompatActivity {
 
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
 
-
+        eButton = new EmotionalSupport(getApplicationContext());
         game = (TowerDefensePog) findViewById(R.id.gameFragment);
 
-        AnimatorSet invisAnim = new AnimatorSet();
-        invisAnim.setDuration(50);
-        invisAnim.playTogether(
-                ObjectAnimator.ofFloat(findViewById(R.id.BigSideBar), "translationX", 705f),
-                ObjectAnimator.ofFloat(findViewById(R.id.BigTabButton), "translationX", 705f)
-        );
-        invisAnim.start();
+
+//
+//        AnimatorSet invisAnim = new AnimatorSet();
+//        invisAnim.setDuration(50);
+//        invisAnim.playTogether(
+//                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeSideBar), "translationX", 350f),
+//                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeTabButton), "translationX", 350f)
+//        );
+//        invisAnim.start();
     }
 
 
@@ -63,23 +67,27 @@ public class TheGameplay extends AppCompatActivity {
     public void changeSideBar(View v){//If the expand button is pressed, this is called. Animation will be added soon
         animationEnded = false;
         ScrollView SideBar = findViewById(R.id.SideBar);
-        ScrollView BigSideBar = findViewById(R.id.BigSideBar);
+        ScrollView BigSideBar = findViewById(R.id.UpgradeSideBar);
 
-        ImageButton SmallTabButton = findViewById(R.id.SmallTabButton);
-        ImageButton BigTabButton = findViewById(R.id.BigTabButton);
+        ImageButton SmallTabButton = findViewById(R.id.TabButton);
+        ImageButton BigTabButton = findViewById(R.id.UpgradeTabButton);
 
         AnimatorSet setOne = new AnimatorSet();
         AnimatorSet setTwo = new AnimatorSet();
-        AnimatorSet setThree = new AnimatorSet();
 
 
-
-
-        ObjectAnimator SmallSideBarAnim = ObjectAnimator.ofFloat(SideBar, "translationX", (!sideBarisBig)?510f : 0f);
+        if(!sideBarisBig && v == findViewById(R.id.TabButton)){
+            return;
+        }
+        if(sideBarisBig && v == findViewById(R.id.UpgradeTabButton)){
+            return;
+        }
+        ObjectAnimator SmallSideBarAnim = ObjectAnimator.ofFloat(SideBar, "translationX", (!sideBarisBig)?360f : 0f);
         SmallSideBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
 
             @Override
             public void onAnimationStart(Animator animation) {
+
             }
 
             @Override
@@ -88,9 +96,9 @@ public class TheGameplay extends AppCompatActivity {
                     sideBarisBig = true;
                     animationEnded = true;
                     SideBar.setVisibility(8);
-                    SmallTabButton.setVisibility(8);
+                   // SmallTabButton.setVisibility(8);
                     BigSideBar.setVisibility(0);
-                    BigTabButton.setVisibility(0);
+                   // BigTabButton.setVisibility(0);
                     setTwo.start();
                 }
             }
@@ -106,7 +114,7 @@ public class TheGameplay extends AppCompatActivity {
             }
 
         });
-        ObjectAnimator BigSideBarAnim = ObjectAnimator.ofFloat(BigSideBar, "translationX", sideBarisBig?705f : 0f);
+        ObjectAnimator BigSideBarAnim = ObjectAnimator.ofFloat(BigSideBar, "translationX", sideBarisBig?360f : 0f);
         BigSideBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
 
             @Override
@@ -119,9 +127,9 @@ public class TheGameplay extends AppCompatActivity {
                     sideBarisBig = false;
                     animationEnded = true;
                     SideBar.setVisibility(0);
-                    SmallTabButton.setVisibility(0);
+                  //  SmallTabButton.setVisibility(0);
                     BigSideBar.setVisibility(8);
-                    BigTabButton.setVisibility(8);
+                  //  BigTabButton.setVisibility(8);
                     setOne.start();
                 }
             }
@@ -140,20 +148,20 @@ public class TheGameplay extends AppCompatActivity {
 
 
         setOne.playTogether(
-                ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?510f : 0f),
+               // ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?360f : 0f),
                 SmallSideBarAnim
         );
         setOne.setDuration(400);
         setTwo.playTogether(
-                ObjectAnimator.ofFloat(BigTabButton, "translationX", sideBarisBig?705f : 0f),
+               // ObjectAnimator.ofFloat(BigTabButton, "translationX", sideBarisBig?360f : 0f),
                 BigSideBarAnim
         );//.723
-        setTwo.setDuration(450);
+        setTwo.setDuration(400);
 
         if(!sideBarisBig) {
             setOne.start();
         }
-        else {
+        else{
             setTwo.start();
         }
 
@@ -171,8 +179,22 @@ public class TheGameplay extends AppCompatActivity {
         game.setTowerPlacementMode(TowerType.MACROPHAGE);
     }
 
+    public void naiveButton(View v) {
+        game.setTowerPlacementMode(TowerType.NAIVE_T_CELL);
+    }
+
+    public void bCellButton(View v) { game.setTowerPlacementMode(TowerType.B_CELL); }
+
+    public void dendriticButton(View v) {
+        game.setTowerPlacementMode(TowerType.DENDRITIC_CELL);
+    }
+
     public void resumeButton(View v) {
         game.resumeGame();
+    }
+
+    public void emotionalSupportButton(View v) {
+        eButton.displayMessage();
     }
 
     //TODO connect these methods with actual upgrade buttons in xml
@@ -191,8 +213,12 @@ public class TheGameplay extends AppCompatActivity {
     public void upgradeFeverButton(View v) {
         game.upgrade(UpgradeType.FEVER);
     }
-    //--------------------
 
+    public void upgradeBCellButton(View v) { game.upgrade(UpgradeType.AFFECT_B_CELL);}
+
+    public void upgradeAntibioticButton(View v) {
+        game.upgrade(UpgradeType.ANTIBIOTIC);
+    }
 
     public void changeText(int playerHP, int bio, int round)
     {

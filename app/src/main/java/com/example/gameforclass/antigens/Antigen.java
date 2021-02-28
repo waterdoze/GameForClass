@@ -9,6 +9,7 @@ import com.example.gameforclass.background.Map;
 import com.example.gameforclass.R;
 import com.example.gameforclass.background.TowerDefensePog;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Antigen extends Entity {
@@ -21,7 +22,7 @@ public class Antigen extends Entity {
     private int gear = 0, counter = 2;
     public int dy, dx;
 
-    public boolean pathFinished = false;
+    private boolean pathFinished = false;
 
     private int screenX, screenY; //SIZE OF THE FRAGMENT
 
@@ -30,9 +31,9 @@ public class Antigen extends Entity {
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY, double sizeMultiplier) {
 
-        super(tileX, tileY, 1);
+        super(tileX, tileY, 1, sizeMultiplier);
 
         screenX = 1440; screenY = 900; //SIZE OF THE FRAGMENT
         map = new Map(TDP.getResources().getString(R.string.map_coordinate), screenX, screenY);
@@ -50,8 +51,8 @@ public class Antigen extends Entity {
 
         healthbar = new Healthbar(context, this);
 
-        currentX = path.get(0);
-        currentY = path.get(1);
+        currentX = path.get(counter - 2);
+        currentY = path.get(counter - 1);
         nextX = path.get(counter);
         nextY = path.get(counter + 1);
         counter += 2;
@@ -59,10 +60,9 @@ public class Antigen extends Entity {
 
     }
 
-    public int getBiomolecule() {
-        return biomolecule;
+    public void actionOnDeath(Context context, TowerDefensePog TDP) {
+        return;
     }
-
 
     public void takeDamage(int damage) {
 
@@ -157,20 +157,23 @@ public class Antigen extends Entity {
             }
         }
 
-        posX = (int)currentX;
-        posY = (int)currentY;
+        posX = (int) currentX;
+        posY = (int) currentY;
+
+        setImageX();
+        setImageY();
     }
 
     public AntigenType getType() {
         return type;
     }
 
-    public int getX() {
-        return (int) currentX;
+    public double getNextX() {
+        return nextX;
     }
 
-    public int getY() {
-        return (int) currentY;
+    public double getNextY() {
+        return nextY;
     }
 
     public int getHealth() {
@@ -185,6 +188,14 @@ public class Antigen extends Entity {
         return healthbar;
     }
 
+    public int getBiomolecule() {
+        return biomolecule;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
     public boolean pathIsFinished() {
         return pathFinished;
     }
@@ -196,4 +207,35 @@ public class Antigen extends Entity {
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    public void setCurrentX(int currentX) {
+        this.currentX = currentX;
+    }
+
+    public void setCurrentY(int currentY) {
+        this.currentY = currentY;
+    }
+
+    public void setNextX(double nextX) {
+        this.nextX = nextX;
+    }
+
+    public void setNextY(double nextY) {
+        this.nextY = nextY;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+
+
 }

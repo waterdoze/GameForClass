@@ -1,8 +1,11 @@
 package com.example.gameforclass.cells;
 
+import android.util.Log;
+
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
 
@@ -22,9 +25,9 @@ public class Tower extends Entity {
     private AttackPellet attackPellet;
 
 
-    public Tower(int tileX, int tileY, int range, int dmg, int biomolecules, int attackTimer, boolean isPhagocyte, TowerType towerType) {
+    public Tower(int tileX, int tileY, int range, int dmg, int biomolecules, int attackTimer, boolean isPhagocyte, TowerType towerType, double sizeMultiplier) {
 
-        super(tileX, tileY, 0);
+        super(tileX, tileY, 0, sizeMultiplier);
 
         this.range = range;
         this.dmg = dmg;
@@ -38,31 +41,35 @@ public class Tower extends Entity {
         return Math.sqrt( Math.pow((this.getX()-other.getX()), 2) + Math.pow(this.getY()-other.getY(), 2));
     }
 
-    public boolean attack(ArrayList<Antigen> enemies) { //return false if did not attack
+    public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) { //return false if did not attack
+
         if (!isPhagocyte) {
             return false;
         }
-        Antigen target = null;
-        double d = 0;
+        else {
+            Antigen target = null;
+            double d = 0;
 
-        if(enemies.isEmpty()) return false;
+            if (enemies.isEmpty()) return false;
 
-        for(Antigen a: enemies) {
+            for (Antigen a : enemies) {
 
-            d = distanceTo(a);
-            if(target == null && d <= range) { //if there's no target yet, set it to any target
-                target = a;                   //set to closest target in enemies list
+                d = distanceTo(a);
+                if (target == null && d <= range) { //if there's no target yet, set it to any target
+                    target = a;                   //set to closest target in enemies list
+                }
+                else if (d <= range && target != null && d < distanceTo(target)) {
+                    target = a;
+                }
             }
-
-            else if (d <= range && target != null && d < distanceTo(target)) target = a;
+            if (target == null) {
+                return false;
+            }
+            target.takeDamage(dmg); //if an enemy is in range, attack
+            //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+            attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);
+            return true;
         }
-        if(target == null) {
-            return false;
-        }
-        target.takeDamage(dmg); //if an enemy is in range, attack
-        //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
-        attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);
-        return true;
     }
 
     public void switchRangeToggle() {
@@ -114,5 +121,12 @@ public class Tower extends Entity {
     public void setRange(int range) {
         this.range = range;
     }
+
+    public void setPhagocyte(boolean state) {
+        isPhagocyte = state;
+    }
+
+
+
 }
 

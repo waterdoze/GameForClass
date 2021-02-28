@@ -14,20 +14,20 @@ public class AttackPellet {
     int acceptableError = 30;
     boolean hitEm = false;
 
-    public AttackPellet(int screenX, int screenY, int targetX, int targetY, int dmg){
-        this.screenX = screenX+ TowerDefensePog.TILE_WIDTH/2;
-        this.screenY = screenY+TowerDefensePog.TILE_HEIGHT/2;
-        this.targetX = targetX+TowerDefensePog.TILE_WIDTH/2;
-        this.targetY = targetY+TowerDefensePog.TILE_HEIGHT/2;
+    public AttackPellet(int screenX, int screenY, int targetX, int targetY, int dmg) {
+        this.screenX = screenX + TowerDefensePog.TILE_WIDTH / 2;
+        this.screenY = screenY + TowerDefensePog.TILE_HEIGHT / 2;
+        this.targetX = targetX + TowerDefensePog.TILE_WIDTH / 2;
+        this.targetY = targetY + TowerDefensePog.TILE_HEIGHT / 2;
         this.size = dmg;
-        dx = (targetX - screenX)/7;
-        dy = (targetY - screenY)/7;
+        dx = (targetX - screenX) / 3;
+        dy = (targetY - screenY) / 3;
     }
 
-    public void move(){
-        screenX+=dx;
-        screenY+=dy;
-        if(Math.abs(screenX - targetX) <= acceptableError || Math.abs(screenY - targetY) <= acceptableError){
+    public void move() {
+        screenX += dx;
+        screenY += dy;
+        if (Math.abs(screenX - targetX) <= acceptableError || Math.abs(screenY - targetY) <= acceptableError) {
             hitEm = true;
         }
     }
