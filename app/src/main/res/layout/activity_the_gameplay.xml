@@ -78,9 +78,24 @@
                 android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"
+                android:onClick="upgradeAntibioticButton"
                 android:padding="0dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/antibiotic" />
+            <TextView
+                android:id="@+id/FeverText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Antibiotic" />
+            <ImageButton
+                android:id="@+id/FeverButton"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:onClick="upgradeFeverButton"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/fever" />
         </LinearLayout>
 
     </ScrollView>

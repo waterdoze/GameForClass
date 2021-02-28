@@ -3,21 +3,18 @@ package com.example.gameforclass.antigens;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.background.TowerDefensePog;
 
-import java.util.ArrayList;
-
-public class Coronavirus extends Antigen {
+public class Staphylococcus extends Antigen {
 
 
-    public Coronavirus(Context context, TowerDefensePog TDP) {
+    public Staphylococcus(Context context, TowerDefensePog TDP) {
 
         super(context, TDP,200, 25, 6, AntigenType.CORONAVIRUS, 9, 1, 2);
 
-        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.corona);
+        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.staphylococcus);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH * 2, TDP.TILE_HEIGHT * 2, false);
         setImage(img);
 
@@ -27,7 +24,7 @@ public class Coronavirus extends Antigen {
     public void actionOnDeath(Context context, TowerDefensePog TDP) {
 
         for (int i = 0; i < 8; i++) {
-            CoronavirusSpawn spawn = new CoronavirusSpawn(context, TDP);
+            StaphylococcusSpawn spawn = new StaphylococcusSpawn(context, TDP);
             spawn.setCounter(this.getCounter());
 
             switch (i) {

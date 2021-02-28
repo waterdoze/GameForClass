@@ -59,7 +59,6 @@ public class DendriticCell extends Tower {
             ActivationPhase(towers);
         }
         else {
-
             towers.remove(this);
         }
         //if an enemy is in range, attack
@@ -144,6 +143,9 @@ public class DendriticCell extends Tower {
         else {
             pathFinished = true;
         }
+
+        setImageX();
+        setImageY();
 
     }
 

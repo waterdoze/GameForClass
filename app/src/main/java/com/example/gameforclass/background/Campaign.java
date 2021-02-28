@@ -28,7 +28,7 @@ public class Campaign {
             multiplier = 1;
              matrix = new AntigenType[][]
                      {
-                             {AntigenType.CORONAVIRUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                             {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
                              {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS},
