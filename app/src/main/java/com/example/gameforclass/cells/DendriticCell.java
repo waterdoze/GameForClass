@@ -17,6 +17,7 @@ public class DendriticCell extends Tower {
     private int nextX, nextY;
     private int velocity = 5;
     private TCell chosen;
+    private Antigen target;
 
     public DendriticCell(int tileX, int tileY, TowerDefensePog TDP) {
         super(tileX, tileY, 50, 0, 80, 0, false, TowerType.DENDRITIC_CELL, 1);
@@ -29,16 +30,57 @@ public class DendriticCell extends Tower {
 
     @Override
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
+//        if (phase) {
+//            if (pathFinished) {
+//                towers.remove(this);
+//                chosen.ascend();
+//                return false;
+//            }
+//            move();
+//            return false;
+//        }
+//        Antigen target = null;
+//        double d = 0;
+//
+//          if(enemies.isEmpty()) return false;
+//
+//        for (Antigen a: enemies) {
+//            d = distanceTo(a);
+//            if (target == null && d <= getRange()) { //if there's no target yet, set it to any target
+//                target = a;                   //set to closest target in enemies list
+//            }
+//            else if (d <= getRange() && target != null && d < distanceTo(target)) target = a;
+//        }
+//        if(target == null) {
+//            return false;
+//        }
+
+
+//        target.takeDamage(100);
+//        if (target.getHealth() == 0) {
+//
+//            ActivationPhase(towers);
+//        }
+//        else {
+//            towers.remove(this);
+//        }
+        //if an enemy is in range, attack
+        //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+        return true;
+    }
+
+    public boolean grabCell(ArrayList<Antigen> enemies, ArrayList<Tower> towers, TowerDefensePog TDP)
+    {
         if (phase) {
             if (pathFinished) {
                 towers.remove(this);
-                chosen.ascend();
+
                 return false;
             }
             move();
             return false;
         }
-        Antigen target = null;
+        if(target != null) target = null;
         double d = 0;
 
         if(enemies.isEmpty()) return false;
@@ -53,16 +95,14 @@ public class DendriticCell extends Tower {
         if(target == null) {
             return false;
         }
-        target.takeDamage(100);
-        if (target.getHealth() == 0) {
 
-            ActivationPhase(towers);
-        }
-        else {
-            towers.remove(this);
-        }
-        //if an enemy is in range, attack
-        //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+        phase = true;
+        target.takeDamage(50);
+
+        nextX = TDP.screenX;
+        nextY = 0;
+
+        TDP.inventory.add(target.getType());
         return true;
     }
 

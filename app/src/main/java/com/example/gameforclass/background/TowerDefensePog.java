@@ -79,6 +79,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Tower[][] towersPlaced;
     private char[][] tiles;//The grid for tower placement; P = Path
     private AntigenType[] set;
+    public ArrayList<AntigenType> inventory = new ArrayList<>(); //stores up to 9 captured cells
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
 
@@ -328,7 +329,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             updateEnemies();
 
             for (Tower t: towers) {
-                if (t.getTimerCounter() >= t.getAttackTimer() && t.getAttackPellet() == null) {
+                if(t.getTowerType() == TowerType.DENDRITIC_CELL)
+                {
+                    ((DendriticCell)t).grabCell(enemies, towers, this);
+                }
+                else if (t.getTimerCounter() >= t.getAttackTimer() && t.getAttackPellet() == null) {
 
                     if (t.attack(enemies, towers)) {
                         attacked = true;
