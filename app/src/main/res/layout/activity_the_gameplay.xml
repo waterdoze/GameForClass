@@ -143,8 +143,8 @@
 
             <ImageButton
                 android:id="@+id/MacroButton"
-                android:layout_width="55dp"
-                android:layout_height="99dp"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:onClick="macroButton"
                 android:padding="0dp"
@@ -206,32 +206,49 @@
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/TabButton"
-        android:layout_width="26dp"
-        android:layout_height="27dp"
-        android:adjustViewBounds="true"
-        android:onClick="changeSideBar"
-        android:padding="0dp"
+        android:id="@+id/inventoryButton"
+        android:layout_width="32dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="16dp"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/towerbutton" />
 
     <ImageButton
         android:id="@+id/UpgradeTabButton"
-        android:layout_width="56dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_width="32dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:onClick="changeSideBar"
         android:padding="0dp"
         android:scaleType="fitCenter"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/inventoryButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/upgradebutton"
         tools:visibility="visible" />
 
+    <ImageButton
+        android:id="@+id/TabButton"
+        android:layout_width="32dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:onClick="changeSideBar"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/UpgradeTabButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/towerbutton" />
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="381dp"
@@ -368,14 +385,6 @@
         app:layout_constraintStart_toEndOf="@+id/RoundCounter"
         app:srcCompat="@drawable/supportbutton" />
 
-    <ImageButton
-        android:id="@+id/inventoryButton"
-        android:layout_width="38dp"
-        android:layout_height="27dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/playbutton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
