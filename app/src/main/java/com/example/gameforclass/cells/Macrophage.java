@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
@@ -23,34 +24,33 @@ public class Macrophage extends Tower{
 
     @Override
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
-        ArrayList<Antigen> target = new ArrayList<Antigen>();
-        double d = 0;
-
-        if(enemies.isEmpty()) {
+        if (!isPhagocyte()) {
             return false;
         }
         else {
+            Antigen target = null;
+            double d = 0;
+
+            if (enemies.isEmpty()) return false;
+
             for (Antigen a : enemies) {
 
                 d = distanceTo(a);
-                if (d <= getRange()) { //if there's any target in range, set it
-                    target.add(a);
+                if (target == null && d <= getRange()) { //if there's no target yet, set it to any target
+                    target = a;                   //set to closest target in enemies list
+                }
+                else if (d <= getRange() && target != null && d < distanceTo(target)) {
+                    target = a;
                 }
             }
             if (target == null) {
                 return false;
+            } else {
+                target.takeDamage(getDmg()); //if an enemy is in range, attack
+                //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+                setAttackPellet(new AttackPellet(posX, posY, target.posX, target.posY, getDmg()));
+                return true;
             }
-            for (Antigen a : target) {//if an enemy is in range, attack
-                a.takeDamage(getDmg());
-                setAttackPellet(new AttackPellet(posX, posY, a.posX, a.posY, getDmg()));
-
-            }
-            //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
-            return true;
         }
     }
-    public void arst() {
-
-    }
-
 }

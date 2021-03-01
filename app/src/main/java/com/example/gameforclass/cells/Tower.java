@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
@@ -38,15 +39,26 @@ public class Tower extends Entity {
     }
 
     public double distanceTo(Entity other) {
-        return Math.sqrt( Math.pow((this.getX()-other.getX()), 2) + Math.pow(this.getY()-other.getY(), 2));
+        double centerX = other.getX() + TowerDefensePog.TILE_WIDTH / 2;
+        double centerY = other.getY() + TowerDefensePog.TILE_HEIGHT / 2;
+
+        double cornerOneDistance = Math.sqrt(Math.pow((this.getX() - (centerX + TowerDefensePog.TILE_WIDTH / 2.5)), 2) + Math.pow(this.getY() - centerY, 2));
+        double cornerTwoDistance = Math.sqrt(Math.pow((this.getX() - (centerX - TowerDefensePog.TILE_WIDTH / 2.5)), 2) + Math.pow(this.getY() - centerY, 2));
+        double cornerThreeDistance = Math.sqrt(Math.pow((this.getX() - centerX), 2) + Math.pow(this.getY() - (centerY + TowerDefensePog.TILE_HEIGHT / 2.5), 2));
+        double cornerFourDistance = Math.sqrt(Math.pow((this.getX() - centerX), 2) + Math.pow(this.getY() - (centerY - TowerDefensePog.TILE_HEIGHT / 2.5), 2));
+
+        double result = Math.min(cornerOneDistance, cornerTwoDistance);
+        result = Math.min(result, cornerThreeDistance);
+        result = Math.min(result, cornerFourDistance);
+
+        return result;
     }
 
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) { //return false if did not attack
 
         if (!isPhagocyte) {
             return false;
-        }
-        else {
+        } else {
             Antigen target = null;
             double d = 0;
 
@@ -57,18 +69,20 @@ public class Tower extends Entity {
                 d = distanceTo(a);
                 if (target == null && d <= range) { //if there's no target yet, set it to any target
                     target = a;                   //set to closest target in enemies list
-                }
-                else if (d <= range && target != null && d < distanceTo(target)) {
+                } else if (d <= range && target != null && d < distanceTo(target)) {
                     target = a;
                 }
             }
             if (target == null) {
                 return false;
+            } else if (target.getType() == AntigenType.RHINOVIRUS) {
+                return false;
+            } else {
+                target.takeDamage(dmg); //if an enemy is in range, attack
+                //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+                attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);
+                return true;
             }
-            target.takeDamage(dmg); //if an enemy is in range, attack
-            //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
-            attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);
-            return true;
         }
     }
 
@@ -92,7 +106,9 @@ public class Tower extends Entity {
         return dmg;
     }
 
-    public int getRange() { return range; }
+    public int getRange() {
+        return range;
+    }
 
     public int getAttackTimer() {
         return attackTimer;
@@ -104,6 +120,10 @@ public class Tower extends Entity {
 
     public int getTimerCounter() {
         return timerCounter;
+    }
+
+    public boolean isPhagocyte() {
+        return isPhagocyte;
     }
 
     public void setTimerCounter(int time) {
@@ -125,7 +145,6 @@ public class Tower extends Entity {
     public void setPhagocyte(boolean state) {
         isPhagocyte = state;
     }
-
 
 
 }

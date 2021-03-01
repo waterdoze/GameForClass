@@ -6,12 +6,12 @@ import android.graphics.BitmapFactory;
 import com.example.gameforclass.R;
 import com.example.gameforclass.background.TowerDefensePog;
 
-public class Neutrophil extends Tower{
+public class Neutrophil extends Tower {
     public Neutrophil(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 125, 15, 50, 4, true, TowerType.NEUTROPHIL, 1);
+        super(tileX, tileY, 150, 30, 50, 15, true, TowerType.NEUTROPHIL, 1);
 
 
-        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.neutrophil);
+        Bitmap img = BitmapFactory.decodeResource(TDP.getResources(), R.drawable.neutrophil);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
         setImage(img);
     }

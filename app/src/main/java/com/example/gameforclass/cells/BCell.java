@@ -5,7 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.animation.AttackPellet;
+import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.background.TowerDefensePog;
+
+import java.util.ArrayList;
 
 public class BCell extends Tower{
 
@@ -29,5 +34,35 @@ public class BCell extends Tower{
         }
         setImage(img);
     }
+    @Override
+    public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
+        ArrayList<Antigen> target = new ArrayList<Antigen>();
+        double d = 0;
 
+        if(enemies.isEmpty()) {
+            return false;
+        }
+        else {
+            for (Antigen a : enemies) {
+
+                d = distanceTo(a);
+                if (d <= getRange()) { //if there's any target in range, set it
+                    target.add(a);
+                }
+            }
+            if (target == null) {
+                return false;
+            }
+            for (Antigen a : target) {//if an enemy is in range, attack
+                if (a.getType() == AntigenType.RHINOVIRUS) {
+                    continue;
+                }
+                a.takeDamage(getDmg());
+                setAttackPellet(new AttackPellet(posX, posY, a.posX, a.posY, getDmg()));
+
+            }
+            //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
+            return true;
+        }
+    }
 }
