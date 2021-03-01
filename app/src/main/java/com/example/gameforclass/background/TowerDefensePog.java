@@ -185,7 +185,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
         drawEnemies(canvas);
         drawTowers(canvas);
-
+        drawInventory(canvas);
 
         if (cantAfford) {
             if (cantAffordTimer++ < 50) {
@@ -215,6 +215,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 drawTimer = 0;
             }
         }
+
+    }
+
+    public void drawInventory(Canvas canvas)
+    {
+        canvas.drawText("inventory size: " + inventory.size(), 200, 200, paint);
 
     }
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class DendriticCell extends Tower {
     private int velocity = 5;
     private TCell chosen;
     private Antigen target;
+    private AntigenType lastType;
 
     public DendriticCell(int tileX, int tileY, TowerDefensePog TDP) {
         super(tileX, tileY, 50, 0, 80, 0, false, TowerType.DENDRITIC_CELL, 1);
@@ -74,7 +76,7 @@ public class DendriticCell extends Tower {
         if (phase) {
             if (pathFinished) {
                 towers.remove(this);
-
+                TDP.inventory.add(lastType);
                 return false;
             }
             move();
@@ -100,9 +102,9 @@ public class DendriticCell extends Tower {
         target.takeDamage(50);
 
         nextX = TDP.screenX;
-        nextY = 0;
+        nextY = 400;
 
-        TDP.inventory.add(target.getType());
+        lastType = target.getType();
         return true;
     }
 
