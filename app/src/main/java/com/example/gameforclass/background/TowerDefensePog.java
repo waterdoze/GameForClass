@@ -17,6 +17,8 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.antigens.Anthrax;
+import com.example.gameforclass.antigens.Coronavirus;
 import com.example.gameforclass.antigens.Rhinovirus;
 import com.example.gameforclass.antigens.Staphylococcus;
 import com.example.gameforclass.antigens.Tuberculosis;
@@ -607,10 +609,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
 
         switch (name) {
+            case ANTHRAX:
+                enemies.add(new Anthrax(context, this));
+                break;
             case RHINOVIRUS:
                 enemies.add(new Rhinovirus(context, this));
                 break;
-            case CORONAVIRUS:
+            case STAPHYLOCOCCUS:
                 enemies.add(new Staphylococcus(context, this));
                 break;
             case TUBERCULOSIS:
@@ -622,8 +627,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             case ASPERGILLUS:
                 enemies.add(new Aspergillus(context, this));
                 break;
-            case STAPHYLOCOCCUS:
-                enemies.add(new StaphylococcusSpawn(context, this));
+            case CORONAVIRUS:
+                enemies.add(new Coronavirus(context, this));
                 break;
         }
 
@@ -668,12 +673,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void nextRound() {
+        campaign.updateWaitTime(campaign.getCurrentArray().length);
         campaign.setNextRound();
         theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void lastRound() {
         campaign.setPreviousRound();
+        campaign.updateWaitTime(-1 * campaign.getCurrentArray().length);
         theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 

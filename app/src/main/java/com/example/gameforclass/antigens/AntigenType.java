@@ -6,5 +6,6 @@ public enum AntigenType {
     RHINOVIRUS,
     TUBERCULOSIS,
     CORONAVIRUS,
-    STAPHYLOCOCCUS
+    STAPHYLOCOCCUS,
+    ANTHRAX,
 }
