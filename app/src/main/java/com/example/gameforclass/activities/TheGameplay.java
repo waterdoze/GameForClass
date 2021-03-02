@@ -26,6 +26,8 @@ public class TheGameplay extends AppCompatActivity {
 
     private int difficulty = 0; //EASY = 1; MEDIUM = 2; HARD = 3;
 
+    private float shiftVal = 400f;
+
     //TheGameplay is the activity in which the GameFragment class runs in
 
     TowerDefensePog game;
@@ -48,14 +50,14 @@ public class TheGameplay extends AppCompatActivity {
         game = (TowerDefensePog) findViewById(R.id.gameFragment);
 
         currentBarID = R.id.SideBar; currentButtonID = R.id.TabButton;
-//
-//        AnimatorSet invisAnim = new AnimatorSet();
-//        invisAnim.setDuration(50);
-//        invisAnim.playTogether(
-//                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeSideBar), "translationX", 350f),
-//                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeTabButton), "translationX", 350f)
-//        );
-//        invisAnim.start();
+
+        AnimatorSet invisAnim = new AnimatorSet();
+        invisAnim.setDuration(50);
+        invisAnim.playTogether(
+                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeSideBar), "translationX", shiftVal),
+                ObjectAnimator.ofFloat(findViewById(R.id.InventoryBar), "translationX", shiftVal)
+        );
+        invisAnim.start();
     }
 
 
@@ -64,7 +66,7 @@ public class TheGameplay extends AppCompatActivity {
     @SuppressLint("WrongConstant")//Allows the setVisibility to take values other than the constants
     public void changeSideBar(View v){//If the expand button is pressed, this is called. Animation will be added soon
         ScrollView currentBar = findViewById(currentBarID);
-        ScrollView targetBar = findViewById(v.getId() == R.id.TabButton?R.id.SideBar:v.getId() == R.id.UpgradeTabButton?R.id.UpgradeSideBar:R.id.inventoryBar);//Add the fuckin uhh inventory bar
+        ScrollView targetBar = findViewById(v.getId() == R.id.TabButton?R.id.SideBar:(v.getId() == R.id.UpgradeTabButton?R.id.UpgradeSideBar:R.id.InventoryBar));
 
 //        ImageButton currentButton = (ImageButton)v;
 //        ImageButton targetButton =
@@ -75,14 +77,10 @@ public class TheGameplay extends AppCompatActivity {
         AnimatorSet setOne = new AnimatorSet();
         AnimatorSet setTwo = new AnimatorSet();
 
-
-//        if(!sideBarisBig && v == findViewById(R.id.TabButton)){//I dont remember what this does :) guess it stays
-//            return;
-//        }
-//        if(sideBarisBig && v == findViewById(R.id.UpgradeTabButton)){
-//            return;
-//        }
-        ObjectAnimator currentBarAnim = ObjectAnimator.ofFloat(currentBar, "translationX", 360f);
+        if(currentBar == targetBar){
+            return;
+        }
+        ObjectAnimator currentBarAnim = ObjectAnimator.ofFloat(currentBar, "translationX", shiftVal);
         currentBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
 
             @Override
@@ -110,7 +108,7 @@ public class TheGameplay extends AppCompatActivity {
             }
 
         });
-        ObjectAnimator targetBarAnim = ObjectAnimator.ofFloat(currentBar, "translationX", 0f);
+        ObjectAnimator targetBarAnim = ObjectAnimator.ofFloat(targetBar, "translationX", 0f);
         targetBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
 
             @Override

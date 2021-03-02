@@ -6,8 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:padding="0dp"
+    android:paddingLeft="0dp"
+    android:paddingTop="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
     tools:context=".activities.TheGameplay">
 
+
+    <ScrollView
+        android:id="@+id/InventoryBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="620dp"
+        android:layout_marginLeft="620dp"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="0dp">
+
+
+            <ImageButton
+                android:id="@+id/InvButton"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:onClick="macroButton"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/macrophagebutton" />
+        </LinearLayout>
+    </ScrollView>
 
     <FrameLayout
 
@@ -64,6 +102,7 @@
                 android:paddingBottom="0dp"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/affect_b_cell_button" />
+
             <TextView
                 android:id="@+id/AntibioticText"
                 android:layout_width="match_parent"
@@ -79,11 +118,13 @@
                 android:padding="0dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/antibiotic" />
+
             <TextView
                 android:id="@+id/FeverText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Antibiotic" />
+
             <ImageButton
                 android:id="@+id/FeverButton"
                 android:layout_width="80dp"
@@ -212,9 +253,10 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="16dp"
-        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
+        android:onClick="changeSideBar"
         android:padding="0dp"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/towerbutton" />
@@ -249,6 +291,7 @@
         app:layout_constraintEnd_toStartOf="@+id/UpgradeTabButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/towerbutton" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="381dp"
