@@ -58,7 +58,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     int playerHP = 100;
     int playerBiomolecules = 100;
-    int round = 1;
 
     int enemyRoundCounter = 0;
 
@@ -329,7 +328,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
             {
                 firstUpdate = false;
-                theActivity.changeText(playerHP, playerBiomolecules, round);
+                theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
             }
 
             updateEnemies();
@@ -349,7 +348,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 } else {
                     t.setTimerCounter(t.getTimerCounter() + 1);
 
-                    if (t.getAttackPellet() != null && t.getTowerType() != TowerType.MACROPHAGE) {
+                    if (t.getAttackPellet() != null) {
                         t.getAttackPellet().move();
                         if (t.getAttackPellet().hasHitEm()) {
                             t.setAttackPellet(null);
@@ -372,7 +371,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 if (e.getHealth() <= 0 || e.pathIsFinished()) {
                     if (e.pathIsFinished()) {//decrease player health if enemy got to the end of the path
 
-                        decHealth(5);
+                        decHealth(e.getTakeHealth());
 
 
                     } else if (e.getHealth() <= 0) {//add biomolecules to the total amount
@@ -403,8 +402,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             campaign.setNextRound();
             enemyRoundCounter = 0;
             pauseGame();
-            round++;
-            theActivity.changeText(playerHP, playerBiomolecules, round);
+            theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
             for (Tower t : towers) {
                 t.setAttackPellet(null);
             }
@@ -653,13 +651,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void decBM(int towerCost) {
         playerBiomolecules -= towerCost;
         if (playerBiomolecules < 0) playerBiomolecules = 0;
-        theActivity.changeText(playerHP, playerBiomolecules, round);
+        theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void incBM(int antigenGain) {
         playerBiomolecules += antigenGain;
         if (playerBiomolecules > 999999) playerBiomolecules = 999999;
-        theActivity.changeText(playerHP, playerBiomolecules, round);
+        theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void changeVel(int amount) {
@@ -671,24 +669,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void incHealth() {
         playerHP += 10;
         if (playerHP > 100) playerHP = 100;
-        theActivity.changeText(playerHP, playerBiomolecules, round);
+        theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void decHealth(int amount) {
         playerHP -= amount;
         if (playerHP < 0) playerHP = 0;
-        theActivity.changeText(playerHP, playerBiomolecules, round);
+        theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void nextRound() {
-        round += 1;
-        theActivity.changeText(playerHP, playerBiomolecules, round);
+        campaign.setNextRound();
+        theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void lastRound() {
-        round -= 1;
-
-        theActivity.changeText(playerHP, playerBiomolecules, round);
+        campaign.setPreviousRound();
+        theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public boolean bCellisUpgraded() {

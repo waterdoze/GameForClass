@@ -15,23 +15,27 @@ import java.util.ArrayList;
 public class Antigen extends Entity {
 
 
-
-    private int health, maxHealth, biomolecule;
-    public int velocity;
+    private int takeHealth;
+    private int health;
+    private int maxHealth;
+    private final int biomolecule;
     private double currentX, currentY, nextX, nextY;
     private int gear = 0, counter = 2;
     public int dy, dx;
+    public int velocity;
+
 
     private boolean pathFinished = false;
 
     private int screenX, screenY; //SIZE OF THE FRAGMENT
+
 
     private AntigenType type;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY, double sizeMultiplier) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY, double sizeMultiplier, int takeHealth) {
 
         super(tileX, tileY, 1, sizeMultiplier);
 
@@ -42,6 +46,7 @@ public class Antigen extends Entity {
         this.health = health;
         this.biomolecule = biomolecule;
         this.type = type;
+        this.takeHealth = takeHealth;
         dy = dx = 0;
 
         maxHealth = health;
@@ -56,8 +61,6 @@ public class Antigen extends Entity {
         nextX = path.get(counter);
         nextY = path.get(counter + 1);
         counter += 2;
-
-
     }
 
     public void actionOnDeath(Context context, TowerDefensePog TDP) {
@@ -180,6 +183,10 @@ public class Antigen extends Entity {
         return health;
     }
 
+    public int getTakeHealth() {
+        return takeHealth;
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -235,7 +242,4 @@ public class Antigen extends Entity {
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
-
-
-
 }

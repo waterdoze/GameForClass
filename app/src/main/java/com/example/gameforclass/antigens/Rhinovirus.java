@@ -12,9 +12,9 @@ public class Rhinovirus extends Antigen {
 
     public Rhinovirus(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,50, 3, 15, AntigenType.RHINOVIRUS, 30, 100, 1);
+        super(context, TDP,50, 3, 15, AntigenType.RHINOVIRUS, 30, 100, 1, 2);
 
-        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.pneumococcus);
+        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.rhinovirus);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
         setImage(img);
 
