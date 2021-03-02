@@ -18,9 +18,12 @@ import android.widget.TextView;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.EmotionalSupport;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.background.TowerDefensePog;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.cells.UpgradeType;
+
+import java.util.ArrayList;
 
 public class TheGameplay extends AppCompatActivity {
 
@@ -211,6 +214,19 @@ public class TheGameplay extends AppCompatActivity {
 
             }
         });
+
+    }
+
+
+    public void updateInventory(ArrayList<AntigenType> inventory)
+    {
+        TextView viral = findViewById(R.id.ViralGuyCount);
+        TextView bacterial = findViewById(R.id.BacterialGuyCount);
+        TextView fungal = findViewById(R.id.FungalGuyCount);
+
+        int v, b, f;
+        v=b=f=0;
+
 
     }
 
