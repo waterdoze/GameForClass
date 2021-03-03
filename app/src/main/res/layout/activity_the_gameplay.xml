@@ -17,28 +17,26 @@
     <ImageView
         android:id="@+id/SidebarBackground"
         android:layout_width="135dp"
-        android:layout_height="384dp"
-        android:layout_marginTop="25dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/UpgradeSideBar"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpgradeTabButton"
         app:srcCompat="@drawable/sidebarbackground" />
 
     <ScrollView
         android:id="@+id/InventoryBar"
         android:layout_width="121dp"
         android:layout_height="364dp"
-        android:layout_marginStart="610dp"
-        android:layout_marginLeft="610dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible">
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,16 +120,16 @@
 
     <ScrollView
         android:id="@+id/UpgradeSideBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="620dp"
-        android:layout_marginLeft="620dp"
+        android:layout_width="82dp"
+        android:layout_height="366dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -199,13 +197,14 @@
         android:id="@+id/SideBar"
         android:layout_width="123dp"
         android:layout_height="368dp"
-        android:layout_marginStart="610dp"
-        android:layout_marginLeft="610dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
