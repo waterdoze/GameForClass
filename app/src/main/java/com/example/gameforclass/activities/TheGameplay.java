@@ -26,13 +26,13 @@ public class TheGameplay extends AppCompatActivity {
 
     private int difficulty = 0; //EASY = 1; MEDIUM = 2; HARD = 3;
 
+    private float shiftVal = 400f;
+
     //TheGameplay is the activity in which the GameFragment class runs in
 
     TowerDefensePog game;
 
-    private boolean sideBarisBig = false;
-    private boolean animationEnded = false;
-
+    private int currentBarID; private int currentButtonID;
     private EmotionalSupport eButton;
 
     @Override
@@ -49,15 +49,15 @@ public class TheGameplay extends AppCompatActivity {
         eButton = new EmotionalSupport(getApplicationContext());
         game = (TowerDefensePog) findViewById(R.id.gameFragment);
 
+        currentBarID = R.id.SideBar; currentButtonID = R.id.TabButton;
 
-//
-//        AnimatorSet invisAnim = new AnimatorSet();
-//        invisAnim.setDuration(50);
-//        invisAnim.playTogether(
-//                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeSideBar), "translationX", 350f),
-//                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeTabButton), "translationX", 350f)
-//        );
-//        invisAnim.start();
+        AnimatorSet invisAnim = new AnimatorSet();
+        invisAnim.setDuration(50);
+        invisAnim.playTogether(
+                ObjectAnimator.ofFloat(findViewById(R.id.UpgradeSideBar), "translationX", shiftVal),
+                ObjectAnimator.ofFloat(findViewById(R.id.InventoryBar), "translationX", shiftVal)
+        );
+        invisAnim.start();
     }
 
 
@@ -65,25 +65,23 @@ public class TheGameplay extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")//Allows the setVisibility to take values other than the constants
     public void changeSideBar(View v){//If the expand button is pressed, this is called. Animation will be added soon
-        animationEnded = false;
-        ScrollView SideBar = findViewById(R.id.SideBar);
-        ScrollView BigSideBar = findViewById(R.id.UpgradeSideBar);
+        ScrollView currentBar = findViewById(currentBarID);
+        ScrollView targetBar = findViewById(v.getId() == R.id.TabButton?R.id.SideBar:(v.getId() == R.id.UpgradeTabButton?R.id.UpgradeSideBar:R.id.InventoryBar));
 
-        ImageButton SmallTabButton = findViewById(R.id.TabButton);
-        ImageButton BigTabButton = findViewById(R.id.UpgradeTabButton);
+//        ImageButton currentButton = (ImageButton)v;
+//        ImageButton targetButton =
+//
+//        ImageButton SmallTabButton = findViewById(R.id.TabButton);
+//        ImageButton BigTabButton = findViewById(R.id.UpgradeTabButton);
 
         AnimatorSet setOne = new AnimatorSet();
         AnimatorSet setTwo = new AnimatorSet();
 
-
-        if(!sideBarisBig && v == findViewById(R.id.TabButton)){
+        if(currentBar == targetBar){
             return;
         }
-        if(sideBarisBig && v == findViewById(R.id.UpgradeTabButton)){
-            return;
-        }
-        ObjectAnimator SmallSideBarAnim = ObjectAnimator.ofFloat(SideBar, "translationX", (!sideBarisBig)?360f : 0f);
-        SmallSideBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
+        ObjectAnimator currentBarAnim = ObjectAnimator.ofFloat(currentBar, "translationX", shiftVal);
+        currentBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -92,15 +90,11 @@ public class TheGameplay extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(!animationEnded){
-                    sideBarisBig = true;
-                    animationEnded = true;
-                    SideBar.setVisibility(8);
-                   // SmallTabButton.setVisibility(8);
-                    BigSideBar.setVisibility(0);
-                   // BigTabButton.setVisibility(0);
-                    setTwo.start();
-                }
+                currentBar.setVisibility(8);
+                // SmallTabButton.setVisibility(8);
+                targetBar.setVisibility(0);
+                // BigTabButton.setVisibility(0);
+                setTwo.start();
             }
 
             @Override
@@ -114,8 +108,8 @@ public class TheGameplay extends AppCompatActivity {
             }
 
         });
-        ObjectAnimator BigSideBarAnim = ObjectAnimator.ofFloat(BigSideBar, "translationX", sideBarisBig?360f : 0f);
-        BigSideBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
+        ObjectAnimator targetBarAnim = ObjectAnimator.ofFloat(targetBar, "translationX", 0f);
+        targetBarAnim.addListener(new Animator.AnimatorListener() {//When the small sidebar starts or finishes, it activates the second set
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -123,15 +117,6 @@ public class TheGameplay extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(!animationEnded){
-                    sideBarisBig = false;
-                    animationEnded = true;
-                    SideBar.setVisibility(0);
-                  //  SmallTabButton.setVisibility(0);
-                    BigSideBar.setVisibility(8);
-                  //  BigTabButton.setVisibility(8);
-                    setOne.start();
-                }
             }
 
             @Override
@@ -149,22 +134,17 @@ public class TheGameplay extends AppCompatActivity {
 
         setOne.playTogether(
                // ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?360f : 0f),
-                SmallSideBarAnim
+                currentBarAnim
         );
         setOne.setDuration(400);
         setTwo.playTogether(
                // ObjectAnimator.ofFloat(BigTabButton, "translationX", sideBarisBig?360f : 0f),
-                BigSideBarAnim
+                targetBarAnim
         );//.723
         setTwo.setDuration(400);
+        setOne.start();
 
-        if(!sideBarisBig) {
-            setOne.start();
-        }
-        else{
-            setTwo.start();
-        }
-
+        currentBarID = targetBar.getId();
 //        SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
 //        SideBar.setVisibility(setSmall);
 //        BigSideBar.setVisibility(setBig);
