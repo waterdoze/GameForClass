@@ -1,8 +1,11 @@
 package com.example.gameforclass.cells;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.AttackPellet;
@@ -34,6 +37,7 @@ public class BCell extends Tower{
         }
         setImage(img);
     }
+
     @Override
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
         ArrayList<Antigen> target = new ArrayList<Antigen>();

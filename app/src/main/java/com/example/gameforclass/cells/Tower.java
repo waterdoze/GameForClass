@@ -17,6 +17,7 @@ public class Tower extends Entity {
     private int timerCounter = 0;
 
     private boolean rangeToggle = false;
+
     private boolean isPhagocyte;//Can this cell attack stuff
 
     private TowerType towerType;
@@ -84,6 +85,7 @@ public class Tower extends Entity {
         }
     }
 
+
     public void switchRangeToggle() {
         rangeToggle = !rangeToggle;
     }
@@ -144,6 +146,4 @@ public class Tower extends Entity {
         isPhagocyte = state;
     }
 
-
 }
-

@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
     boolean towerPlacementMode = false;//Tells if we need to draw the grid\
+    boolean sellMode = false;
     boolean placing = false; //Tells if the player is currently selecting(clicking) a square
     boolean firstUpdate = true; //if it's the first time calling update()
     boolean attacked = false; //if a tower is attacking
@@ -94,7 +97,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Campaign campaign;
     private Paint paint = new Paint(); //guy that paints onto the canvas with colors and font size
     private int cyanColor;
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public TowerDefensePog(Context context) {
@@ -176,7 +178,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void draw(Canvas canvas) {
         super.draw(canvas);
         drawBackground(canvas);
-        if (towerPlacementMode) {
+        if (towerPlacementMode || sellMode) {
             drawGrid(canvas);
             drawPathTiles(canvas);
             if (placing) {
@@ -260,8 +262,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void drawPlaceable(Canvas canvas) {
         paint.setAlpha(opacityTimer);
         canvas.drawRect(touchX - touchX % TILE_WIDTH - TILE_WIDTH, touchY - touchY % TILE_HEIGHT, touchX - touchX % TILE_WIDTH, touchY - touchY % TILE_HEIGHT + TILE_HEIGHT, paint);
-        if (towerWeGonnaPlace != null)
+        if (towerWeGonnaPlace != null) {
             canvas.drawBitmap(towerWeGonnaPlace.getImage(), touchX - (int) (TILE_WIDTH * 1.5), touchY - TILE_HEIGHT / 2, paint);
+        }
         //Rect is trying to highlight the square that it will be placed on when the user lets go
         //xStart, yStart, xEnd, yEnd
         paint.setAlpha(255);
@@ -291,12 +294,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             paint.setColor(cyanColor);
             canvas.drawBitmap(e.getImage(), e.getImageX(), e.getImageY(), paint);
 
-            paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
             if (e.rangeToggleIsOn()) {
+                paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
                 canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
             }
-            paint.setColor(ContextCompat.getColor(context, R.color.pellet));
+
             if (e.getAttackPellet() != null) {
+                paint.setColor(ContextCompat.getColor(context, R.color.pellet));
                 canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
             }
         }
@@ -344,7 +348,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         if (t.getAttackPellet().hasHitEm()) {
                             t.setAttackPellet(null);
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -554,7 +558,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
-                if (towerPlacementMode) placing = true;
+                if (towerPlacementMode) {
+                    placing = true;
+                }
             case MotionEvent.ACTION_MOVE:
                 touchX = event.getX();
                 touchY = event.getY();
@@ -592,6 +598,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         addTower(towerWeGonnaPlace);
                         tiles[yPos][xPos] = 'T';
                         towersPlaced[yPos][xPos] = towerWeGonnaPlace;
+                    }
+                } else if (sellMode) {
+                    if (tiles[yPos][xPos] == 'T') {
+                        Tower apoptosis = towersPlaced[yPos][xPos];
+                        incBM((int) (apoptosis.getBiomolecules() * 0.5));
+                        towers.remove(apoptosis);
+                        tiles[yPos][xPos] = 'O';
                     }
                 } else {
                     if (tiles[yPos][xPos] == 'T') {
@@ -668,8 +681,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void decHealth(int amount) {
         playerHP -= amount;
+        if (playerHP < 30) {
+            startAnthraxRoundCountdown();
+        }
         if (playerHP < 0) playerHP = 0;
         theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
+    }
+    //TODO implement anthrax game mechanic
+    private void startAnthraxRoundCountdown() {
     }
 
     public void nextRound() {
@@ -686,5 +705,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public boolean bCellisUpgraded() {
         return bCellUpgraded;
+    }
+
+    public void toggleSellMode() {
+        sellMode = !sellMode;
     }
 }

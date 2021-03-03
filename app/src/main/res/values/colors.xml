@@ -11,4 +11,5 @@
     <color name="health_bar_border">#00FF00</color>
     <color name="range_highlight_color">#80808080</color>
     <color name="pellet">#ADFF2F</color>
+    <color name="money">#85BB65</color>
 </resources>

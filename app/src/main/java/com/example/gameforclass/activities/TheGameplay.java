@@ -241,6 +241,9 @@ public class TheGameplay extends AppCompatActivity {
 
     public void devTab(View v){
         switch(v.getId()){
+            case R.id.sellButton:
+                game.toggleSellMode();
+                break;
             case R.id.healthIncButton:
                 game.incHealth();
                 break;

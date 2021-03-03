@@ -488,6 +488,14 @@
             android:layout_weight="1"
             android:onClick="devTab"
             android:text="Round-1" />
+
+        <Button
+            android:id="@+id/sellButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="devTab"
+            android:text="Sell" />
     </LinearLayout>
 
     <ImageView

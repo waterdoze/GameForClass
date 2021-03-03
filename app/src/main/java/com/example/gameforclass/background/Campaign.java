@@ -112,7 +112,7 @@ public class Campaign {
                             //39
                             {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //40
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.CORONAVIRUS},
 
                     };
         } else if (difficulty == 2) {
