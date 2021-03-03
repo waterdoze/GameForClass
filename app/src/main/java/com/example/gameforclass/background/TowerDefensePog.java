@@ -17,6 +17,8 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.R;
+import com.example.gameforclass.antigens.Anthrax;
+import com.example.gameforclass.antigens.Coronavirus;
 import com.example.gameforclass.antigens.Rhinovirus;
 import com.example.gameforclass.antigens.Staphylococcus;
 import com.example.gameforclass.antigens.Tuberculosis;
@@ -28,8 +30,7 @@ import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
-import com.example.gameforclass.antigens.AntigenType;
-import com.example.gameforclass.antigens.StaphylococcusSpawn;
+import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.antigens.Pneumococcus;
 import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
@@ -81,6 +82,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public ArrayList<AntigenType> inventory = new ArrayList<>(); //stores up to 9 captured cells
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
+
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
@@ -353,7 +355,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         if (t.getAttackPellet().hasHitEm()) {
                             t.setAttackPellet(null);
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -614,14 +616,17 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         return true;
     }
 
-    public void addEnemy(AntigenType name) { //one way to add an enemy just by its name
+    public void addEnemy(Species name) { //one way to add an enemy just by its name
 
 
         switch (name) {
+            case ANTHRAX:
+                enemies.add(new Anthrax(context, this));
+                break;
             case RHINOVIRUS:
                 enemies.add(new Rhinovirus(context, this));
                 break;
-            case CORONAVIRUS:
+            case STAPHYLOCOCCUS:
                 enemies.add(new Staphylococcus(context, this));
                 break;
             case TUBERCULOSIS:
@@ -633,8 +638,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             case ASPERGILLUS:
                 enemies.add(new Aspergillus(context, this));
                 break;
-            case STAPHYLOCOCCUS:
-                enemies.add(new StaphylococcusSpawn(context, this));
+            case CORONAVIRUS:
+                enemies.add(new Coronavirus(context, this));
                 break;
         }
 
@@ -679,12 +684,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void nextRound() {
+        campaign.updateWaitTime(campaign.getCurrentArray().length);
         campaign.setNextRound();
         theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 
     public void lastRound() {
         campaign.setPreviousRound();
+        campaign.updateWaitTime(-1 * campaign.getCurrentArray().length);
         theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
     }
 

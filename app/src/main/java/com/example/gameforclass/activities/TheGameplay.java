@@ -12,13 +12,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.EmotionalSupport;
 import com.example.gameforclass.antigens.AntigenType;
+import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.cells.UpgradeType;
@@ -70,7 +71,7 @@ public class TheGameplay extends AppCompatActivity {
     public void changeSideBar(View v){//If the expand button is pressed, this is called. Animation will be added soon
         ScrollView currentBar = findViewById(currentBarID);
         ScrollView targetBar = findViewById(v.getId() == R.id.TabButton?R.id.SideBar:(v.getId() == R.id.UpgradeTabButton?R.id.UpgradeSideBar:R.id.InventoryBar));
-
+        ImageView barBackground = findViewById(R.id.SidebarBackground);
 //        ImageButton currentButton = (ImageButton)v;
 //        ImageButton targetButton =
 //
@@ -136,12 +137,12 @@ public class TheGameplay extends AppCompatActivity {
 
 
         setOne.playTogether(
-               // ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?360f : 0f),
+                ObjectAnimator.ofFloat(barBackground, "translationX", 410f),
                 currentBarAnim
         );
         setOne.setDuration(400);
         setTwo.playTogether(
-               // ObjectAnimator.ofFloat(BigTabButton, "translationX", sideBarisBig?360f : 0f),
+                ObjectAnimator.ofFloat(barBackground, "translationX", 0f),
                 targetBarAnim
         );//.723
         setTwo.setDuration(400);
@@ -217,16 +218,24 @@ public class TheGameplay extends AppCompatActivity {
 
     }
 
-
     public void updateInventory(ArrayList<AntigenType> inventory)
     {
-        TextView viral = findViewById(R.id.ViralGuyCount);
-        TextView bacterial = findViewById(R.id.BacterialGuyCount);
-        TextView fungal = findViewById(R.id.FungalGuyCount);
+        runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread
+            @Override
+            public void run() {
+                TextView fungal = findViewById(R.id.FungalCount);
+                TextView bacterial = findViewById(R.id.BacterialCount);
+                TextView viral = findViewById(R.id.ViralCount);
 
-        int v, b, f;
-        v=b=f=0;
+                int f,b,v;
+                f=b=v=0;
 
+                for(int i=0; i < inventory.size(); i++)
+                {
+
+                }
+            }
+        });
 
     }
 

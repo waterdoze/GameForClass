@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.antigens.Antigen;
-import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;

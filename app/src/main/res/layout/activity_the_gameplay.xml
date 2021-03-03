@@ -7,25 +7,52 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:padding="0dp"
-    android:paddingLeft="0dp"
-    android:paddingTop="0dp"
     android:paddingRight="0dp"
     android:paddingBottom="0dp"
     tools:context=".activities.TheGameplay">
 
 
-    <ScrollView
-        android:id="@+id/InventoryBar"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/SidebarBackground"
+        android:layout_width="135dp"
         android:layout_height="0dp"
-        android:layout_marginStart="620dp"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="30dp"
-        android:visibility="invisible"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/frameLayout"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpgradeTabButton"
+        app:srcCompat="@drawable/sidebarbackground" />
+
+    <FrameLayout
+
+        android:id="@+id/frameLayout"
+        android:layout_width="577dp"
+
+        android:layout_height="325dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <fragment
+            android:id="@+id/gameFragment"
+            android:name="com.example.gameforclass.activities.GameFragment"
+            android:layout_width="match_parent"
+            android:layout_height="313dp" />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/InventoryBar"
+        android:layout_width="121dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:scrollbarSize="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SidebarBackground"
         tools:visibility="visible">
 
         <LinearLayout
@@ -34,6 +61,12 @@
             android:orientation="vertical"
             android:padding="0dp">
 
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Viral Antigen" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +83,7 @@
                     app:srcCompat="@drawable/viral_guy" />
 
                 <TextView
-                    android:id="@+id/ViralGuyCount"
+                    android:id="@+id/ViralCount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -58,12 +91,17 @@
                     android:paddingTop="20dp"
                     android:text="0"
                     android:textSize="30sp" />
-
             </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fungal Antigen" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +118,7 @@
                     app:srcCompat="@drawable/fungal_guy" />
 
                 <TextView
-                    android:id="@+id/FungalGuyCount"
+                    android:id="@+id/FungalCount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -88,12 +126,17 @@
                     android:paddingTop="20dp"
                     android:text="0"
                     android:textSize="30sp" />
-
             </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bacterial Antigen" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +153,7 @@
                     app:srcCompat="@drawable/bacterial_guy" />
 
                 <TextView
-                    android:id="@+id/BacterialGuyCount"
+                    android:id="@+id/BacterialCount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -123,38 +166,24 @@
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
-
-        android:id="@+id/frameLayout"
-        android:layout_width="579dp"
-
-        android:layout_height="300dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <fragment
-            android:id="@+id/gameFragment"
-            android:name="com.example.gameforclass.activities.GameFragment"
-            android:layout_width="match_parent"
-            android:layout_height="306dp" />
-
-    </FrameLayout>
-
     <ScrollView
         android:id="@+id/UpgradeSideBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="620dp"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="82dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        android:fadeScrollbars="true"
+        android:scrollbarSize="0dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SidebarBackground"
         tools:visibility="invisible">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -164,20 +193,26 @@
                 android:layout_height="wrap_content"
                 android:text="Affect B Cell" />
 
-            <ImageButton
-                android:id="@+id/AffectBCellButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:onClick="upgradeBCellButton"
-                android:padding="0dp"
-                android:paddingLeft="0dp"
-                android:paddingTop="0dp"
-                android:paddingRight="0dp"
-                android:paddingBottom="0dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/affect_b_cell_button" />
+            <LinearLayout
+                android:layout_width="113dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/AffectBCellButton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:onClick="upgradeBCellButton"
+                    android:padding="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/affect_b_cell_button" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/AntibioticText"
@@ -185,15 +220,21 @@
                 android:layout_height="wrap_content"
                 android:text="Antibiotic" />
 
-            <ImageButton
-                android:id="@+id/AntibioticButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:onClick="upgradeAntibioticButton"
-                android:padding="0dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/antibiotic" />
+            <LinearLayout
+                android:layout_width="114dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/AntibioticButton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:onClick="upgradeAntibioticButton"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/antibiotic" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/FeverText"
@@ -201,29 +242,39 @@
                 android:layout_height="wrap_content"
                 android:text="Antibiotic" />
 
-            <ImageButton
-                android:id="@+id/FeverButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:onClick="upgradeFeverButton"
-                android:padding="0dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/fever" />
+            <LinearLayout
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/FeverButton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:onClick="upgradeFeverButton"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/fever" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
 
     <ScrollView
         android:id="@+id/SideBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="620dp"
-        android:layout_marginLeft="620dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="123dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="5dp"
+        android:scrollbarSize="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SidebarBackground"
         tools:visibility="invisible">
 
         <LinearLayout
@@ -235,55 +286,73 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Neutrophils" />
+                android:text="Neutrophil" />
 
-            <ImageButton
-                android:id="@+id/NeutroButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:onClick="neutroButton"
-                android:padding="0dp"
-                android:paddingLeft="0dp"
-                android:paddingTop="0dp"
-                android:paddingRight="0dp"
-                android:paddingBottom="0dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/neutrophilbutton" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/NeutroButton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:onClick="neutroButton"
+                    android:padding="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/neutrophilbutton" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Monocytes" />
+                android:text="Macrophage" />
 
-            <ImageButton
-                android:id="@+id/MacroButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:onClick="macroButton"
-                android:padding="0dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/macrophagebutton" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/MacroButton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:onClick="macroButton"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/macrophagebutton" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lymphocytes" />
+                android:text="Naive T Cell" />
 
-            <ImageButton
-                android:id="@+id/NaiveCellButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:cropToPadding="true"
-                android:onClick="naiveButton"
-                android:padding="0dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/naivetcellbutton" />
+            <LinearLayout
+                android:layout_width="78dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/NaiveCellButton"
+                    android:layout_width="78dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:cropToPadding="true"
+                    android:onClick="naiveButton"
+                    android:padding="0dp"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/naivetcellbutton" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView4"
@@ -291,16 +360,22 @@
                 android:layout_height="wrap_content"
                 android:text="B Cell" />
 
-            <ImageButton
-                android:id="@+id/BCellButton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:cropToPadding="true"
-                android:onClick="bCellButton"
-                android:padding="0dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/bcellbutton" />
+            <LinearLayout
+                android:layout_width="81dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/BCellButton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:cropToPadding="true"
+                    android:onClick="bCellButton"
+                    android:padding="0dp"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/bcellbutton" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView5"
@@ -308,65 +383,71 @@
                 android:layout_height="wrap_content"
                 android:text="Dendritic Cell" />
 
-            <ImageButton
-                android:id="@+id/dendriticbutton"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:cropToPadding="true"
-                android:onClick="dendriticButton"
-                android:padding="0dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/dendriticbutton" />
+            <LinearLayout
+                android:layout_width="81dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/dendriticbutton"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:cropToPadding="true"
+                    android:onClick="dendriticButton"
+                    android:padding="0dp"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/dendriticbutton" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
     <ImageButton
         android:id="@+id/inventoryButton"
-        android:layout_width="32dp"
-        android:layout_height="24dp"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
         android:adjustViewBounds="true"
         android:onClick="changeSideBar"
         android:padding="0dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/towerbutton" />
+        app:srcCompat="@drawable/databutton" />
 
     <ImageButton
         android:id="@+id/UpgradeTabButton"
-        android:layout_width="32dp"
-        android:layout_height="24dp"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
         android:onClick="changeSideBar"
         android:padding="0dp"
         android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/inventoryButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/upgradebutton"
+        app:srcCompat="@drawable/stimulibutton"
         tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/TabButton"
-        android:layout_width="32dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
         android:adjustViewBounds="true"
         android:onClick="changeSideBar"
         android:padding="0dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toStartOf="@+id/UpgradeTabButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/towerbutton" />
+        app:srcCompat="@drawable/cellsbutton" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
