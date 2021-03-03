@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Anthrax;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.antigens.Coronavirus;
 import com.example.gameforclass.antigens.Rhinovirus;
 import com.example.gameforclass.antigens.Staphylococcus;
@@ -78,7 +79,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     private Tower[][] towersPlaced;
     private char[][] tiles;//The grid for tower placement; P = Path
-    private AntigenType[] set;
+    private Species[] set;
     public ArrayList<AntigenType> inventory = new ArrayList<>(); //stores up to 9 captured cells
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
@@ -360,6 +361,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             }
         }
     }
+
+    public void updateInventory()
+    {
+        theActivity.updateInventory(inventory);
+    }
+
 
     public void updateEnemies() {
 

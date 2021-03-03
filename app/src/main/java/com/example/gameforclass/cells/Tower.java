@@ -73,7 +73,7 @@ public class Tower extends Entity {
             }
             if (target == null) {
                 return false;
-            } else if (target.getType() == Species.RHINOVIRUS) {
+            } else if (target.getSpecies() == Species.RHINOVIRUS) {
                 return false;
             } else {
                 target.takeDamage(dmg); //if an enemy is in range, attack

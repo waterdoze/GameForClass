@@ -54,7 +54,7 @@ public class BCell extends Tower{
                 return false;
             }
             for (Antigen a : target) {//if an enemy is in range, attack
-                if (a.getType() == Species.RHINOVIRUS) {
+                if (a.getSpecies() == Species.RHINOVIRUS) {
                     continue;
                 }
                 a.takeDamage(getDmg());

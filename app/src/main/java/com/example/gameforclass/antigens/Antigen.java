@@ -28,12 +28,13 @@ public class Antigen extends Entity {
     private int screenX, screenY; //SIZE OF THE FRAGMENT
 
 
-    private Species type;
+    private Species species;
+    private AntigenType type;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, Species type, int tileX, int tileY, double sizeMultiplier, int takeHealth) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, Species species,  AntigenType type, int tileX, int tileY, double sizeMultiplier, int takeHealth) {
 
         super(tileX, tileY, 1, sizeMultiplier);
 
@@ -44,6 +45,7 @@ public class Antigen extends Entity {
         this.health = health;
         this.biomolecule = biomolecule;
         this.type = type;
+        this.species = species;
         this.takeHealth = takeHealth;
         dy = dx = 0;
 
@@ -165,9 +167,11 @@ public class Antigen extends Entity {
         setImageY();
     }
 
-    public Species getType() {
+    public AntigenType getType() {
         return type;
     }
+
+    public Species getSpecies() {return species;}
 
     public double getNextX() {
         return nextX;

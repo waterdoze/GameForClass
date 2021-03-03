@@ -77,6 +77,7 @@ public class DendriticCell extends Tower {
             if (pathFinished) {
                 towers.remove(this);
                 TDP.inventory.add(lastType);
+                TDP.updateInventory();
                 return false;
             }
             move();
