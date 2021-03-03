@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -67,7 +68,7 @@ public class TheGameplay extends AppCompatActivity {
     public void changeSideBar(View v){//If the expand button is pressed, this is called. Animation will be added soon
         ScrollView currentBar = findViewById(currentBarID);
         ScrollView targetBar = findViewById(v.getId() == R.id.TabButton?R.id.SideBar:(v.getId() == R.id.UpgradeTabButton?R.id.UpgradeSideBar:R.id.InventoryBar));
-
+        ImageView barBackground = findViewById(R.id.SidebarBackground);
 //        ImageButton currentButton = (ImageButton)v;
 //        ImageButton targetButton =
 //
@@ -133,12 +134,12 @@ public class TheGameplay extends AppCompatActivity {
 
 
         setOne.playTogether(
-               // ObjectAnimator.ofFloat(SmallTabButton, "translationX", (!sideBarisBig)?360f : 0f),
+                ObjectAnimator.ofFloat(barBackground, "translationX", 410f),
                 currentBarAnim
         );
         setOne.setDuration(400);
         setTwo.playTogether(
-               // ObjectAnimator.ofFloat(BigTabButton, "translationX", sideBarisBig?360f : 0f),
+                ObjectAnimator.ofFloat(barBackground, "translationX", 0f),
                 targetBarAnim
         );//.723
         setTwo.setDuration(400);
