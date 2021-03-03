@@ -12,16 +12,19 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.EmotionalSupport;
+import com.example.gameforclass.antigens.AntigenType;
+import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
 import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.cells.UpgradeType;
+
+import java.util.ArrayList;
 
 public class TheGameplay extends AppCompatActivity {
 
@@ -210,6 +213,27 @@ public class TheGameplay extends AppCompatActivity {
                 ((TextView)findViewById(R.id.BiomoleculeCounter)).setText(String.format("%d", bio));
                 ((TextView)findViewById(R.id.RoundCounter)).setText(String.format("Round %d", round));
 
+            }
+        });
+
+    }
+
+    public void updateInventory(ArrayList<AntigenType> inventory)
+    {
+        runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread
+            @Override
+            public void run() {
+                TextView fungal = findViewById(R.id.FungalCount);
+                TextView bacterial = findViewById(R.id.BacterialCount);
+                TextView viral = findViewById(R.id.ViralCount);
+
+                int f,b,v;
+                f=b=v=0;
+
+                for(int i=0; i < inventory.size(); i++)
+                {
+
+                }
             }
         });
 

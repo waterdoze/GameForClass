@@ -1,11 +1,7 @@
 package com.example.gameforclass.antigens;
 
 public enum AntigenType {
-    PNEUMOCOCCUS,
-    ASPERGILLUS,
-    RHINOVIRUS,
-    TUBERCULOSIS,
-    CORONAVIRUS,
-    STAPHYLOCOCCUS,
-    ANTHRAX,
+    VIRAL,
+    FUNGAL,
+    BACTERIAL
 }

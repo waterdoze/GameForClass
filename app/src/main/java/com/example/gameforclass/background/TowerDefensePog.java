@@ -30,8 +30,7 @@ import com.example.gameforclass.cells.TowerType;
 import com.example.gameforclass.activities.TheGameplay;
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Aspergillus;
-import com.example.gameforclass.antigens.AntigenType;
-import com.example.gameforclass.antigens.StaphylococcusSpawn;
+import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.antigens.Pneumococcus;
 import com.example.gameforclass.cells.Neutrophil;
 import com.example.gameforclass.cells.Tower;
@@ -79,9 +78,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     private Tower[][] towersPlaced;
     private char[][] tiles;//The grid for tower placement; P = Path
-    private AntigenType[] set;
+    private Species[] set;
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
+    private ArrayList<Species> inventory = new ArrayList<>();
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
@@ -605,7 +605,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         return true;
     }
 
-    public void addEnemy(AntigenType name) { //one way to add an enemy just by its name
+    public void addEnemy(Species name) { //one way to add an enemy just by its name
 
 
         switch (name) {

@@ -1,7 +1,6 @@
 package com.example.gameforclass.antigens;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.animation.Healthbar;
@@ -9,7 +8,6 @@ import com.example.gameforclass.background.Map;
 import com.example.gameforclass.R;
 import com.example.gameforclass.background.TowerDefensePog;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Antigen extends Entity {
@@ -30,12 +28,12 @@ public class Antigen extends Entity {
     private int screenX, screenY; //SIZE OF THE FRAGMENT
 
 
-    private AntigenType type;
+    private Species type;
     private Map map;
     private ArrayList<Double> path;
     private Healthbar healthbar;
 
-    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, AntigenType type, int tileX, int tileY, double sizeMultiplier, int takeHealth) {
+    public Antigen(Context context, TowerDefensePog TDP, int health, int biomolecule, int velocity, Species type, int tileX, int tileY, double sizeMultiplier, int takeHealth) {
 
         super(tileX, tileY, 1, sizeMultiplier);
 
@@ -167,7 +165,7 @@ public class Antigen extends Entity {
         setImageY();
     }
 
-    public AntigenType getType() {
+    public Species getType() {
         return type;
     }
 

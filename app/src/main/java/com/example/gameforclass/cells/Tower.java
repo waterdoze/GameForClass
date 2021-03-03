@@ -1,11 +1,9 @@
 package com.example.gameforclass.cells;
 
-import android.util.Log;
-
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.antigens.Antigen;
-import com.example.gameforclass.antigens.AntigenType;
+import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
@@ -75,7 +73,7 @@ public class Tower extends Entity {
             }
             if (target == null) {
                 return false;
-            } else if (target.getType() == AntigenType.RHINOVIRUS) {
+            } else if (target.getType() == Species.RHINOVIRUS) {
                 return false;
             } else {
                 target.takeDamage(dmg); //if an enemy is in range, attack

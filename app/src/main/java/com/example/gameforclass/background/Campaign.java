@@ -1,13 +1,12 @@
 package com.example.gameforclass.background;
 
-import com.example.gameforclass.antigens.AntigenType;
-import com.example.gameforclass.antigens.Tuberculosis;
+import com.example.gameforclass.antigens.Species;
 
 import java.util.TreeMap;
 
 public class Campaign {
 
-    private AntigenType[][] matrix;
+    private Species[][] matrix;
     private int counter = 0;
     private int waitTime;
     private int currentArray;
@@ -33,118 +32,118 @@ public class Campaign {
 
         if (difficulty == 1) {
             multiplier = 1;
-            matrix = new AntigenType[][]
+            matrix = new Species[][]
                     {       //1-0
-                            {AntigenType.RHINOVIRUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //2-3
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //3-8
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //4-16
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS},
                             //5-26
-                            {AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS},
+                            {Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS},
                             //6-36
-                            {AntigenType.ASPERGILLUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.ASPERGILLUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.ASPERGILLUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.PNEUMOCOCCUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.ASPERGILLUS},
                             //7-49
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //8-67
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //9-70
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //10-73
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //11-76
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //12-79
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //13-82
-                            {AntigenType.RHINOVIRUS, AntigenType.RHINOVIRUS, AntigenType.RHINOVIRUS, AntigenType.RHINOVIRUS},
+                            {Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS},
                             //14-85
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //15-86
-                            {AntigenType.TUBERCULOSIS},
+                            {Species.TUBERCULOSIS},
                             //16
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //17
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //18
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //19
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //20
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //21
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //22
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //23
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //24
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //25
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //26
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //27
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //28
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //29
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //30
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //31
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //32
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //33
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //34
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //35
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //36
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //37
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //38
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //39
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //40
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
 
                     };
         } else if (difficulty == 2) {
             multiplier = 1.1;
-            matrix = new AntigenType[][]
+            matrix = new Species[][]
                     {
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
                     };
         } else {
             multiplier = 1.3;
-            matrix = new AntigenType[][]
+            matrix = new Species[][]
                     {
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
-                            {AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, AntigenType.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, null, null, null, null, null, null, null},
                     };
         }
     }
@@ -184,7 +183,7 @@ public class Campaign {
         return currentArray;
     }
 
-    public AntigenType[] getCurrentArray() {
+    public Species[] getCurrentArray() {
         return matrix[currentArray];
     }
 

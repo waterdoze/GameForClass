@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import com.example.gameforclass.R;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.antigens.Antigen;
-import com.example.gameforclass.antigens.AntigenType;
+import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class BCell extends Tower{
                 return false;
             }
             for (Antigen a : target) {//if an enemy is in range, attack
-                if (a.getType() == AntigenType.RHINOVIRUS) {
+                if (a.getType() == Species.RHINOVIRUS) {
                     continue;
                 }
                 a.takeDamage(getDmg());
