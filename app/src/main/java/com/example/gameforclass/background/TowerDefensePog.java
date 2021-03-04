@@ -187,7 +187,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
         drawEnemies(canvas);
         drawTowers(canvas);
-        drawInventory(canvas);
+
 
         if (cantAfford) {
             if (cantAffordTimer++ < 50) {
@@ -220,11 +220,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-    public void drawInventory(Canvas canvas)
-    {
-        canvas.drawText("inventory size: " + inventory.size(), 200, 200, paint);
-
-    }
 
     public void drawGrid(Canvas canvas) {
 
@@ -364,6 +359,40 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void updateInventory()
     {
+        int f,v,b;
+        f=v=b=0;
+        for(int i=0; i < inventory.size(); i++)
+        {
+            switch(inventory.get(i))
+            {
+                case VIRAL:
+                    if(v==3)
+                    {
+                        inventory.remove(i);
+                        i--;
+                    }
+                    else v++;
+                    break;
+
+                case FUNGAL:
+                    if(f==3)
+                    {
+                        inventory.remove(i);
+                        i--;
+                    }
+                    else f++;
+                    break;
+
+                case BACTERIAL:
+                    if(b==3)
+                    {
+                        inventory.remove(i);
+                        i--;
+                    }
+                    else b++;
+                    break;
+            }
+        }
         theActivity.updateInventory(inventory);
     }
 

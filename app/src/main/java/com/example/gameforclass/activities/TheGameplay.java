@@ -240,9 +240,9 @@ public class TheGameplay extends AppCompatActivity {
                     }
                 }
 
-                fungal.setText(f);
-                bacterial.setText(b);
-                viral.setText(v);
+                fungal.setText(Integer.toString(f));
+                bacterial.setText(Integer.toString(b));
+                viral.setText(Integer.toString(v));
             }
         });
 
