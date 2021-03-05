@@ -232,8 +232,17 @@ public class TheGameplay extends AppCompatActivity {
 
                 for(int i=0; i < inventory.size(); i++)
                 {
-
+                    switch(inventory.get(i))
+                    {
+                        case VIRAL: v++; break;
+                        case BACTERIAL: b++; break;
+                        case FUNGAL: f++; break;
+                    }
                 }
+
+                fungal.setText(Integer.toString(f));
+                bacterial.setText(Integer.toString(b));
+                viral.setText(Integer.toString(v));
             }
         });
 

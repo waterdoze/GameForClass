@@ -12,7 +12,7 @@ public class Coronavirus extends Antigen {
 
     public Coronavirus(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,50, 3, 15, Species.CORONAVIRUS, 30, 100, 1, 2);
+        super(context, TDP,50, 3, 15, Species.CORONAVIRUS, AntigenType.VIRAL, 30, 100, 1, 2);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.covid);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

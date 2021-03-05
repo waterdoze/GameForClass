@@ -11,7 +11,7 @@ public class Aspergillus extends Antigen {
 
 
     public Aspergillus(Context context, TowerDefensePog TDP) {
-        super(context, TDP,50, 5, 15, Species.ASPERGILLUS, 9, 1, 1, 1);
+        super(context, TDP,50, 5, 15, Species.ASPERGILLUS, AntigenType.FUNGAL, 9, 1, 1, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.aspergillus);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

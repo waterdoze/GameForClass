@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Anthrax;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.antigens.Coronavirus;
 import com.example.gameforclass.antigens.Rhinovirus;
 import com.example.gameforclass.antigens.Staphylococcus;
@@ -82,9 +83,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private Tower[][] towersPlaced;
     private char[][] tiles;//The grid for tower placement; P = Path
     private Species[] set;
+    public ArrayList<AntigenType> inventory = new ArrayList<>(); //stores up to 9 captured cells
     private ArrayList<Tower> towers = new ArrayList<>();
     private ArrayList<Antigen> enemies = new ArrayList<>();
-    private ArrayList<Species> inventory = new ArrayList<>();
+
 
     Tower towerWeGonnaPlace = null; //Tower that we gonna place when place tower method called
 
@@ -220,6 +222,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
+
     public void drawGrid(Canvas canvas) {
 
 
@@ -333,7 +336,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             updateEnemies();
 
             for (Tower t: towers) {
-                if (t.getTimerCounter() >= t.getAttackTimer() && t.getAttackPellet() == null) {
+                if(t.getTowerType() == TowerType.DENDRITIC_CELL)
+                {
+                    ((DendriticCell)t).grabCell(enemies, towers, this);
+                }
+                else if (t.getTimerCounter() >= t.getAttackTimer() && t.getAttackPellet() == null) {
 
                     if (t.attack(enemies, towers)) {
                         attacked = true;
@@ -353,6 +360,46 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
             }
         }
     }
+
+    public void updateInventory()
+    {
+        int f,v,b;
+        f=v=b=0;
+        for(int i=0; i < inventory.size(); i++)
+        {
+            switch(inventory.get(i))
+            {
+                case VIRAL:
+                    if(v==3)
+                    {
+                        inventory.remove(i);
+                        i--;
+                    }
+                    else v++;
+                    break;
+
+                case FUNGAL:
+                    if(f==3)
+                    {
+                        inventory.remove(i);
+                        i--;
+                    }
+                    else f++;
+                    break;
+
+                case BACTERIAL:
+                    if(b==3)
+                    {
+                        inventory.remove(i);
+                        i--;
+                    }
+                    else b++;
+                    break;
+            }
+        }
+        theActivity.updateInventory(inventory);
+    }
+
 
     public void updateEnemies() {
 

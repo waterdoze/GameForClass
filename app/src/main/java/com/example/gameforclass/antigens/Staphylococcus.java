@@ -12,7 +12,7 @@ public class Staphylococcus extends Antigen {
 
     public Staphylococcus(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,200, 25, 6, Species.STAPHYLOCOCCUS, 9, 1, 2, 25);
+        super(context, TDP,200, 25, 6, Species.STAPHYLOCOCCUS, AntigenType.BACTERIAL, 9, 1, 2, 25);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.staphylococcus);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH * 2, TDP.TILE_HEIGHT * 2, false);
