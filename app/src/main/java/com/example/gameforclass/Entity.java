@@ -43,6 +43,10 @@ public abstract class Entity {//Maybe this class can hold the image for the enti
         return image;
     }
 
+    public double getSizeMultiplier() {
+        return sizeMultiplier;
+    }
+
     public int getTileX() {return tileX;}
 
     public int getTileY() {return tileY;}
