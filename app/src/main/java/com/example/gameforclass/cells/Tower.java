@@ -21,8 +21,8 @@ public class Tower extends Entity {
     private boolean isPhagocyte;//Can this cell attack stuff
 
     private TowerType towerType;
-
     private AttackPellet attackPellet;
+    Antigen target;
 
 
     public Tower(int tileX, int tileY, int range, int dmg, int biomolecules, int attackTimer, boolean isPhagocyte, TowerType towerType, double sizeMultiplier) {
@@ -58,7 +58,7 @@ public class Tower extends Entity {
         if (!isPhagocyte) {
             return false;
         } else {
-            Antigen target = null;
+            target = null;
             double d = 0;
 
             if (enemies.isEmpty()) return false;
@@ -92,6 +92,10 @@ public class Tower extends Entity {
 
     public boolean rangeToggleIsOn() {
         return rangeToggle;
+    }
+
+    public boolean hasTarget() {
+        return target != null;
     }
 
     public AttackPellet getAttackPellet() {

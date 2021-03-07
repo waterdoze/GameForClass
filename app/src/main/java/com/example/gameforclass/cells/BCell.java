@@ -1,14 +1,12 @@
 package com.example.gameforclass.cells;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.view.View;
-import android.widget.ImageButton;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
 import com.example.gameforclass.R;
-import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
@@ -17,9 +15,13 @@ import java.util.ArrayList;
 
 public class BCell extends Tower{
 
+    ArrayList<Antigen> target = new ArrayList<Antigen>();
+    boolean thereIsATarget = false;
+
+
 
     public BCell(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 125, 10, 50, 10, true, TowerType.B_CELL, 1);
+        super(tileX, tileY, 175, 5, 50, 15, true, TowerType.B_CELL, 1);
 
         Bitmap img;
         if (TDP.bCellisUpgraded()) {
@@ -29,18 +31,18 @@ public class BCell extends Tower{
             setSizeMultiplier(1.4);
             setDmg(getDmg() + 20);
             setRange(getRange() + 100);
-        }
-        else {
+        } else {
             img = BitmapFactory.decodeResource(TDP.getResources(), R.drawable.bcell);
             img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
 
         }
         setImage(img);
+
     }
+
 
     @Override
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
-        ArrayList<Antigen> target = new ArrayList<Antigen>();
         double d = 0;
 
         if(enemies.isEmpty()) {
@@ -50,7 +52,7 @@ public class BCell extends Tower{
             for (Antigen a : enemies) {
 
                 d = distanceTo(a);
-                if (d <= getRange()) { //if there's any target in range, set it
+                if (d <= getRange() && a.getSpecies() != Species.RHINOVIRUS) { //if there's any target in range, set it
                     target.add(a);
                 }
             }
@@ -58,15 +60,29 @@ public class BCell extends Tower{
                 return false;
             }
             for (Antigen a : target) {//if an enemy is in range, attack
-                if (a.getSpecies() == Species.RHINOVIRUS) {
-                    continue;
+                if (distanceTo(a) <= getRange()) {
+                    a.takeDamage(getDmg());
                 }
-                a.takeDamage(getDmg());
-                setAttackPellet(new AttackPellet(posX, posY, a.posX, a.posY, getDmg()));
+            }
+            for (Antigen a: target) {
+                if (a.getHealth() <= 0 || distanceTo(a) > getRange()) {
+                    thereIsATarget = false;
+                } else {
+                    thereIsATarget = true;
+                    break;
+                }
+            }
 
+            if (!hasTarget()) {
+                setTimerCounter(0);
             }
             //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
             return true;
         }
+    }
+
+    @Override
+    public boolean hasTarget() {
+        return thereIsATarget;
     }
 }

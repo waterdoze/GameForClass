@@ -155,6 +155,10 @@ public class TheGameplay extends AppCompatActivity {
 //        BigTabButton.setVisibility(setBig);
     }
 
+    public void createEndScreen() {
+
+    }
+
     public void neutroButton(View v) {
         game.setTowerPlacementMode(TowerType.NEUTROPHIL);
     }

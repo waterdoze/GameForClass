@@ -290,7 +290,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-
     public void drawTowers(Canvas canvas) {
         for (Tower e : towers) {
 
@@ -301,10 +300,23 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
                 canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
             }
+            if (e.getTowerType() != TowerType.B_CELL) {
+                if (e.hasTarget()) {
+                    paint.setColor(ContextCompat.getColor(context, R.color.pellet));
 
-            if (e.getAttackPellet() != null) {
-                paint.setColor(ContextCompat.getColor(context, R.color.pellet));
-                canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
+                    canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
+                }
+            } else {
+                if (e.hasTarget()) {
+                    paint.setColor(ContextCompat.getColor(context, R.color.money));
+                    paint.setStrokeWidth(20);
+                    paint.setStyle(Paint.Style.STROKE);
+                    if (e.getTimerCounter() != 0) {
+                        canvas.drawCircle(e.getImageX() + 35, e.getImageY() + 35, (e.getRange() / e.getAttackTimer()) * e.getTimerCounter(), paint);
+                    }
+                    paint.setStrokeWidth(1);
+                    paint.setStyle(Paint.Style.FILL);
+                }
             }
         }
     }
@@ -415,6 +427,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                         decHealth(e.getTakeHealth());
 
+                        //TODO make the endscreen
+                        if (playerHP == 0) {
+                            theActivity.createEndScreen();
+                        }
+
 
                     } else if (e.getHealth() <= 0) {//add biomolecules to the total amount
 
@@ -443,11 +460,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         } else if (enemies.isEmpty()) {
             campaign.setNextRound();
             enemyRoundCounter = 0;
-            pauseGame();
-            theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
             for (Tower t : towers) {
                 t.setAttackPellet(null);
             }
+            pauseGame();
+            theActivity.changeText(playerHP, playerBiomolecules, campaign.getRound() + 1);
+
         }
 
 

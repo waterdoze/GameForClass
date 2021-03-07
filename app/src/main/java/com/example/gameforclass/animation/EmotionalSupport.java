@@ -16,7 +16,7 @@ public class EmotionalSupport {
             "If you hear a voice within you saying \"YOU CANNOT PAINT,\" then by all means paint, and that voice will be silenced.",
             "People might forget what you said and forget what you did, but they will never forget how you made them feel",
             "God doesn't give the hardest battles to his toughest soldiers. He creates the toughest soldiers out of life's hardest battles.",
-            "If they say it's impossible, it's impossible for them, not for you."
+            "If they say it's impossible, it's impossible for them, not for you.",
     };
 
     public EmotionalSupport(Context context) {
