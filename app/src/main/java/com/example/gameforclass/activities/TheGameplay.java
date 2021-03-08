@@ -208,6 +208,22 @@ public class TheGameplay extends AppCompatActivity {
         game.upgrade(UpgradeType.ANTIBIOTIC);
     }
 
+    public void AntigenButton(View v)
+    {
+        switch(v.getId())
+        {
+            case R.id.FungalGuyButton:
+                game.addAntigen(AntigenType.FUNGAL);
+                break;
+            case R.id.BacterialGuyButton:
+                game.addAntigen(AntigenType.BACTERIAL);
+                break;
+            case R.id.ViralGuyButton:
+                game.addAntigen(AntigenType.VIRAL);
+                break;
+        }
+    }
+
     public void changeText(int playerHP, int bio, int round)
     {
         runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread

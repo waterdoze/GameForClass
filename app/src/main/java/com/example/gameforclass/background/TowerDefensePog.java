@@ -48,6 +48,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     boolean towerPlacementMode = false;//Tells if we need to draw the grid\
     boolean sellMode = false;
+    boolean antiInventoryMode = false;
     boolean placing = false; //Tells if the player is currently selecting(clicking) a square
     boolean firstUpdate = true; //if it's the first time calling update()
     boolean attacked = false; //if a tower is attacking
@@ -71,6 +72,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     int cantAffordTimer = 0; //showing text that you cant afford something
     int cantPlaceTimer = 0; //showing text that you cant place something on the path
     int opacityTimer = 100;
+
+    AntigenType invCurrent;
 
     int tileRows = 13;
     int tileCols = 20;
@@ -180,7 +183,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void draw(Canvas canvas) {
         super.draw(canvas);
         drawBackground(canvas);
-        if (towerPlacementMode || sellMode) {
+        if (towerPlacementMode || sellMode || antiInventoryMode) {
             drawGrid(canvas);
             drawPathTiles(canvas);
             if (placing) {
@@ -336,7 +339,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         canvas.drawText("YOU CANT PLACE THERE", 200, 200, paint);
     }
 
-
     public void update() { //move things around, logic
         if (!pauseGame) {
             if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
@@ -411,7 +413,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
         theActivity.updateInventory(inventory);
     }
-
 
     public void updateEnemies() {
 
@@ -671,11 +672,26 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         towers.remove(apoptosis);
                         tiles[yPos][xPos] = 'O';
                     }
-                } else {
+                } else if(antiInventoryMode) {
                     if (tiles[yPos][xPos] == 'T') {
-                        towersPlaced[yPos][xPos].switchRangeToggle();
-                        cantPlace = true;
+                        Tower tow = towersPlaced[yPos][xPos];
+                        if(tow.getTowerType() == TowerType.NAIVE_T_CELL)
+                        {
+                            if( !tow.isPhagocyte() )
+                            {
+                                ((TCell)tow).ascend();
+                                inventory.remove(invCurrent);
+                                theActivity.updateInventory(inventory);
+                            }
+                        }
                     }
+                    antiInventoryMode = false;
+                }
+
+                else if(tiles[yPos][xPos] == 'T') {
+                    towersPlaced[yPos][xPos].switchRangeToggle();
+                    cantPlace = true;
+
                 }
                 endTowerPlacementMode();
                 break;
@@ -775,4 +791,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     public void toggleSellMode() {
         sellMode = !sellMode;
     }
+
+    public void addAntigen(AntigenType anti)
+    {
+        if(inventory.isEmpty()) return;
+        antiInventoryMode = true;
+        invCurrent = anti;
+    }
+
 }

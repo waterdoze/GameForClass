@@ -78,6 +78,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:adjustViewBounds="true"
+                    android:onClick="AntigenButton"
                     android:padding="0dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/viral_guy" />
@@ -113,6 +114,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:adjustViewBounds="true"
+                    android:onClick="AntigenButton"
                     android:padding="0dp"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/fungal_guy" />
@@ -148,6 +150,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:adjustViewBounds="true"
+                    android:onClick="AntigenButton"
                     android:padding="0dp"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/bacterial_guy" />
