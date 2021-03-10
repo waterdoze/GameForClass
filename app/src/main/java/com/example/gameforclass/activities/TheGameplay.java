@@ -12,6 +12,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -32,12 +33,16 @@ public class TheGameplay extends AppCompatActivity {
 
     private float shiftVal = 400f;
 
+    private boolean ableToSell = false;
+
     //TheGameplay is the activity in which the GameFragment class runs in
 
     TowerDefensePog game;
 
     private int currentBarID; private int currentButtonID;
     private EmotionalSupport eButton;
+    private ImageButton sellButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,8 @@ public class TheGameplay extends AppCompatActivity {
         setContentView(R.layout.activity_the_gameplay); //Use the layout file to organize the screen
 
         eButton = new EmotionalSupport(getApplicationContext());
+        sellButton = findViewById(R.id.apoptosisButton);
+
         game = (TowerDefensePog) findViewById(R.id.gameFragment);
 
         currentBarID = R.id.SideBar; currentButtonID = R.id.TabButton;
@@ -238,6 +245,7 @@ public class TheGameplay extends AppCompatActivity {
 
     }
 
+
     public void updateInventory(ArrayList<AntigenType> inventory)
     {
         runOnUiThread(new Runnable() { //can't edit UI text from the game logic thread, have to switch to the UI thread
@@ -270,8 +278,10 @@ public class TheGameplay extends AppCompatActivity {
 
     public void devTab(View v){
         switch(v.getId()){
-            case R.id.sellButton:
-                game.toggleSellMode();
+            case R.id.apoptosisButton:
+                if (ableToSell) {
+                    game.toggleSellMode();
+                }
                 break;
             case R.id.healthIncButton:
                 game.incHealth();
@@ -288,4 +298,12 @@ public class TheGameplay extends AppCompatActivity {
         }
     }
 
+    public void switchSellButtonToggle() {
+        ableToSell = !ableToSell;
+        if (ableToSell) {
+            sellButton.setImageResource(R.drawable.apoptosisbuttonenabled);
+        } else {
+            sellButton.setImageResource(R.drawable.apoptosisbuttondisabled);
+        }
+    }
 }

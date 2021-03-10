@@ -8,4 +8,6 @@ public enum Species {
     CORONAVIRUS,
     STAPHYLOCOCCUS,
     ANTHRAX,
+    SPANISH_FLU,
+    INFLUENZA
 }

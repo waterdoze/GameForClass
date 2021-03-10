@@ -7,14 +7,14 @@ import android.graphics.BitmapFactory;
 import com.example.gameforclass.R;
 import com.example.gameforclass.background.TowerDefensePog;
 
-public class Coronavirus extends Antigen {
+public class Influenza extends Antigen {
 
 
-    public Coronavirus(Context context, TowerDefensePog TDP) {
+    public Influenza(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,50, 3, 15, Species.CORONAVIRUS, AntigenType.VIRAL, 30, 100, 1, 2);
+        super(context, TDP,50, 3, 30, Species.INFLUENZA, AntigenType.VIRAL, 30, 100, 1, 1);
 
-        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.covid);
+        Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.influenza);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
         setImage(img);
 
