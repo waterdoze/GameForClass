@@ -1,5 +1,6 @@
 package com.example.gameforclass.background;
 
+import com.example.gameforclass.antigens.Antigen;
 import com.example.gameforclass.antigens.Species;
 
 import java.util.TreeMap;
@@ -27,6 +28,18 @@ public class Campaign {
         timeMap.put(44, 18);
         timeMap.put(45, 4);
         timeMap.put(48, 18);
+        timeMap.put(50, 4);
+        timeMap.put(85, 120);
+        timeMap.put(87, 10);
+        timeMap.put(90, 120);
+        timeMap.put(92, 10);
+        timeMap.put(95, 120);
+        timeMap.put(97, 10);
+        timeMap.put(100, 20);
+        timeMap.put(101, 4);
+        timeMap.put(101, 4);
+        timeMap.put(1, 4);
+
         waitTime = 30;
         currentArray = 0;
 
@@ -34,7 +47,7 @@ public class Campaign {
             multiplier = 1;
             matrix = new Species[][]
                     {       //1-0
-                            {Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //2-3
                             {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
                             //3-8
@@ -46,72 +59,42 @@ public class Campaign {
                             //6-36
                             {Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.ASPERGILLUS},
                             //7-49
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //8-67
+                            {Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS},
+                            //8-85
+                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            //9-100
+                            {Species.RHINOVIRUS},
+                            //10-101
+                            {Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.RHINOVIRUS, Species.ASPERGILLUS},
+                            //11-130
+                            {Species.TUBERCULOSIS, Species.TUBERCULOSIS, Species.TUBERCULOSIS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS},
+                            //12
                             {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //9-70
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //10-73
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //11-76
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //12-79
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //13-82
-                            {Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS},
-                            //14-85
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //15-86
-                            {Species.TUBERCULOSIS},
+                            //13
+                            {Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS},
+                            //14
+                            {Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.RHINOVIRUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.RHINOVIRUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.RHINOVIRUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.RHINOVIRUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.RHINOVIRUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS},
+                            //15
+                            {Species.SPANISH_FLU},
                             //16
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.TUBERCULOSIS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS},
                             //17
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.SPANISH_FLU, Species.SPANISH_FLU, Species.SPANISH_FLU},
                             //18
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.STAPHYLOCOCCUS},
                             //19
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.STAPHYLOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.STAPHYLOCOCCUS, Species.SPANISH_FLU, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.STAPHYLOCOCCUS},
                             //20
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.SPANISH_FLU, Species.SPANISH_FLU, Species.SPANISH_FLU, Species.SPANISH_FLU, Species.SPANISH_FLU},
                             //21
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.STAPHYLOCOCCUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.STAPHYLOCOCCUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.STAPHYLOCOCCUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.STAPHYLOCOCCUS},
                             //22
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.SPANISH_FLU, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.TUBERCULOSIS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.STAPHYLOCOCCUS, Species.SPANISH_FLU, Species.RHINOVIRUS, Species.ASPERGILLUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.TUBERCULOSIS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.PNEUMOCOCCUS, Species.STAPHYLOCOCCUS},
                             //23
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.TUBERCULOSIS, Species.TUBERCULOSIS, Species.TUBERCULOSIS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.STAPHYLOCOCCUS, Species.TUBERCULOSIS, Species.TUBERCULOSIS, Species.TUBERCULOSIS},
                             //24
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
+                            {Species.ASPERGILLUS, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX},
                             //25
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //26
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //27
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //28
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //29
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //30
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //31
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //32
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //33
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //34
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //35
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //36
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //37
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //38
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //39
-                            {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
-                            //40
                             {Species.CORONAVIRUS},
 
                     };
@@ -159,13 +142,13 @@ public class Campaign {
     }
 
     public void updateWaitTime(int addition) {
-        counter += addition;
-        if (counter < 0) {
-            counter = 0;
+        for (int i = 0; i < addition; i++) {
+            counter++;
+            if (timeMap.containsKey(counter)) {
+                waitTime = timeMap.get(counter);
+            }
         }
-        if (timeMap.containsKey(counter)) {
-            waitTime = timeMap.get(counter);
-        }
+
     }
 
     public void setPreviousRound() {

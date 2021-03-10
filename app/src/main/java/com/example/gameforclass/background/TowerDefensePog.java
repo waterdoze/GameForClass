@@ -11,8 +11,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,7 +19,8 @@ import androidx.core.content.ContextCompat;
 import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Anthrax;
 import com.example.gameforclass.antigens.AntigenType;
-import com.example.gameforclass.antigens.Coronavirus;
+import com.example.gameforclass.antigens.Influenza;
+import com.example.gameforclass.antigens.SpanishFlu;
 import com.example.gameforclass.antigens.Rhinovirus;
 import com.example.gameforclass.antigens.Staphylococcus;
 import com.example.gameforclass.antigens.Tuberculosis;
@@ -301,9 +300,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
             }
             if (e.getTowerType() != TowerType.B_CELL) {
-                if (e.hasTarget()) {
+                if (e.hasTarget() && e.getAttackPellet() != null) {
                     paint.setColor(ContextCompat.getColor(context, R.color.pellet));
-
                     canvas.drawCircle(e.getAttackPellet().getX(), e.getAttackPellet().getY(), e.getAttackPellet().getSize(), paint);
                 }
             } else {
@@ -641,6 +639,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                     if (towerPlacementMode) cantPlace = true;
                     break;
                 }
+
+                if (towerWeGonnaPlace != null && towerWeGonnaPlace.getTowerType() == TowerType.MACROPHAGE) {
+                    theActivity.switchSellButtonToggle();
+                }
                 if (towerWeGonnaPlace != null && towerWeGonnaPlace.getTowerType() != TowerType.DENDRITIC_CELL) {
                     if (tiles[yPos][xPos] == 'P') {
                         cantPlace = true;
@@ -652,7 +654,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         tiles[yPos][xPos] = 'T';
                         towersPlaced[yPos][xPos] = towerWeGonnaPlace;
                     }
-
                 } else if (towerWeGonnaPlace != null) {
                     if (tiles[yPos][xPos] == 'O') {
                         cantPlace = true;
@@ -667,9 +668,14 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 } else if (sellMode) {
                     if (tiles[yPos][xPos] == 'T') {
                         Tower apoptosis = towersPlaced[yPos][xPos];
+                        if (apoptosis.getTowerType() == TowerType.MACROPHAGE) {
+                            theActivity.switchSellButtonToggle();
+                        }
                         incBM((int) (apoptosis.getBiomolecules() * 0.5));
                         towers.remove(apoptosis);
                         tiles[yPos][xPos] = 'O';
+                        sellMode = false;
+
                     }
                 } else {
                     if (tiles[yPos][xPos] == 'T') {
@@ -683,10 +689,18 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         return true;
     }
 
+
+
     public void addEnemy(Species name) { //one way to add an enemy just by its name
 
 
         switch (name) {
+            case INFLUENZA:
+                enemies.add(new Influenza(context, this));
+                break;
+            case SPANISH_FLU:
+                enemies.add(new SpanishFlu(context, this));
+                break;
             case ANTHRAX:
                 enemies.add(new Anthrax(context, this));
                 break;
@@ -706,7 +720,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 enemies.add(new Aspergillus(context, this));
                 break;
             case CORONAVIRUS:
-                enemies.add(new Coronavirus(context, this));
                 break;
         }
 

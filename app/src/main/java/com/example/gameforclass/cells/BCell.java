@@ -8,6 +8,7 @@ import android.graphics.Paint;
 
 import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
 
@@ -52,7 +53,7 @@ public class BCell extends Tower{
             for (Antigen a : enemies) {
 
                 d = distanceTo(a);
-                if (d <= getRange() && a.getSpecies() != Species.RHINOVIRUS) { //if there's any target in range, set it
+                if (d <= getRange() && a.getType() != AntigenType.VIRAL) { //if there's any target in range, set it
                     target.add(a);
                 }
             }

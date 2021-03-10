@@ -3,6 +3,7 @@ package com.example.gameforclass.cells;
 import com.example.gameforclass.animation.AttackPellet;
 import com.example.gameforclass.Entity;
 import com.example.gameforclass.antigens.Antigen;
+import com.example.gameforclass.antigens.AntigenType;
 import com.example.gameforclass.antigens.Species;
 import com.example.gameforclass.background.TowerDefensePog;
 
@@ -74,7 +75,7 @@ public class Tower extends Entity {
             }
             if (target == null) {
                 return false;
-            } else if (target.getSpecies() == Species.RHINOVIRUS) {
+            } else if (target.getType() == AntigenType.VIRAL) {
                 return false;
             } else {
                 target.takeDamage(dmg); //if an enemy is in range, attack
@@ -148,6 +149,10 @@ public class Tower extends Entity {
 
     public void setPhagocyte(boolean state) {
         isPhagocyte = state;
+    }
+
+    public void setTarget(Antigen target) {
+        this.target = target;
     }
 
 }

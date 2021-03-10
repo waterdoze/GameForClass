@@ -27,7 +27,7 @@ public class Macrophage extends Tower{
             return false;
         }
         else {
-            Antigen target = null;
+            setTarget(null);
             double d = 0;
 
             if (enemies.isEmpty()) return false;
@@ -36,10 +36,10 @@ public class Macrophage extends Tower{
 
                 d = distanceTo(a);
                 if (target == null && d <= getRange()) { //if there's no target yet, set it to any target
-                    target = a;                   //set to closest target in enemies list
+                    setTarget(a);                 //set to closest target in enemies list
                 }
                 else if (d <= getRange() && target != null && d < distanceTo(target)) {
-                    target = a;
+                    setTarget(a);
                 }
             }
             if (target == null) {
