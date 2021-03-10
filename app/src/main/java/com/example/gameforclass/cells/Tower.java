@@ -77,7 +77,7 @@ public class Tower extends Entity {
             }
             if (target == null) {
                 return false;
-            } else if (target.getType() == AntigenType.VIRAL) {
+            } else if (target.getType() == AntigenType.VIRAL && boost != AntigenType.VIRAL) {
                 return false;
             } else {
                 if(boost == target.getType()) target.takeDamage(dmg*2); //if an enemy is in range, attack

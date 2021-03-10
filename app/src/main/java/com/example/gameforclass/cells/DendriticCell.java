@@ -22,7 +22,7 @@ public class DendriticCell extends Tower {
     private AntigenType lastType;
 
     public DendriticCell(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 50, 0, 80, 0, false, TowerType.DENDRITIC_CELL, 1);
+        super(tileX, tileY, 50, 0, 200, 0, false, TowerType.DENDRITIC_CELL, 1);
 
         Bitmap img = BitmapFactory.decodeResource(TDP.getResources(), R.drawable.dendritic);
 
