@@ -38,7 +38,6 @@ public class Campaign {
         timeMap.put(100, 20);
         timeMap.put(101, 4);
         timeMap.put(101, 4);
-        timeMap.put(1, 4);
 
         waitTime = 30;
         currentArray = 0;
