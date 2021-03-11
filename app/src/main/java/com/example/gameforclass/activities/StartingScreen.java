@@ -26,7 +26,7 @@ public class StartingScreen extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartingScreen.this, DifficultyMenu.class));
+                startActivity(new Intent(StartingScreen.this, TheGameplay.class));
             }
         });
     }

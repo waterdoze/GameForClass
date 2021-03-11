@@ -180,6 +180,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void draw(Canvas canvas) {
+
+
+
         super.draw(canvas);
         drawBackground(canvas);
         if (towerPlacementMode || sellMode || antiInventoryMode) {
@@ -221,6 +224,11 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 drawTimer = 0;
             }
         }
+
+        paint.setTextSize(50);
+        paint.setColor(cyanColor);
+        if(playerHP <= 0) canvas.drawText("YOU ARE DOG", 400,400, paint);
+        paint.reset();
 
     }
 
@@ -368,6 +376,12 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void update() { //move things around, logic
+
+        if(playerHP == 0)
+        {
+            pauseGame();
+        }
+
         if (!pauseGame) {
             if (firstUpdate) //initialize things that I cant initialize in the constructor because the UI hasn't been instantiated yet
             {
@@ -436,10 +450,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
                         decHealth(e.getTakeHealth());
 
-                        //TODO make the endscreen
-                        if (playerHP == 0) {
-                            theActivity.createEndScreen();
-                        }
 
 
                     } else if (e.getHealth() <= 0) {//add biomolecules to the total amount
