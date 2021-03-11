@@ -84,7 +84,7 @@ public class Campaign {
         timeMap.put(352, 60);
         timeMap.put(356, 2);
         timeMap.put(451, 45);
-        timeMap.put(455, 25);
+        timeMap.put(453, 25);
 
         waitTime = 30;
         currentArray = 0;
@@ -139,7 +139,7 @@ public class Campaign {
                             //23-352
                             {Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX, Species.ANTHRAX},
                             //24-451
-                            {Species.CORONAVIRUS, Species.STAPHYLOCOCCUS, Species.TUBERCULOSIS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS, Species.RHINOVIRUS},
+                            {Species.CORONAVIRUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS, Species.ASPERGILLUS},
 
                     };
         } else if (difficulty == 2) {
