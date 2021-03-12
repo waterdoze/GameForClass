@@ -22,7 +22,7 @@ public class BCell extends Tower{
 
 
     public BCell(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 175, 5, 50, 15, true, TowerType.B_CELL, 1);
+        super(tileX, tileY, 175, 5, 100, 15, true, TowerType.B_CELL, 1);
 
         Bitmap img;
         if (TDP.bCellisUpgraded()) {
@@ -53,7 +53,7 @@ public class BCell extends Tower{
             for (Antigen a : enemies) {
 
                 d = distanceTo(a);
-                if (d <= getRange() && a.getType() != AntigenType.VIRAL) { //if there's any target in range, set it
+                if (d <= getRange() && ( a.getType() != AntigenType.VIRAL || boost == AntigenType.VIRAL)) { //if there's any target in range, set it
                     target.add(a);
                 }
             }
