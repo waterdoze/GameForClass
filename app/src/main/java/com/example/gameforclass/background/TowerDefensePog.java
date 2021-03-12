@@ -537,6 +537,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
         switch (upgrade) {
             case ANTIBIOTIC:
+                if(enemies.isEmpty()) break;
                 Antigen temp = enemies.get((enemies.size() - 1) / 2);
                 temp.setVelocity(temp.getVelocity() + 5);
                 temp.setHealth(temp.getMaxHealth() * 2);

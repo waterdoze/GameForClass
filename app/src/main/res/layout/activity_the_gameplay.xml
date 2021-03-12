@@ -183,7 +183,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/SidebarBackground"
-        tools:visibility="invisible">
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="115dp"
@@ -278,7 +278,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/SidebarBackground"
-        tools:visibility="visible">
+        tools:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
