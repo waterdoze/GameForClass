@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import com.example.gameforclass.R;
 import com.example.gameforclass.antigens.Anthrax;
 import com.example.gameforclass.antigens.AntigenType;
+import com.example.gameforclass.antigens.Coronavirus;
 import com.example.gameforclass.antigens.Influenza;
 import com.example.gameforclass.antigens.SpanishFlu;
 import com.example.gameforclass.antigens.Rhinovirus;
@@ -464,6 +465,9 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                     enemies.remove(i);
                     i--;
                 }
+                if (e.getSpecies() == Species.CORONAVIRUS) {
+                    ((Coronavirus) e).action(context, this);
+                }
             }
         }
         if (enemyRoundCounter < set.length) {
@@ -793,6 +797,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 enemies.add(new Aspergillus(context, this));
                 break;
             case CORONAVIRUS:
+                enemies.add(new Coronavirus(context, this));
                 break;
         }
 
