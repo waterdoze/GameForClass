@@ -45,6 +45,9 @@ import java.util.ArrayList;
 
 public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
+    boolean bugTesting = true;
+
+
     boolean towerPlacementMode = false;//Tells if we need to draw the grid\
     boolean sellMode = false;
     boolean antiInventoryMode = false;
@@ -55,6 +58,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     boolean cantPlace = false;
     boolean opacityInc = false;
     boolean pauseGame = true;
+
 
     boolean bCellUpgraded = false;
 
@@ -226,8 +230,8 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         }
 
         paint.setTextSize(50);
-        paint.setColor(cyanColor);
-        if(playerHP <= 0) canvas.drawText("YOU ARE DOG", 400,400, paint);
+        paint.setColor(Color.RED);
+        if(playerHP <= 0 && !bugTesting) canvas.drawText("YOU ARE DOG", 400,400, paint);
         paint.reset();
 
     }
@@ -377,7 +381,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
     public void update() { //move things around, logic
 
-        if(playerHP == 0)
+        if(playerHP == 0 && !bugTesting)
         {
             pauseGame();
         }
