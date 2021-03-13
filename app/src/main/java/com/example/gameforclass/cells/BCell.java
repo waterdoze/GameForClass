@@ -46,7 +46,7 @@ public class BCell extends Tower{
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
         double d = 0;
 
-        if(enemies.isEmpty()) {
+        if(enemies.isEmpty() || boost == null) {
             return false;
         }
         else {
