@@ -80,7 +80,9 @@ public class Tower extends Entity {
             } else if (target.getType() == AntigenType.VIRAL && boost != AntigenType.VIRAL) {
                 return false;
             } else {
-                if(boost == target.getType()) target.takeDamage(dmg*2); //if an enemy is in range, attack
+                if(boost == target.getType()) {
+                    target.takeDamage(dmg * 2); //if an enemy is in range, attack
+                }
                 else target.takeDamage(dmg);
                 //attackPellet = new AttackPellet(tileX*TowerDefensePog.TILE_WIDTH + TowerDefensePog.TILE_WIDTH/2, tileY*TowerDefensePog.TILE_HEIGHT + TowerDefensePog.TILE_HEIGHT/2, target.posX, target.posY, dmg);
                 attackPellet = new AttackPellet(posX, posY, target.posX, target.posY, dmg);

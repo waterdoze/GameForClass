@@ -153,10 +153,7 @@ public class TheGameplay extends AppCompatActivity {
         setOne.start();
 
         currentBarID = targetBar.getId();
-//        SmallTabButton.setVisibility(setSmall);//Gone == invisible but on steroids because it won't affect layout or be treated as existing when it's set to gone
-//        SideBar.setVisibility(setSmall);
-//        BigSideBar.setVisibility(setBig);
-//        BigTabButton.setVisibility(setBig);
+
     }
 
     public void createEndScreen() {
@@ -187,19 +184,6 @@ public class TheGameplay extends AppCompatActivity {
 
     public void emotionalSupportButton(View v) {
         eButton.displayMessage();
-    }
-
-    //TODO connect these methods with actual upgrade buttons in xml
-    public void upgradeNeutroButton(View v) {
-        game.upgrade(UpgradeType.NEUTROPHIL_TRANSFUSION);
-    }
-
-    public void upgradeMacroButton(View v) {
-        game.upgrade(UpgradeType.BONE_MARROW_UPGRADE);
-    }
-
-    public void upgradeNaiveCellButton(View v) {
-        game.upgrade(UpgradeType.AFFECT_NAIVE_CELL);
     }
 
     public void upgradeFeverButton(View v) {

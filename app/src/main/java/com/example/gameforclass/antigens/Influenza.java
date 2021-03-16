@@ -12,7 +12,7 @@ public class Influenza extends Antigen {
 
     public Influenza(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,50, 3, 30, Species.INFLUENZA, AntigenType.VIRAL, 30, 100, 1, 1);
+        super(context, TDP,60, 3, 30, Species.INFLUENZA, AntigenType.VIRAL, 30, 100, 1, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.influenza);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

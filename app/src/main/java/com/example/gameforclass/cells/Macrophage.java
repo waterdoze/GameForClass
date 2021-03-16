@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Macrophage extends Tower{
 
     public Macrophage(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 200, 15, 80, 20, true, TowerType.MACROPHAGE, 1);
+        super(tileX, tileY, 200, 15, 80, 15, true, TowerType.MACROPHAGE, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.macrophage);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

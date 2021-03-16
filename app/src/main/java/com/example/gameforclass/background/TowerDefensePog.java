@@ -164,7 +164,6 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
         pathTilesX = tileXList.stream().mapToInt(x -> x).toArray();
         pathTilesY = tileYList.stream().mapToInt(x -> x).toArray();
 
-
     }
 
 
@@ -741,7 +740,10 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                         switch(tow.getTowerType())
                         {
                             case NAIVE_T_CELL:
-                                if( !tow.isPhagocyte() ) ((TCell)tow).ascend();
+                                if (!tow.isPhagocyte()) {
+                                    ((TCell)tow).ascend();
+                                    tow.boost = invCurrent;
+                                }
                                 break;
 
                             default:

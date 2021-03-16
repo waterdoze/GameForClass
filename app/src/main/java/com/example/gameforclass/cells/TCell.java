@@ -12,7 +12,7 @@ public class TCell extends Tower{
     Bitmap helperImage;
 
     public TCell(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 200, 20, 100, 4, false, TowerType.NAIVE_T_CELL, 1);
+        super(tileX, tileY, 200, 18, 100, 3, false, TowerType.NAIVE_T_CELL, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.naivetcell);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

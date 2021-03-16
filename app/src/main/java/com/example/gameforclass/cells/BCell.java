@@ -22,7 +22,7 @@ public class BCell extends Tower{
 
 
     public BCell(int tileX, int tileY, TowerDefensePog TDP) {
-        super(tileX, tileY, 175, 5, 100, 15, true, TowerType.B_CELL, 1);
+        super(tileX, tileY, 175, 5, 100, 25, true, TowerType.B_CELL, 1);
 
         Bitmap img;
         if (TDP.bCellisUpgraded()) {
@@ -46,7 +46,7 @@ public class BCell extends Tower{
     public boolean attack(ArrayList<Antigen> enemies, ArrayList<Tower> towers) {
         double d = 0;
 
-        if(enemies.isEmpty() || boost == null) {
+        if(enemies.isEmpty()) {
             return false;
         }
         else {

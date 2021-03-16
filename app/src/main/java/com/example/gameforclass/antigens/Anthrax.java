@@ -12,7 +12,7 @@ public class Anthrax extends Antigen {
 
     public Anthrax(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,100, 3, 20, Species.ANTHRAX, AntigenType.BACTERIAL,30, 100, 1, 2);
+        super(context, TDP,150, 3, 20, Species.ANTHRAX, AntigenType.BACTERIAL,30, 100, 1, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.anthrax);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);
