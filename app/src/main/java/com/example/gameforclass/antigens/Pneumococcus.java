@@ -12,7 +12,7 @@ public class Pneumococcus extends Antigen {
 
     public Pneumococcus(Context context, TowerDefensePog TDP) {
 
-        super(context, TDP,45, 3, 10, Species.PNEUMOCOCCUS, AntigenType.BACTERIAL, 30, 100, 1, 1);
+        super(context, TDP,50, 3, 12, Species.PNEUMOCOCCUS, AntigenType.BACTERIAL, 30, 100, 1, 1);
 
         Bitmap img =  BitmapFactory.decodeResource(TDP.getResources(), R.drawable.pneumococcus);
         img = Bitmap.createScaledBitmap(img, TDP.TILE_WIDTH, TDP.TILE_HEIGHT, false);

@@ -9,5 +9,7 @@ public enum Species {
     STAPHYLOCOCCUS,
     ANTHRAX,
     SPANISH_FLU,
-    INFLUENZA
+    INFLUENZA,
+    CORONA_BABY,
+    STAPH_SPAWN
 }

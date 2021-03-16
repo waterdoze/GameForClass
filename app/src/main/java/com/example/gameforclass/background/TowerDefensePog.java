@@ -66,7 +66,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
     private float touchX;
     private float touchY;
 
-    int playerHP = 100;
+    int playerHP = 20;
     int playerBiomolecules = 100;
 
     int enemyRoundCounter = 0;
@@ -342,7 +342,7 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
 
             if (e.rangeToggleIsOn()) {
                 paint.setColor(ContextCompat.getColor(context, R.color.range_highlight_color));
-                canvas.drawCircle(e.getX() + 35, e.getY() + 35, e.getRange(), paint);
+                canvas.drawCircle(e.getImageX() + 35, e.getImageY() + 35, e.getRange(), paint);
             }
             if (e.getTowerType() != TowerType.B_CELL) {
                 if (e.hasTarget() && e.getAttackPellet() != null) {
@@ -541,8 +541,13 @@ public class TowerDefensePog extends SurfaceView implements SurfaceHolder.Callba
                 temp.setVelocity(temp.getVelocity() + 5);
                 temp.setHealth(temp.getMaxHealth() * 2);
                 temp.setMaxHealth(temp.getHealth());
+                temp.getHealthBar().setHealthPaintColor(ContextCompat.getColor(context, R.color.special_health_bar_border));
+                enemies.remove((enemies.size() - 1) / 2);
 
-                enemies.clear();
+                for (int i = 0; i < enemies.size(); i++) {
+                    enemies.get(i).takeDamage(120);
+                }
+
                 enemies.add(temp);
                 break;
             case AFFECT_B_CELL:

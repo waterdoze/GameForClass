@@ -43,5 +43,7 @@ public class Healthbar {
         canvas.drawRect(healthLeft, healthTop, healthRight, healthBottom, healthPaint);
     }
 
-
+    public void setHealthPaintColor(int color) {
+        healthPaint.setColor(color);
+    }
 }
